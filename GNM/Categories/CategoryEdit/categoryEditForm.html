@@ -1,0 +1,72 @@
+<div class="row"> 
+    <pre>{{category | json}}</pre>
+      <div class="col-sm-12 ">
+        <section class="panel ">
+        <header class="panel-heading font-bold">
+          Main Category
+        </header>
+        <div class="panel-body">
+          <div class="row">
+            <div class="form-group col-sm-4">
+              <label>Main Category</label>
+              <div>
+                <input type="text" class="form-control" placeholder="Name" ng-model="category.name">
+              </div>
+            </div>
+              <div class="form-group col-sm-2">
+                <label>Display Order</label>
+                <div>
+                  <input type="text" class="form-control" placeholder="Name" ng-model="category.displayorder">
+                </div>
+              </div>
+              <div class="form-group col-sm-5">
+                <label>Description</label>
+                <div>
+                  <input type="text" class="form-control" placeholder="Name" ng-model="category.description">
+                </div>
+              </div>
+              <div class="col-sm-1">
+                <label></label>
+                <button class="btn btn-primary form-control" ng-click="saveCategory($index,category)">Save</button>
+              </div>
+            </div>
+        </div>
+      </section>
+      <section class="panel m-t-none" ng-show="parentId">
+        <header class="panel-heading font-bold">
+          Sub Category
+        </header>
+        <div class="panel-body" ng-repeat="item in category.categoryList">
+          <div class="row m-b-xs" >
+            <div class="form-group col-sm-1">
+              <label># {{$index+1}}</label>
+            </div>
+            <div class="form-group col-sm-4">
+              <div>
+                <input type="text" class="form-control" placeholder="Category Name" ng-model="item.name">
+              </div>
+            </div>
+            <div class="form-group col-sm-2">
+              <div>
+                <input type="text" class="form-control" placeholder="Display Order" ng-model="item.displayorder">
+              </div>
+            </div>
+            <div class="form-group col-sm-2">
+              <div>
+                <input type="text" class="form-control" placeholder="Selection limit" ng-model="item.isPickRequired">
+              </div>
+            </div>
+            <div class="form-group col-sm-2">
+              <div>
+                <input type="text" class="form-control" placeholder="Description" ng-model="item.description">
+              </div>
+            </div>
+            <div class="col-sm-1">
+              <button class="btn btn-primary form-control" ng-click="saveCategory($index,item)">Save</button>
+            </div>
+          </div>
+          <hr class="line-dashed">
+        </div>
+      </section>
+      </div>
+</div>

@@ -1,0 +1,67 @@
+﻿<section class="vbox flex">
+    <div class="pull-left header">
+        <p class="h4">Categories</p>
+    </div>
+    <header ng-include="'header.html?a=a'" class="header bg-light lter b-b ng-scope"></header>
+    <!--<div class="wrapper bg-light b-b font-bold">
+        <a href="#" class="m-r"><i class="fa fa-bar-chart icon-2x icon-muted v-middle"></i>Analysis</a>
+        <a href="#" class="m-r"><span class="badge up m-r-n bg-danger">4</span><i class="fa fa-envelope icon-2x icon-muted v-middle"></i> Message</a>
+        <a href="#" class="m-r"><i class="fa fa-calendar icon-2x icon-muted v-middle"></i>My Calendar</a>
+        <a href="#"><i class="fa fa-cog icon-2x icon-muted v-middle"></i>Settings</a>
+    </div>-->
+    <!-- .aside -->
+    <div class="bg-white">
+        <section class="vbox">
+            <header class="header bg-light bg-gradient">
+                <ul class="nav nav-tabs nav-white pull-left">
+                    <li class="active"><a data-target="#categoryList" data-toggle="tab">Categories</a></li>
+                </ul>
+
+                <div class="navbar-btn pull-right">
+                    <a href="#/productCategories/new" class="btn btn-success">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            </header>
+        </section>
+    </div>
+
+    <section class="bg-white" ng-controller="CategoryListCtrl">
+        <section class="vbox flex">
+            <section class="scrollable">
+                <div class="aside-lg bg-light lter b-r main-aside col-sm-3 vbox" id="sidebar">
+                    <div class="wrapper">
+                        <script type="text/ng-template" id="tree_item_renderer.html">
+                            <div class="dd-handle">{{category.name}}</div>
+                            <ol class="dd-list">
+                                <li class="dd-item" data-id="{{category.productCategoryId}}" ng-repeat="category in category.children" ng-include="'tree_item_renderer.html'"></li>
+                            </ol>
+                        </script>
+                        <div class="dd" categories-tree>
+                            <ol class="dd-list">
+                                <li class="dd-item" data-id="{{category.productCategoryId}}" ng-repeat="category in categoryTableData" ng-include="'tree_item_renderer.html'"></li>
+                            </ol>
+                            <button ng-click="saveCategoryList();" class="btn btn-default btn-sm pull-right" btn-loading="busy" data-loading-text="Saving...">Save</button>
+                        </div>
+                    </div>
+                </div>
+                    <!-- .aside -->
+                    <div class="col-sm-9" style="height:100% !important;">
+                        <categories-grid items="products" cols="columnDefs" selected-items="selectedItems" custom-options="gridOptions" style="position:absolute; top:0; bottom:0; height:100%; width:100%;"></categories-grid>
+                    </div>
+                    <!-- /.aside -->
+            </section>
+        </section>
+    </section>
+    <footer class="footer bg-white-only b-t">
+        <!--<p class="checkbox">
+            <label>
+                <input id="toggle-all" type="checkbox">
+                Mark all as complete
+            </label>
+        </p>-->
+    </footer>
+</section>

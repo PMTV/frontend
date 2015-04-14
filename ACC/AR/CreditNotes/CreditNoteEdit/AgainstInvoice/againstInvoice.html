@@ -1,0 +1,119 @@
+﻿<section class="vbox flex">
+    <div class="pull-left header">
+        <p class="h4">
+            <a href="#/againstInvoice">Credit Note Against Invoice</a>
+        </p>
+    </div>
+
+    <header class="header bg-light lter b-b" ng-include="'header.html?a=a'"></header>
+
+    <!-- .aside -->
+    <div class="bg-white">
+        <section class="vbox">
+            <header class="header bg-light bg-gradient">
+                <ul class="nav nav-tabs nav-white pull-left">
+                    <li class="active"><a data-target="#list" data-toggle="tab">Against Invoice</a></li>
+                    <!--<li class=""><a data-target="#activity" data-toggle="tab">Activity</a></li>
+                    <li class=""><a data-target="#interaction" data-toggle="tab">Interaction</a></li>-->
+                </ul>
+                <div class="navbar-btn pull-right">
+                    <div class="btn-group">
+                        <button data-toggle="dropdown" class="btn btn-success dropdown-toggle">
+                            <span class="dropdown-label"><i class="fa fa-plus"></i></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-select">
+                            <li class="active"><a href="#/openCreditNotes/new"><input type="radio" name="d-s-r" checked=""> Open Credit Note</a></li>
+                            <li><a href="#/advanceCreditNotes/new"><input type="radio" name="d-s-r">Advance Credit Note</a></li>
+                            <li><a href="#/againstInvoice/new"><input type="radio" name="d-s-r">Against Invoice</a></li>
+                        </ul>
+                        <button class="btn btn-white m-l-xs" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+        </section>
+    </div>
+    <!-- /.aside -->
+
+    <section class="bg-white">
+        <section class="hbox stretch">
+            <section class="vbox">
+                <div class="scrollable">
+                    <section class="scrollable" ng-controller="AgainstInvoiceListCtrl">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="list">
+                                <div class="table-responsive">
+                                    <table class="table table-striped b-t text-sm" against-invoice-datatable aa-data="againstInvoiceTableData">
+                                        <thead>
+                                            <tr>
+                                                <th>CreditNote ID</th>
+                                                <th>Customer</th>
+                                                <th>Reference Number</th>
+                                                <th>Invoice Number</th>
+                                                <th>SalesOrder Number</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <footer class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-sm-4 hidden-xs">
+                                            <select class="input-sm form-control input-s-sm inline">
+                                                <option value="0">Bulk action</option>
+                                                <!--<option value="1">Delete selected</option>
+                                                <option value="2">Bulk edit</option>
+                                                <option value="3">Export</option>-->
+                                            </select>
+                                            <button class="btn btn-sm btn-white">Apply</button>
+                                        </div>
+                                    </div>
+                                </footer>
+                            </div>
+                            <div class="tab-pane" id="activity">
+                                <ul class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border">
+                                    <li class="list-group-item">
+                                        <a href="#" class="thumb-sm pull-left m-r-sm">
+                                            <img src="assets/img/avatar_default.jpg" class="img-circle">
+                                        </a>
+                                        <a href="#" class="clear">
+                                            <small class="pull-right">3 minuts ago</small>
+                                            <strong class="block">Drew Wllon</strong>
+                                            <small>Wellcome and play this web application template ... </small>
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="#" class="thumb-sm pull-left m-r-sm">
+                                            <img src="assets/img/avatar_default.jpg" class="img-circle">
+                                        </a>
+                                        <a href="#" class="clear">
+                                            <small class="pull-right">1 hour ago</small>
+                                            <strong class="block">Jonathan George</strong>
+                                            <small>Morbi nec nunc condimentum...</small>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane" id="interaction">
+                                <div class="text-center wrapper">
+                                    <i class="fa fa-spinner fa-spin fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </section>
+    </section>
+    <footer class="footer bg-white-only b-t">
+        <!--<p class="checkbox">
+            <label>
+                <input id="toggle-all" type="checkbox">
+                Mark all as complete
+            </label>
+        </p>-->
+    </footer>
+</section>

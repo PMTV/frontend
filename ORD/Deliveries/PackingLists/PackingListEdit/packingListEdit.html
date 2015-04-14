@@ -1,0 +1,71 @@
+﻿<section class="vbox flex">
+    <div class="pull-left header hidden-print">
+        <p class="h4">Packing Lists</p>
+    </div>
+
+    <header class="header bg-light lter b-b hidden-print" ng-include="'header.html?a=a'"></header>
+
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <aside class="aside-lg bg-light lter b-r main-aside hidden-print" ng-hide="customer==null" id="sidebar">
+                <section class="vbox bg-white" ng-include="'CRM/Customers/customer.aside.html?a=a'"></section>
+            </aside>
+            <!-- .aside -->
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient hidden-print">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="dker">
+                                <a data-target="#sidebar" class="btn btn-sm btn-default" data-toggle="class:hide">
+                                    <i class="fa fa-chevron-left text"></i>
+                                    <i class="fa fa-chevron-right text-active"></i>
+                                </a>
+                            </li>
+                            <li class="active"><a data-target="#item" data-toggle="tab">Packing Lists</a></li>
+                            <!-- <li ng-show="quotation.quotationId"><a data-target="#preview" data-toggle="tab">Preview</a></li> -->
+                            <!-- <li ><a data-target="#upload" data-toggle="tab">Floor Plan</a></li> -->
+                        </ul>
+                        <div class="navbar-btn pull-right">
+                            <a href="#/packingList/new" class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content" slim-scroll>
+                            <div class="tab-pane active" id="item">
+                                <form name="myForm" novalidate data-validate="parsley">
+                                    <section ng-include="'ORD/Deliveries/PackingLists/PackingListEdit/packingListEditForm.html?a=a'"></section>
+                                </form>
+                            </div>
+                            <!-- <div class="tab-pane" id="preview">
+                                <form name="myForm" novalidate data-validate="parsley">
+                                    <section ng-include="'ORD/Quotations/QuotationEdit/quotationPrint.html?a=a'"></section>
+                                </form>
+                            </div> -->
+                            <!-- <div class="tab-pane" id="upload">
+                                <form name="myForm" novalidate data-validate="parsley">
+                                    <section ng-include="'ORD/Quotations/QuotationEdit/quotationUploader.html?a=a'"></section>
+                                </form>
+                            </div> -->
+                            <div class="tab-pane" id="interaction">
+                                <div class="text-center wrapper">
+                                    <i class="fa fa-spinner fa-spin icon-xlarge"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+
+    <footer class="footer text-right bg-light lter b-t hidden-print">
+        <button type="submit" class="btn btn-success btn-s-xs" data-loading-text="Saving..." ng-click="savePackingList()" ng-disabled="busy">Save</button>
+        <button type="submit" ng-show="packingList.packingListId" class="btn btn-info btn-s-xs" ng-click="previewPDF()" >Preview</button>
+    </footer>
+</section>

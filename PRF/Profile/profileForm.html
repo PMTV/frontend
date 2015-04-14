@@ -1,0 +1,125 @@
+<section class="col-sm-6">
+    <div class="portlet ui-sortable">
+        <section class="panel portlet-item ng-scope ng-isolate-scope" title="Account Details">
+            <header class="panel-heading font-bold">
+                <span class="h5 ng-binding">Account Details</span>
+                <ul class="nav nav-pills pull-right">
+                    <li>
+                        <a class="panel-toggle text-muted">
+                            <i class="fa fa-caret-down text-active"></i>
+                            <i class="fa fa-caret-up text"></i>
+                        </a>
+                    </li>
+                </ul>
+            </header>
+            <div class="panel-body">
+                <div>
+
+                    <div class="form-group">
+                        <label>Date Created : </label>
+                        <label data-ng-bind="profile.dateFormated">--/--/----</label>
+                    </div>
+
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group">
+                        <label>User Name</label>
+                        <input type="text" disabled="disabled" ng-model="profile.userName"  placeholder="user name..."class="form-control input-sm">
+                    </div>
+
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12" data-ng-class="{ 'has-error' : myForm.password.$invalid && submitted }">
+                            <label>Change Password</label>
+                            <input type="password" name="password" ng-model="profile.password" class="form-control" data-ng-required="checkChangePass" value="">
+                            <div class="error" ng-show="(myForm.password.$dirty && myForm.password.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.password.$error.required">Password is required!</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed line-lg pull-in" data-ng-if="checkChangePass"></div>
+                    <div class="form-group pull-in clearfix" data-ng-if="checkChangePass">
+                        <div class="col-sm-12" data-ng-class="{ 'has-error' : myForm.retypePass.$invalid && submitted  }">
+                            <label>Confirm Password</label>
+                            <input type="password" name="retypePass" class="form-control input-sm" value="" data-pw-check="profile.password" data-ng-model="profile.retypePass">
+                            <div class="error" ng-show="(myForm.retypePass.$dirty && myForm.retypePass.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.retypePass.$error.pwMatch">Confirm password not match!</small>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+
+<section class="col-sm-6">
+    <div class="portlet ui-sortable">
+        <section class="panel portlet-item ng-scope ng-isolate-scope" title="Personal Information">
+            <header class="panel-heading font-bold">
+                <span class="h5 ng-binding">Personal Information</span>
+                <ul class="nav nav-pills pull-right">
+                    <li>
+                        <a class="panel-toggle text-muted">
+                            <i class="fa fa-caret-down text-active"></i>
+                            <i class="fa fa-caret-up text"></i>
+                        </a>
+                    </li>
+                </ul>
+            </header>
+            <div class="panel-body">
+                <div>
+                    <div class="form-group">
+                        <div data-ng-class="{ 'has-error' : myForm.firstName.$invalid && submitted }" class="form-group col-sm-6 pull-in">
+                            <label>First Name</label>
+                            <input type="text" name="firstName" ng-model="profile.firstName" data-ng-required="true" placeholder="first name..." class="form-control input-sm">
+
+                            <div class="error" ng-show="(myForm.firstName.$dirty && myForm.firstName.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.firstName.$error.required">Your first name is required!</small>
+                            </div>
+                        </div>
+
+                        <div ng-class="{ 'has-error' : myForm.lastName.$invalid && submitted }" class="form-group col-sm-6">
+                            <label>Last Name</label>
+                            <input type="text" name="lastName" ng-model="profile.lastName" data-ng-required="true" class="form-control input-sm" placeholder="last name...">
+                            <div ng-show="(myForm.lastName.$dirty && myForm.lastName.$invalid) || submitted">
+                                <small ng-show="myForm.lastName.$error.required">Your last name is required!</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div ng-class="{ 'has-error' : myForm.phoneNumber.$invalid && submitted }" class="">
+                        <div class="">
+                            <label>Phone Number</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">#</span>
+                                <input name="phoneNumber" type="tel" class="form-control input-sm" placeholder="phone number..." data-ng-model="profile.contactNumber" data-ng-required="true">
+                            </div>
+                            <div class="error" data-ng-show="(myForm.phoneNumber.$dirty && myForm.phoneNumber.$invalid) || submitted">
+                                <small class="error" data-ng-show="myForm.phoneNumber.$error.tel">Required</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div ng-class="{ 'has-error' : myForm.email.$invalid && submitted }" class="form-group pull-in clearfix">
+                        <div class="col-sm-12">
+                            <label>Email</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">@</span>
+                                <input type="email" name="email" ng-model="profile.email" data-ng-required="true" class="form-control input-sm" placeholder="email...">
+                            </div>
+                            <div ng-show="(myForm.email.$dirty && myForm.email.$invalid) || submitted">
+                                <small ng-show="myForm.email.$error.required">Email is required!</small>
+                                <small ng-show="myForm.email.$error.email && !myForm.email.$error.required">Email is not correct format!</small>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</section>

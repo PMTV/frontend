@@ -1,0 +1,109 @@
+﻿@charset "UTF-8";
+
+@-webkit-keyframes width {
+	0% {}
+	100% {width: 0px;}
+}
+
+@-moz-keyframes width {
+	0% {}
+	100% {width: 0px;}
+}
+
+@-o-keyframes width {
+	0% {}
+	100% {width: 0px;}
+}
+
+@keyframes width {
+	0% {}
+	100% {width: 0px;}
+}
+@-webkit-keyframes fadeIn {
+	0% {opacity: 0;}
+	100% {opacity: 0.5;}
+}
+@-moz-keyframes fadeIn {
+	0% {opacity: 0;}
+	100% {opacity: 0.5;}
+}
+@-o-keyframes fadeIn {
+	0% {opacity: 0;}
+	100% {opacity: 0.5;}
+}
+@keyframes fadeIn {
+	0% {opacity: 0;}
+	100% {opacity: 0.5;}
+}
+@-webkit-keyframes fadeOut {
+	0% {opacity: 0.5;}
+	100% {opacity: 0;}
+}
+@-moz-keyframes fadeOut {
+	0% {opacity: 0.5;}
+	100% {opacity: 0;}
+}
+@-o-keyframes fadeOut {
+	0% {opacity: 0.5;}
+	100% {opacity: 0;}
+}
+@keyframes fadeOut {
+	0% {opacity: 0.5;}
+	100% {opacity: 0;}
+}
+
+.fadeIn.ng-hide-remove,
+.fadeIn.ng-hide-add {
+    /* remember, the .hg-hide class is added to element
+             when the active class is added causing it to appear
+             as hidden. Therefore set the styling to display=block
+             so that the hide animation is visible */
+    display: table-cell !important;
+    overflow:hidden;
+}
+.fadeIn.ng-hide-add {
+    -webkit-animation: 0.5s fadeOut;
+    animation: 0.5s fadeOut;
+}
+
+.fadeIn.ng-hide-remove {
+    -webkit-animation: 0.5s fadeIn;
+    animation: 0.5s fadeIn;
+}
+
+.main-aside {
+}
+
+.main-aside.ng-hide-remove,
+.main-aside.ng-hide-add {
+    /* remember, the .hg-hide class is added to element
+             when the active class is added causing it to appear
+             as hidden. Therefore set the styling to display=block
+             so that the hide animation is visible */
+    display: table-cell !important;
+    overflow:hidden;
+}
+    .main-aside.ng-hide-add section section {
+        width:250px;
+        overflow:hidden;
+    }
+
+.main-aside.ng-hide-add {
+    -webkit-animation: 0.5s fadeOutLeft;
+    animation: 0.5s fadeOutLeft, 0.5s width;
+}
+
+.main-aside.ng-hide-remove {
+    -webkit-animation: 0.5s fadeInLeft;
+    animation: 0.5s fadeInLeft;
+}
+
+.slideInRight.ng-hide-add {
+    -webkit-animation: 0.5s fadeInRight;
+    animation: 0.5s fadeInRight, 0.5s width;
+}
+
+.slideInRight.ng-hide-remove {
+    -webkit-animation: 0.5s fadeInRight;
+    animation: 0.5s fadeInRight;
+}

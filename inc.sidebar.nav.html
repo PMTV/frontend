@@ -1,0 +1,423 @@
+﻿<!-- .aside -->
+<section class="vbox">
+    <section>
+        <header class="nav-bar nav-brand dker">
+            <a class="btn btn-link visible-xs" data-toggle="class:show" data-target=".nav-primary">
+                <i class="fa fa-reorder"></i>
+            </a>
+            <a href="#" class="nav-brand" data-toggle="fullscreen">
+                <img src="assets/img/Emerge.logo.fw.png" />
+            </a>
+            <a class="btn btn-link visible-xs" data-toggle="collapse" data-target=".navbar-collapse">
+                <i class="fa fa-comment-alt"></i>
+            </a>
+        </header>
+        <header class="header bg-primary lter text-center clearfix">
+
+            <div class="btn-group">
+                <button class="btn btn-sm btn-dark btn-icon" title="New project" type="button">
+                    <i class="fa fa-plus"></i>
+                </button>
+                <div class="btn-group hidden-nav-xs nav-quick-add">
+                    <button class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" type="button">
+                        Quick Add
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu text-left">
+                        <li>
+                            <a href="#/customers/new">Customer</a>
+                        </li>
+                        <li>
+                            <a href="#/quotations/new">Quotation</a>
+                        </li>
+                        <li>
+                            <a href="#/sales/new">Sales</a>
+                        </li>
+                        <li>
+                            <a href="#/purchases/new">Purchase</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <nav class="nav-primary hidden-xs" bs-navbar>
+            <ul class="nav">
+                <li data-match-route="/#">
+                    <a href="#">
+                        <i class="fa fa-eye"></i>
+                        <span>Discover</span>
+                    </a>
+                </li>
+                <li data-match-route="/customers" class="dropdown-submenu" has-permission="CRMAdmin, CRMRead">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-group"></i>
+                        <span>Customers</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#/customerGroups">
+                                <i class="fa fa-group"></i>
+                                <span>Customer Groups</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/customers">
+                                <i class="fa fa-user"></i>
+                                <span>Customers</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/customerImport">
+                                <i class="fa fa-user"></i>
+                                <span>Customers Import</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li data-match-route="/products" class="dropdown-submenu active" has-permission="PRDAdmin, PRDRead">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-circle"></i>
+                        <span>Products</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#/products">
+                                <i class="fa fa-circle"></i>
+                                <span>Products</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/productImport">
+                                <i class="fa fa-user"></i>
+                                <span>Products Import</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/productCategories">
+                                <i class="fa fa-list-alt"></i>
+                                <span>Categories</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/productBrands">
+                                <i class="fa fa-list-alt"></i>
+                                <span>Brands</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li data-match-route="/sales" class="dropdown-submenu" has-permission="SOAdmin">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <!--<b class="badge bg-primary pull-right">3</b>-->
+                        <i class="fa fa-book"></i>
+                        <span>Sales</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#/quotations">
+                                <i class="fa fa-book"></i>
+                                <span>Quotations</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/sales">
+                                <i class="fa fa-book"></i>
+                                <span>Sales Orders</span>
+                            </a>
+                        </li>
+                        <li data-match-route="/deliveries" class="dropdown-submenu">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-list-alt"></i>
+                                <span>Deliveries</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#/deliveries">
+                                        <i class="fa fa-truck"></i>
+                                        <span>Delivery Orders</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#/packingList">
+                                        <i class="fa fa-list"></i>
+                                        <span>Packing Lists</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#/invoices">
+                                <i class="fa fa-money"></i>
+                                <span>Invoice</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/return-saleOrder">
+                                <i class="fa fa-book"></i>
+                                <span>Return Sale Order</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li data-match-route="/purchases" class="dropdown-submenu" has-permission="PURAdmin">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <!--<b class="badge bg-primary pull-right">3</b>-->
+                        <i class="fa fa-book"></i>
+                        <span>Purchases</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#/purchases">
+                                <!--<b class="badge bg-primary pull-right">3</b>-->
+                                <i class="fa fa-book"></i>
+                                <span>Purchases</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/suppliers">
+                                <i class="fa fa-group"></i>
+                                <span>Suppliers</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/supplierImport">
+                                <i class="fa fa-group"></i>
+                                <span>Supplier Import</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/purchase-invoice">
+                                <i class="fa fa-book"></i>
+                                <span>Purchase Invoice</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/returnOrder">
+                                <i class="fa fa-book"></i>
+                                <span>Return Order</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li data-match-route="/inventory" class="dropdown-submenu" has-permission="IACAdmin">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-list-alt"></i>
+                        <span>Inventory</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#/acquisitions">
+                                <i class="fa fa-book"></i>
+                                <span>Receive</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/stockAdjusts">
+                                <i class="fa fa-book"></i>
+                                <span>Adjustments</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/stockTransfers">
+                                <i class="fa fa-book"></i>
+                                <span>Transfers</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/stockTakes">
+                                <i class="fa fa-book"></i>
+                                <span>Stock Takes</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li data-match-route="/employees" class="dropdown-submenu" has-permission="HRMAdmin">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-user"></i>
+                        <span>Employees</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#/employees">
+                                <i class="fa fa-male"></i>
+                                <span>Employees Management</span>
+                            </a>
+                        </li>
+                        <!--<li>
+                            <a href="#/Payroll">
+                                <i class="fa fa-dollar"></i>
+                                <span>Payroll Management</span>
+                            </a>
+                        </li>-->
+                    </ul>
+                </li>
+                <li data-match-route="/account" class="dropdown-submenu" has-permission="ACCAdmin">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-money"></i>
+                        <span>Account</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li data-match-route="/receivables" class="dropdown-submenu">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-money"></i>
+                                <span>Account Receivables</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#/receipts">
+                                        <i class="fa fa-money"></i>
+                                        <span>Receipt</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#/debitNotes">
+                                        <i class="fa fa-money"></i>
+                                        <span>Debit Note</span>
+                                    </a>
+                                </li>
+                                <li>
+                                <li data-match-route="/creditNotes" class="dropdown-submenu">
+                                    <a class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-money"></i>
+                                        <span>Credit Notes</span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#/openCreditNotes">
+                                                <i class="fa fa-money"></i>
+                                                <span>Open Credit Notes</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#/advanceCreditNotes">
+                                                <i class="fa fa-money"></i>
+                                                <span>Advance Credit Notes</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#/againstInvoice">
+                                                <i class="fa fa-money"></i>
+                                                <span>Against Invoice</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li data-match-route="/payables" class="dropdown-submenu">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-money"></i>
+                                <span>Account Payables</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#/creditNoteApAgainstInvoice">
+                                        <i class="fa fa-money"></i>
+                                        <span>Credit Note</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#/prepayment">
+                                        <i class="fa fa-money"></i>
+                                        <span>Prepayment</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#/payment">
+                                        <i class="fa fa-money"></i>
+                                        <span>Payment</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li data-match-route="/payments" class="dropdown-submenu">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span>ECM</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#/payments">
+                                <i class="fa fa-check"></i>
+                                <span>Payments</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/coupon">
+                                <i class="fa fa-list"></i>
+                                <span>Coupons</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/discount-period">
+                                <i class="fa fa-clock-o"></i>
+                                <span>Discount Period</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/timeSlots">
+                                <i class="fa fa-clock-o"></i>
+                                <span>Time Slots</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/loyaltypoints">
+                                <i class="fa fa-signal"></i>
+                                <span>Loyalty Points</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/commission">
+                                <i class="fa fa-lightbulb-o"></i>
+                                <span>Commission</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/generation-saleman-commission">
+                                <i class="fa fa-tasks"></i>
+                                <span>Generation Commission</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/product-review">
+                                <i class="fa fa-check"></i>
+                                <span>Product Review</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/delivery-date">
+                                <i class="fa fa-calendar"></i>
+                                <span>Delivery Date</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li data-match-route="/reports">
+                    <a href="#">
+                        <i class="fa fa-tasks"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- note -->
+        <div class="wrapper hidden-vertical animated fadeInUp text-sm">
+            <a data-dismiss="alert" class="pull-right m-r-n-sm m-t-n-sm btn-link"><i class="fa fa-times"></i></a>
+            Hey welcome! If you're new to Emerge, you can view our <a href="#">tutorial</a> (coming soon).
+        </div>
+        <!-- / note -->
+    </section>
+    <footer class="footer lt hidden-xs">
+        <a data-toggle="ajaxModal" class="btn btn-sm btn-link m-r-n-xs pull-right" ng-click="logout();">
+            <i class="fa fa-power-off"></i>
+        </a>
+        <a data-target="#nav" data-toggle="class:nav-vertical" class="btn btn-sm btn-link m-l-n-sm">
+            <i class="fa fa-reorder"></i>
+        </a>
+    </footer>
+</section>
+<!-- /.aside -->

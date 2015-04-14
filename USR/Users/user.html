@@ -1,0 +1,111 @@
+﻿<section class="vbox flex">
+    <div class="pull-left header">
+        <p class="h4">Users</p>
+    </div>
+    <header ng-include="'header.html?a=a'" class="header bg-light lter b-b ng-scope"></header>
+    <!--<div class="wrapper bg-light b-b font-bold">
+        <a href="#" class="m-r"><i class="fa fa-bar-chart icon-2x icon-muted v-middle"></i>Analysis</a>
+        <a href="#" class="m-r"><span class="badge up m-r-n bg-danger">4</span><i class="fa fa-envelope icon-2x icon-muted v-middle"></i> Message</a>
+        <a href="#" class="m-r"><i class="fa fa-calendar icon-2x icon-muted v-middle"></i>My Calendar</a>
+        <a href="#"><i class="fa fa-cog icon-2x icon-muted v-middle"></i>Settings</a>
+    </div>-->
+    <!-- .aside -->
+    <div class="bg-white">
+        <section class="vbox">
+            <header class="header bg-light bg-gradient">
+                <ul class="nav nav-tabs nav-white pull-left">
+                    <li class="active"><a data-target="#userList" data-toggle="tab">Users </a></li>
+                </ul>
+
+                <div class="navbar-btn pull-right">
+                    <a href="#/users/new" class="btn btn-success">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            </header>
+        </section>
+    </div>
+
+    <!-- /.aside -->
+    <section class="bg-white">
+        <section class="hbox stretch">
+            <section class="vbox">
+                <div class="scrollable">
+                    <section ng-controller="UserListCtrl">
+                        <!-- class="scrollable" -->
+                        <div class="tab-content" >
+                            <div class="tab-pane active" id="list">
+                                <div class="table-responsive" >
+                                    <table class="table table-striped b-t text-sm" user-datatable aa-data="userTableData">
+                                        <thead>
+                                            <tr>
+                                                <th>Username</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Date Created</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="col-lg-6 b-r" ng-show="showPanel">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Name</th>
+                                                <th>Code</th>
+                                                <th>Description</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="country in countrysArr">
+                                                <td>{{country.countryId}}</td>
+                                                <td>{{country.name}}</td>
+                                                <td>{{country.code}}</td>
+                                                <td>{{country.description}}</td>
+                                                <td>
+                                                    <a ng-click="editItem(country)" class="btn-link pull-left">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                    <button type="button" class="close pull-left" ng-click="removeItem($index, country.countryId)">&times;</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!--<footer class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-sm-4 hidden-xs">
+                                            <select class="input-sm form-control input-s-sm inline">
+                                                <option value="0">Bulk action</option>
+                                                <option value="1">Delete selected</option>
+                                                <option value="2">Bulk edit</option>
+                                                <option value="3">Export</option>
+                                            </select>
+                                            <button class="btn btn-sm btn-white">Apply</button>
+                                        </div>
+                                    </div>
+                                </footer>-->
+                            </div>
+                            
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </section>
+    </section>
+    <footer class="footer bg-white-only b-t">
+        <!--<p class="checkbox">
+            <label>
+                <input id="toggle-all" type="checkbox">
+                Mark all as complete
+            </label>
+        </p>-->
+    </footer>
+</section>

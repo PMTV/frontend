@@ -1,0 +1,82 @@
+﻿
+<div class="collapse navbar-collapse pull-in" data-ng-controller="InitCtrl">
+    <ul class="nav navbar-nav navbar-right">
+        <li class="hidden-xs">
+            <a class="dropdown-toggle dk" data-toggle="dropdown">
+                <i class="fa fa-bell"></i>
+                <span class="badge up bg-danger m-l-n-sm" data-ng-show="numOfNotification > 0" data-ng-bind="numOfNotification"></span>
+            </a>
+            <section class="dropdown-menu animated fadeInUp input-s-lg">
+                <section class="panel bg-white">
+                    <!--<header class="panel-heading">-->
+                    <!--<strong data-ng-show="numOfNotification > 0">You have <span class="count-n" data-ng-bind="numOfNotification"></span> new notifications.</strong>-->
+                    <!--</header>-->
+                    <div class="list-group">
+                        <a href="#/receive-notification/{{r.notificationId}}" class="media list-group-item" data-ng-class="{'notification-isread' : !r.isRead}" data-ng-repeat="r in recipientList">
+                            <span class="pull-left thumb-sm">
+                                <img data-ng-src="{{r.imageUrl}}" alt="{{r.sender}} said" class="img-circle">
+                            </span>
+                            <span class="media-body block m-b-none">
+                                {{r.subject}}<br>
+                                <small class="text-muted">{{r.dateConverted}}</small>
+                            </span>
+                        </a>
+                        <!--<a href="#" class="media list-group-item">-->
+                        <!--<span class="media-body block m-b-none">-->
+                        <!--1.0 initial released<br>-->
+                        <!--<small class="text-muted">27 Aug 13</small>-->
+                        <!--</span>-->
+                        <!--</a>-->
+                    </div>
+                    <footer class="panel-footer text-sm">
+                        <a href="#/receive-notification">
+                            See all the notifications
+                            <i class="fa fa-cog pull-right"></i>
+                        </a>
+                    </footer>
+                </section>
+            </section>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle " data-toggle="dropdown">
+                <span class="thumb-sm avatar pull-left m-t-n-xs m-r-xs">
+                    <img src="assets/img/avatar_default.jpg" alt="" class="">
+                </span>
+                {{appUser.userName}} <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu animated fadeInLeft">
+                <li>
+                    <a href="setting.html#/general">Settings</a>
+                </li>
+                <li>
+                    <a href="#/users">Users</a>
+                </li>
+                <li>
+                    <a href="#/profile">Profile</a>
+                </li>
+                <li>
+                    <a href="#notification">
+                        <span class="badge bg-danger pull-right" data-ng-show="numOfNotification > 0" data-ng-bind="numOfNotification"></span>
+                        Notifications
+                    </a>
+                </li>
+                <li>
+                    <a href="docs.html">Help</a>
+                </li>
+                <li>
+                    <a ng-click="logout()" class="btn-link">Logout</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <div class="pull-right col-sm-5">
+        <div class="input-group m-t-sm">
+
+            <span class="input-group-addon input-sm">
+                <i class="fa fa-search"></i>
+            </span>
+            <input id="search-note" class="form-control input-sm" type="text" placeholder="search" />
+
+        </div>
+    </div>
+</div>

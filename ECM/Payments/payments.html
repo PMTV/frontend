@@ -1,0 +1,113 @@
+﻿<section class="vbox flex">
+
+    <div class="pull-left header">
+        <p class="h4">
+            <a href="#/payments">Payments</a>
+        </p>
+    </div>
+    <header class="header bg-light lter bg-gradient b-b" ng-include="'header.html?a=a'"></header>
+    <!-- .aside -->
+    <div class="bg-white">
+        <section class="vbox">
+            <header class="header bg-light bg-gradient">
+                <ul class="nav nav-tabs nav-white pull-left">
+                    <li class="active"><a data-target="#paymentsList" data-toggle="tab">Payments</a></li>
+                </ul>
+                <div class="navbar-btn pull-right">
+                    <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            </header>
+        </section>
+    </div>
+    <!-- /.aside -->
+
+
+
+    <section class="bg-white">
+        <section class="hbox stretch">
+            <section class="vbox">
+                <div class="scrollable">
+
+                    <section data-ng-controller="PaymentListCtrl">
+
+                        <div class="clearfix m bg-light">
+                            <div class="col-lg-2-4 form-group m-t">
+                                <label>Customer</label>
+                                <customer-dropdown data-ng-model="customerId"></customer-dropdown>
+                            </div>
+                            <div class="col-lg-2-4 form-group m-t">
+                                <label>From Date</label>
+                                <input class="form-control input-sm" type="text" placeholder="From Date" data-ng-model="dateFrom" date-picker data-format="MM/dd/yyyy" data-date="">
+                            </div>
+                            <div class="col-lg-2-4 form-group m-t">
+                                <label>To Date</label>
+                                <input class="form-control input-sm" type="text" placeholder="To Date" data-ng-model="dateTo" date-picker data-format="MM/dd/yyyy" data-date="">
+                                {{dateTo}}
+                            </div>
+                            <div class="col-lg-2-4 form-group m-t">
+                                <label>Payment Status</label>
+                                <select class="form-control input-sm" data-ng-model="paymentStatus">
+                                    <option value="0">- Select -</option>
+                                    <option value="1">New</option>
+                                    <option value="2">Approved</option>
+                                    <option value="3">Paid</option>
+                                    <option value="4">Canceled</option>
+                                    <option value="5">Approved_NotPaid</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2-4 form-group m-t">
+                                <button class=" btn btn-success m-t-lg" data-ng-click="doSearch()">Search</button>
+                            </div>
+                        </div>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="productList">
+                                <div class="table-responsive">
+
+
+                                    <table class="table table-striped b-t text-sm" payments-datatable aa-data="paymentTableData">
+                                        <thead>
+                                            <tr>
+                                                <th>Payment<br />
+                                                    Id</th>
+                                                <th>SalesOrder<br />
+                                                    Id</th>
+                                                <th>Status</th>
+                                                <th>Paid Date</th>
+                                                <th>Token</th>
+                                                <th>PayerId</th>
+                                                <th>Success<br />
+                                                    Return Url</th>
+                                                <th>Error<br />
+                                                    Return Url</th>
+                                                <th>Customer</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th colspan="9" class="text-right" rowspan="1">Total Amout:
+                                                </th>
+                                                <th rowspan="1" colspan="1"></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+
+                </div>
+            </section>
+        </section>
+    </section>
+
+    <footer class="footer bg-white-only b-t">
+    </footer>
+
+</section>

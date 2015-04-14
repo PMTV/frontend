@@ -1,0 +1,40 @@
+﻿<section class="scrollable" ng-controller="EmployeeAsideCtrl">
+    <section slim-scroll>
+        <div class="wrapper">
+            <div class="clearfix m-b text-center">
+                <div class="thumb-lg">
+                    <img src="assets/img/avatar_default.jpg" class="img-circle">
+                </div>
+                <div class="clear">
+                    <div class="m-t-xs m-b-xs"><span class="h3">{{employee.firstName}} {{employee.middleName}} {{employee.lastName}}</span> <span class="badge up">VIP</span></div>
+                    <small class="text-muted"><i class="fa fa-map-marker"></i>(( Department ))</small>
+                </div>
+            </div>
+
+            <div class="btn-group btn-group-justified m-b">
+                <a class="btn btn-success btn-rounded">
+                    <i class="fa fa-eye"></i> Email
+                </a>
+                <a class="btn btn-info btn-rounded">
+                    <i class="fa fa-comment-alt"></i>Contact
+                </a>
+            </div>
+            <div>
+                <small class="text-uc text-xs text-muted">about</small> <i class="fa fa-spinner fa-spin" ng-show="saveInfoInprogress"></i>
+                <p ng-show="showEditAbout"><textarea ng-model="employee.description" name="description" class="form-control" ng-blur="showEditAbout=false;"></textarea></p>
+                <p ng-show="!showEditAbout">{{employee.description}} <a ng-click="showEditAbout=true;" class="btn-link"><i class="fa fa-pencil"></i></a></p>
+                <small class="text-uc text-xs text-muted">Referral</small>
+                <p></p>
+                <small class="text-uc text-xs text-muted">Sales Representative</small>
+                <p><a href="#">Benjamin Yee</a></p>
+                <div class="line"></div>
+                <small class="text-uc text-xs text-muted">connection</small>
+                <p class="m-t-sm">
+                    <a href="#" class="btn btn-rounded btn-twitter btn-icon"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="btn btn-rounded btn-facebook btn-icon"><i class="fa fa-facebook"></i></a>
+                    <a href="#" class="btn btn-rounded btn-gplus btn-icon"><i class="fa fa-google-plus"></i></a>
+                </p>
+            </div>
+        </div>
+    </section>
+</section>

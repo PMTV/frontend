@@ -1,0 +1,71 @@
+<section>
+    <div class="row">
+        <div class="col-lg-8">
+            <button type="submit" class="btn btn-info btn-s-xs" ng-click="show = true">Add Review</button>
+        </div>
+        <div class="col-lg-4 pull-right form-group">
+           <input type="text" class="form-control" ng-model="dateFilter" placeholder="Filter">
+        </div>
+    </div> 
+</section>
+<div class="row">
+    <div class="col-lg-12 form-group" ng-show="show">
+        <section class="panel" >
+          <section class="panel-body slim-scroll" data-height="230px">
+            <article class="media" >
+              <div class="media-body">
+                <div class="form-group">
+                    <label>Review</label>
+                    <input type="text" class="form-control" placeholder="Media name"  ng-model="review.name">
+                </div>
+                <!-- <div class="form-group">
+                    <label>Review Type</label>
+                     <div class="form-group">
+                      <div class="col-lg-12 pull-in clearfix">
+                        <select name="account" ng-model="media.mediaType" class="form-control m-b">
+                          <option>Video</option>
+                          <option>Images</option>
+                        </select>
+                      </div>
+                    </div>
+                </div> -->
+                <button type="submit" class="btn btn-success btn-s-xs" ng-click="addReview(review)">Submit</button>
+                <button type="submit" class="btn btn-danger btn-s-xs" ng-click="show = false">Cancel</button>
+              </div>
+            </article>
+          </section>
+        </section>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4>There are {{reviewArr.length}} review.</h4>
+    </div>
+    <div class="col-lg-12 form-group" ng-repeat="review in reviewArr | filter:dateFilter">
+        <section class="panel" >
+          <section class="panel-body slim-scroll" data-height="230px">
+            <article class="media" >
+              <a href="" ng-click="deleteReview(review)" class="pull-right label" data-dismiss="alert"><i class="fa fa-times"></i></a>
+              <small ng-show="{{media.mediaType == 'Video'}}" class="pull-left label bg-primary">Video</small>
+              <small ng-show="{{media.mediaType == 'Images'}}" class="pull-left label bg-warning">Images</small>
+              {{review.name}} 
+              <small class="label bg-light">Created at {{review.dateCreated |  date:'medium'}}</small>
+              <small ng-show="{{review.status == 1}}" class="label bg-success">Completed</small>
+              <small ng-show="{{review.status == 2}}" class="label bg-info">InProcess</small>
+              <small ng-show="{{review.status == 3}}" class="label bg-warning">Delayed</small>
+              <small ng-show="{{review.status == 4}}" class="label bg-danger">Cancelled</small> 
+              <!-- <span class="pull-left icon-stack icon-2x">
+              <i class="fa fa-circle text-danger icon-stack-base"></i>
+              <i class="fa fa-file icon-light"></i>
+              </span>  -->               
+              <div class="media-body">
+                
+                <a ng-click="loadQuotation(quotation)" class="h4">{{media.name}}</a>
+                <small class="block m-t-sm">{{quotation.remarks}}</small>
+              </div>
+            </article>
+          </section>
+        </section>
+    </div>
+</div>

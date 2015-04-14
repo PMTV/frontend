@@ -1,0 +1,37 @@
+<div class="row">
+    <debug-message>{{user | json}}</debug-message>
+
+    <div class="col-sm-12">
+        <portlet>
+            <portlet-item title="Roles">
+                <div>
+                    <debug-message>{{selectedRoles}}</debug-message>
+                    <ul>
+                        <li ng-repeat="role in roles">
+                            <input type="checkbox" value="{{role.name}}" ng-checked="selectedRoles[$index].selected"
+                                   ng-click="toggleRole(role.name, role.id, $index)"> {{role.description}}
+                        </li>
+                    </ul>
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+
+    <!--<div class="col-sm-12">-->
+        <!--<portlet>-->
+            <!--<portlet-item title="Roles">-->
+                <!--<div>-->
+                    <!--<debug-message>{{user.roles}}</debug-message>-->
+                    <!--<ul>-->
+                        <!--<li ng-repeat="role in userRoles">-->
+                            <!--<label>-->
+                                <!--<input type="checkbox" value="{{role.name}}" ng-checked="checkInRole(role.id) >= 0" ng-click="toggleRole(role.id)">-->
+                                <!--{{role.description}} {{role.module}}-->
+                            <!--</label>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</portlet-item>-->
+        <!--</portlet>-->
+    <!--</div>-->
+</div>

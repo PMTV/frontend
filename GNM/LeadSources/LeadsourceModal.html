@@ -1,0 +1,52 @@
+<div class="modal-header">
+    <h3>Leadsources</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-6 b-r" ng-show="showPanel">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="leadsource in leadsourceArr">
+                        <td>{{leadsource.leadsourceId}}</td>
+                        <td>{{leadsource.name}}</td>
+                        <td>{{leadsource.description}}</td>
+                        <td>
+                            <a ng-click="editItem(leadsource)" class="btn-link pull-left">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <button type="button" class="close pull-left" ng-click="removeItem($index, leadsource.leadsourceId)">&times;</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <form class="bs-example form-horizontal" ng-class="showPanel ?  'col-lg-6' : 'col-lg-12'">
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Leadsource Name</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" placeholder="Leadsource Name" ng-model="leadsource.name">
+                    <span class="help-block m-b-none">Name of the leadsource (e.g Jenny)</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Description</label>
+                <div class="col-lg-10">
+                    <textarea class="form-control" placeholder="Description" ng-model="leadsource.description"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn" ng-click="cancel()">Close</button>
+    <button class="btn btn-success" ng-click="save()">Save</button>
+    <button class="btn btn-default pull-left" ng-click="showPanel = !showPanel; test()"> <i ng-class="{'icon-caret-left':showPanel, 'icon-caret-right':!showPanel}"></i> Manage </button>
+</div>

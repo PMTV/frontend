@@ -1,0 +1,238 @@
+<div class="row">
+    <debug-message>{{user | json}}</debug-message>
+    <div class="col-sm-7" slimscroll>
+        <portlet>
+            <portlet-item title="General">
+              <section class="panel-body slim-scroll" data-height="230px">
+                <article class="media">
+                  <div class="media-body">
+                    <a href="#" class="h4 text-success">Basic</a>
+                  </div>
+                </article>
+                <div class="line pull-in"></div>
+                <article class="media">
+                  <span class="pull-left thumb-md"><i class="fa fa-money fa-4x text-muted"></i></span>
+                  <div class="media-body">
+                    <div class="pull-right media-xs text-center text-muted">
+                        <button class="btn btn-sm btn-success" ng-click="addCurrency()">Add</button>
+                        <button class="btn btn-sm btn-info" ng-click="editCurrency()">View</button>
+                    </div>
+                    <a href="#" class="h4">Currency</a>
+                    <br>
+                    <strong class="h6 text muted"><i class="fa fa-clock"></i>{{currencyArr.length}} currencies created!</strong>
+                    <!-- <small class="block"><a href="#" class="">John Smith</a> <span class="label label-success">Circle</span></small>
+                    <small class="block m-t-sm">Sleek, intuitive, and powerful mobile-first front-end framework for faster and easier web development.</small> -->
+                  </div>
+                  
+                </article>
+                <div class="line pull-in"></div>
+                <article class="media">
+                  <span class="pull-left thumb-md"><i class="fa fa-credit-card icon-4x text-muted"></i></span>
+                  <div class="media-body">
+                    <div class="pull-right media-xs text-center text-muted">
+                        <button class="btn btn-sm btn-success" ng-click="addCreditTerm()">Add</button>
+                        <button class="btn btn-sm btn-info" ng-click="editCreditTerm()">View</button>
+                    </div>
+                    <a href="#" class="h4">Industries</a>
+                    <br>
+                    <strong class="h6 text muted"><i class="fa fa-clock"></i>{{creditTermArr.length}} credit terms created!</strong>
+                    <!-- <small class="block"><a href="#" class="">John Smith</a> <span class="label label-success">Circle</span></small>
+                    <small class="block m-t-sm">Sleek, intuitive, and powerful mobile-first front-end framework for faster and easier web development.</small> -->
+                  </div>
+                  
+                </article>
+                <div class="line pull-in"></div>
+                <article class="media">
+                  <span class="pull-left thumb-md"><i class="fa fa-group icon-4x text-muted"></i></span>
+                  <div class="media-body">
+                    <div class="pull-right media-xs text-center text-muted">
+                        <button class="btn btn-sm btn-success" ng-click="addCreditTerm()">Add</button>
+                        <button class="btn btn-sm btn-info" ng-click="editCreditTerm()">View</button>
+                    </div>
+                    <a href="#" class="h4">Lead source</a>
+                    <br>
+                    <strong class="h6 text muted"><i class="fa fa-clock"></i>{{creditTermArr.length}} credit terms created!</strong>
+                    <!-- <small class="block"><a href="#" class="">John Smith</a> <span class="label label-success">Circle</span></small>
+                    <small class="block m-t-sm">Sleek, intuitive, and powerful mobile-first front-end framework for faster and easier web development.</small> -->
+                  </div>
+                  
+                </article>
+                <div class="line pull-in"></div>
+                <article class="media">
+                  <span class="pull-left thumb-md"><i class="fa fa-credit-card icon-4x text-muted"></i></span>
+                  <div class="media-body">
+                    <div class="pull-right media-xs text-center text-muted">
+                        <button class="btn btn-sm btn-success" ng-click="addCreditTerm()">Add</button>
+                        <button class="btn btn-sm btn-info" ng-click="editCreditTerm()">View</button>
+                    </div>
+                    <a href="#" class="h4">UOM</a>
+                    <br>
+                    <strong class="h6 text muted"><i class="fa fa-clock"></i>{{creditTermArr.length}} credit terms created!</strong>
+                    <!-- <small class="block"><a href="#" class="">John Smith</a> <span class="label label-success">Circle</span></small>
+                    <small class="block m-t-sm">Sleek, intuitive, and powerful mobile-first front-end framework for faster and easier web development.</small> -->
+                  </div>
+                  
+                </article>
+                <div class="line pull-in"></div>
+                <article class="media">
+                  <div class="media-body">
+                    <a href="#" class="h4 text-success">Terms</a>
+                  </div>
+                </article>
+                <div class="line pull-in"></div>
+                <article class="media">
+                  <span class="pull-left thumb-md"><i class="fa fa-credit-card icon-4x text-muted"></i></span>
+                  <div class="media-body">
+                    <div class="pull-right media-xs text-center text-muted">
+                        <button class="btn btn-sm btn-success" ng-click="addCreditTerm()">Add</button>
+                        <button class="btn btn-sm btn-info" ng-click="editCreditTerm()">View</button>
+                    </div>
+                    <a href="#" class="h4">Credit Terms</a>
+                    <br>
+                    <strong class="h6 text muted"><i class="fa fa-clock"></i>{{creditTermArr.length}} credit terms created!</strong>
+                    <!-- <small class="block"><a href="#" class="">John Smith</a> <span class="label label-success">Circle</span></small>
+                    <small class="block m-t-sm">Sleek, intuitive, and powerful mobile-first front-end framework for faster and easier web development.</small> -->
+                  </div>
+                  
+                </article>
+                <div class="line pull-in"></div>
+                <article class="media">
+                  <span class="pull-left thumb-md"><i class="fa fa-truck icon-4x text-muted"></i></span>
+                  <div class="media-body">
+                    <div class="pull-right media-xs text-center text-muted">
+                        <button class="btn btn-sm btn-success" ng-click="addCreditTerm()">Add</button>
+                        <button class="btn btn-sm btn-info" ng-click="editCreditTerm()">View</button>
+                    </div>
+                    <a href="#" class="h4">Delivery Terms</a>
+                    <br>
+                    <strong class="h6 text muted"><i class="fa fa-clock"></i>{{creditTermArr.length}} credit terms created!</strong>
+                    <!-- <small class="block"><a href="#" class="">John Smith</a> <span class="label label-success">Circle</span></small>
+                    <small class="block m-t-sm">Sleek, intuitive, and powerful mobile-first front-end framework for faster and easier web development.</small> -->
+                  </div>
+                  
+                </article>
+                <div class="line pull-in"></div>
+                <article class="media">
+                  <span class="pull-left thumb-md"><i class="fa fa-credit-card icon-4x text-muted"></i></span>
+                  <div class="media-body">
+                    <div class="pull-right media-xs text-center text-muted">
+                        <button class="btn btn-sm btn-success" ng-click="addCreditTerm()">Add</button>
+                        <button class="btn btn-sm btn-info" ng-click="editCreditTerm()">View</button>
+                    </div>
+                    <a href="#" class="h4">Payment Terms</a>
+                    <br>
+                    <strong class="h6 text muted"><i class="fa fa-clock"></i>{{creditTermArr.length}} credit terms created!</strong>
+                    <!-- <small class="block"><a href="#" class="">John Smith</a> <span class="label label-success">Circle</span></small>
+                    <small class="block m-t-sm">Sleek, intuitive, and powerful mobile-first front-end framework for faster and easier web development.</small> -->
+                  </div>
+                  
+                </article>
+                <div class="line pull-in"></div>
+                <article class="media">
+                  <span class="pull-left thumb-md"><i class="fa fa-credit-card icon-4x text-muted"></i></span>
+                  <div class="media-body">
+                    <div class="pull-right media-xs text-center text-muted">
+                        <button class="btn btn-sm btn-success" ng-click="addCreditTerm()">Add</button>
+                        <button class="btn btn-sm btn-info" ng-click="editCreditTerm()">View</button>
+                    </div>
+                    <a href="#" class="h4">Delivery Methods</a>
+                    <br>
+                    <strong class="h6 text muted"><i class="fa fa-clock"></i>{{creditTermArr.length}} credit terms created!</strong>
+                    <!-- <small class="block"><a href="#" class="">John Smith</a> <span class="label label-success">Circle</span></small>
+                    <small class="block m-t-sm">Sleek, intuitive, and powerful mobile-first front-end framework for faster and easier web development.</small> -->
+                  </div>
+                  
+                </article>
+                <div class="line pull-in"></div>
+                <article class="media">
+                  <div class="media-body">
+                    <a href="#" class="h4 text-success">Supply</a>
+                  </div>
+                </article>
+                <div class="line pull-in"></div>
+                <article class="media">
+                  <span class="pull-left thumb-md"><i class="fa fa-building icon-4x text-muted"></i></span>
+                  <div class="media-body">
+                    <div class="pull-right media-xs text-center text-muted">
+                        <button class="btn btn-sm btn-success" ng-click="addCurrency()">Add</button>
+                        <button class="btn btn-sm btn-info" ng-click="editCurrency()">View</button>
+                    </div>
+                    <a href="#" class="h4">Warehouses</a>
+                    <br>
+                    <strong class="h6 text muted"><i class="fa fa-clock"></i>{{currencyArr.length}} currencies created!</strong>
+                    <!-- <small class="block"><a href="#" class="">John Smith</a> <span class="label label-success">Circle</span></small>
+                    <small class="block m-t-sm">Sleek, intuitive, and powerful mobile-first front-end framework for faster and easier web development.</small> -->
+                  </div>
+                  
+                </article>
+                <div class="line pull-in"></div>
+               <!--  <article class="media">
+                  <span class="pull-left thumb-sm"><i class="fa fa-user icon-2x text-muted"></i></span>                
+                  <div class="media-body">
+                    <div class="pull-right media-xs text-center text-muted">
+                      <strong class="h4">17</strong><br>
+                      <small class="label bg-light">feb</small>
+                    </div>
+                    <a href="#" class="h4">Bootstrap documents</a>
+                    <small class="block"><a href="#" class="">John Smith</a> <span class="label label-info">Friends</span></small>
+                    <small class="block m-t-sm">There are a few easy ways to quickly get started with Bootstrap, each one appealing to a different skill level and use case. Read through to see what suits your particular needs.</small>
+                  </div>
+                </article>
+                <div class="line pull-in"></div>
+                <article class="media">
+                  <div class="media-body">
+                    <div class="pull-right media-xs text-center text-muted">
+                      <strong class="h4">09</strong><br>
+                      <small class="label bg-light">jan</small>
+                    </div>
+                    <a href="#" class="h4 text-success">Mobile first html/css framework</a>
+                    <small class="block m-t-sm">Bootstrap, Ratchet</small>
+                  </div>
+                </article>
+              </section> -->
+
+            </portlet-item>            
+        </portlet>
+    </div>
+
+    <div class="col-sm-5 " >
+        <portlet ng-show="showCurrency">
+            <portlet-item title="Details ">
+                <div>
+                    <table class="table table-striped m-b-none text-sm">
+                      <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Currency</th>
+                            <th>Exchange Rate</th>
+                            <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="currency in currencyArr">                    
+                          <td>
+                            {{currency.currencyId}}
+                          </td>
+                          <td>{{currency.code}}</td>
+                          <td>{{currency.exchangeRate}} <span ng-hide="currency.exchangeRate">NIL</span></td>
+                          <td >
+                            <div class="btn-group">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-pencil"></i></a>
+                              <ul class="dropdown-menu pull-right">
+                                <li><a href="#">Edit</a></li>
+                                <li><a href="#">Delete</a></li>
+                                <!-- <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li> -->
+                              </ul>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+            </portlet-item>
+        </portlet>
+
+    </div>
+</div>

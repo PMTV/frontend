@@ -1,0 +1,62 @@
+﻿<section class="vbox flex" ng-controller="DebitNoteEditCtrl">
+    <div class="pull-left header hidden-print">
+        <p class="h4">
+            <a href="#/debitNotes">Debit Notes</a>
+        </p>
+    </div>
+    <header class="header bg-light lter b-b hidden-print" ng-include="'header.html?a=a'"></header>
+
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <aside class="aside-lg bg-light lter b-r main-aside hidden-print" ng-hide="customer==null" id="sidebar">
+                <section class="vbox bg-white" ng-include="'CRM/Customers/customer.aside.html?a=a'"></section>
+            </aside>
+            <!-- .aside -->
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient hidden-print">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="dker">
+                                <a data-target="#sidebar" class="btn btn-sm btn-default" data-toggle="class:hide">
+                                    <i class="fa fa-chevron-left text"></i>
+                                    <i class="fa fa-chevron-right text-active"></i>
+                                </a>
+                            </li>
+                            <li class="active"><a data-target="#item" data-toggle="tab">Debit Notes</a></li>
+                            <!-- <li ng-show="sales.salesOrderId"><a data-target="#tasksAndNotes" data-toggle="tab">Tasks & Notes</a></li> -->
+                        </ul>
+                        <div class="navbar-btn pull-right">
+                            <a href="#/debitNotes/new" class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content"> <!-- slim-scroll -->
+                            <div class="tab-pane active" id="item">
+                                <form name="myForm" novalidate data-validate="parsley">
+                                    <section ng-include="'ACC/AR/DebitNotes/DebitNoteEdit/debitNoteEditForm.html?a=a'"></section>
+                                </form>
+                            </div>
+                            <!-- <div class="tab-pane" id="tasksAndNotes" tasknote module="salesOrders"></div> -->
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+
+    <footer class="footer text-right bg-light lter b-t hidden-print">
+        <!-- <div class="pull-left m-t-sm">
+            <button type="submit" ng-show="sales.salesOrderId" class="btn btn-warning" ng-click="convertToDO()" ng-disabled="busy" btn-loading="converting" data-loading-text="Converting...">Convert to Delivery Order</button>
+            <button type="submit" ng-show="sales.salesOrderId" class="btn btn-primary" ng-click="convertToInvoice()" ng-disabled="busy" btn-loading="converting" data-loading-text="Converting...">Convert to Invoice</button>
+            <button type="submit" ng-show="sales.salesOrderId" class="btn btn-default" ng-click="duplicateSO()" btn-loading="Duplicating" data-loading-text="Duplicating...">Duplicate</button>
+        </div> -->
+        <button type="submit" ng-click="saveDebitNote()" class="btn btn-success" btn-loading="busy" data-loading-text="Saving...">Save</button>
+        <button type="submit" ng-show="debitNote.debitNoteId" class="btn btn-info" ng-click="debitNotePDF(debitNote.debitNoteId)" ng-disabled="busy">PDF</button>
+    </footer>
+</section>

@@ -1,0 +1,38 @@
+<form name="emailForm">
+    <div class="modal-header">
+        <h3>Send as Email</h3>
+    </div>
+    <div class="modal-body">
+        <!-- .nav-justified -->
+        <section class="panel">
+            <header class="panel-heading bg-light">Compose Email</header>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="customize">
+                            <div class="form-group">
+                                <label>Email To</label>
+                                <input name="email" type="email" class="form-control" placeholder="Separate Email Adddress with ','" ng-model="email.recipientEmail" ng-required="true" />
+
+                                <div class="error" ng-show="emailForm.email.$invalid || emailForm.email.$error.required">
+                                    <small class="error">Please enter a valid email</small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Subject</label>
+                                <input type="text" class="form-control" placeholder="Specify Email Subject" ng-model="email.mailSubject" ng-required="true" />
+                            </div>
+                            <div class="form-group">
+                                <label>Email Body</label>
+                                <text-angular ta-toolbar="[['h1','h2','h3','p'],['bold','italics'],['ul','ol','justifyLeft','justifyCenter','justifyRight']]" placeholder="Message" ng-model="email.body"></text-angular>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- / .nav-justified -->
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success btn-s-xs" ng-click="sendEmail(emailForm)" data-loading-text="Sending..." btn-loading="busyEmail">Send Email</button>
+        <button type="submit" class="btn btn-danger btn-s-xs" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

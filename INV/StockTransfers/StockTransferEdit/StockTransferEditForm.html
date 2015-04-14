@@ -1,0 +1,52 @@
+﻿<div class="row">
+    <debug-message>{{stockTransfer | json}}</debug-message>
+    <div class="col-sm-12">
+        <portlet>
+            <portlet-item title="Information">
+                <div>
+                    <div class="row" class="pull-in clearfix">
+                        <div class="form-group col-sm-6">
+                            <label>Product</label>
+                            <products-dropdown ng-model="item" ng-change="onChangedProduct($index, item)" ng-focus="true"></products-dropdown>
+                        </div>
+                        <div class="form-group col-sm-6" ng-if="stockTransfer.productId">
+                            <label>UOM</label>
+                            <uom-dropdown id="stockTransfer.productId" ng-model="stockTransfer.productUOMId"></uom-dropdown>
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="row" class="pull-in clearfix">
+                        <div class="form-group col-sm-6">
+                            <label>Qty Adjustment</label>
+                            <input type="text" class="form-control input-sm" ng-model="stockTransfer.qty" placeholder="Adjust Qty">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label>Unit Price</label>
+                            <input type="number" class="form-control input-sm" ng-model="stockTransfer.unitPrice" placeholder="Unit Price">
+                        </div>
+                    </div>
+                    <div class="row" class="pull-in clearfix">
+                        <div class="form-group col-sm-6">
+                            <label>From Warehouses</label>
+                            <warehouses-dropdown name="fromWarehouse" ng-required="true" ng-model="stockTransfer.warehouseFromId"></warehouses-dropdown>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label>To Warehouses</label>
+                            <warehouses-dropdown name="toWarehouse" ng-required="true" ng-model="stockTransfer.warehouseToId"></warehouses-dropdown>
+                        </div>
+                    </div>
+
+                    <footer class="panel-footer pos-rlt pull-in">
+                        <span class="arrow top"></span>
+                        <label>Description</label>
+
+                        <div class="pull-out">
+                            <textarea class="form-control no-border input-lg text-sm" type="text" placeholder="Write a Description" rows="6" ng-model="stockTransfer.description"></textarea>
+                        </div>
+                    </footer>
+                   
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+</div>

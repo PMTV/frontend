@@ -1,0 +1,96 @@
+﻿<section class="vbox flex" ng-controller="ProductEditCtrl">
+    <div class="pull-left header">
+        <p class="h4">
+            <a href="#/products">Products</a>
+        </p>
+    </div>
+
+    <header ng-include="'header.html?a=a'" class="header bg-light lter b-b"></header>
+
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <aside class="aside-lg bg-light lter b-r main-aside" ng-hide="product.productId == undefined" id="sidebar">
+                <section class="vbox bg-white" ng-include="'PRD/Products/product.aside.html?a=a'"></section>
+            </aside>
+            <!-- .aside -->
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="dker">
+                                <a data-target="#sidebar" class="btn btn-sm btn-default" data-toggle="class:hide">
+                                    <i class="fa fa-chevron-left text"></i>
+                                    <i class="fa fa-chevron-right text-active"></i>
+                                </a>
+                            </li>
+                            <li class="active"><a data-target="#list" data-toggle="tab">Info</a></li>
+                            <li><a data-target="#multiPrice" data-toggle="tab">MultiPrice</a></li>
+                            <li><a data-target="#quantityPrice" data-toggle="tab">Multi Price For Quantity</a></li>
+                            <!--<li><a data-target="#category" data-toggle="tab">Category</a></li>-->
+                            <li ng-hide="product.productId == undefined"><a data-target="#tasksAndNotes" data-toggle="tab">Tasks & Notes</a></li>
+                            <!--<li><a data-target="#media" data-toggle="tab">Media</a></li>-->
+                            <!--<li><a data-target="#review" data-toggle="tab">Reviews</a></li>-->
+                        </ul>
+                        <div class="navbar-btn pull-right">
+                            <a href="#/products/new" class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <button class="btn btn-white" tooltip="Refresh" tooltip-placement="bottom" ng-click="reload();">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content slim-scroll">
+                            <div class="tab-pane active" id="list">
+                                <section class="tab-pane" id="validation">
+                                    <form ng-submit="saveProduct()" name="myForm" novalidate>
+                                        <section ng-include="'PRD/Products/ProductEdit/productEditForm.html?a=aa'"></section>
+                                        <button type="submit" class="hide" />
+                                    </form>
+                                </section>
+
+                            </div>
+
+                            <!--<div class="tab-pane" id="media" ng-controller="MediaListCtrl">
+                                <section ng-include="'PRD/Products/ProductEdit/productMediaList.partial.html'"></section>
+                            </div>-->
+
+                            <!--<div class="tab-pane" id="review" ng-controller="ReviewListCtrl">
+                                <section ng-include="'PRD/Products/ProductDetail/productReviewList.partial.html'"></section>
+                            </div>-->
+
+                            <!--<div class="tab-pane" id="category" ng-controller="ProductCategoryCtrl">
+                                <section ng-include="'PRD/Products/ProductEdit/productCategoryList.partial.html?a=a'"></section>
+                            </div>-->
+
+                            <div class="tab-pane" id="tasksAndNotes" tasknote module="products"></div>
+                            <div class="tab-pane" id="multiPrice" data-ng-controller="MultiPriceCtrl">
+                                <section data-ng-include="'PRD/Products/ProductEdit/productMultiPrice.partial.html'" class="ng-scope"></section>
+                            </div>
+                            <div class="tab-pane ng-scope" id="quantityPrice" data-ng-controller="QuantityPriceCtrl">
+                                <section data-ng-include="'PRD/Products/ProductEdit/productQuantityPrice.partial.html'" class="ng-scope"></section>
+                            </div>
+                        </div>
+                    </section>
+
+                </section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+
+    <footer class="footer text-right bg-light lter b-t">
+        <div class="pull-left btn-group dropup m-r-xs" ng-show="product.productId">
+            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+                <span class="dropdown-label">Actions</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-select text-left">
+                <li><a href="" ng-click="openAuditLog('products', product.productId)" ng-disabled="busy">View Audit Log</a></li>
+            </ul>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-s-xs" ng-click="saveProduct()" btn-loading="busy" data-loading-text="Saving...">Save</button>
+    </footer>
+</section>

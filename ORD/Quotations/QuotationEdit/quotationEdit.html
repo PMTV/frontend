@@ -1,0 +1,78 @@
+﻿<section class="vbox flex">
+    <div class="pull-left header hidden-print">
+        <p class="h4">Quotations</p>
+    </div>
+
+    <header class="header bg-light lter b-b hidden-print" ng-include="'header.html?a=a'"></header>
+
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <aside class="aside-xl bg-light lter b-r main-aside hidden-print" ng-hide="customer==null" id="sidebar">
+                <section class="vbox bg-white" ng-include="'CRM/Customers/customer.aside.html?a=aa'"></section>
+            </aside>
+            <!-- .aside -->
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient hidden-print">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="dker">
+                                <a data-target="#sidebar" class="btn btn-sm btn-default" data-toggle="class:hide">
+                                    <i class="fa fa-chevron-left text"></i>
+                                    <i class="fa fa-chevron-right text-active"></i>
+                                </a>
+                            </li>
+                            <li class="active"><a data-target="#item" data-toggle="tab">Quotation</a></li>
+                            <li ng-show="quotation.quotationId"><a data-target="#tasksAndNotes" data-toggle="tab">Tasks & Notes</a></li>
+                        </ul>
+                        <div class="navbar-btn pull-right">
+                            <a href="#/quotations/new" class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content">
+                            <!-- slim-scroll -->
+                            <div class="tab-pane active" id="item">
+                                <form name="myForm" novalidate> <!-- ng-submit="saveQuotation()" -->
+                                    <section ng-include="'ORD/Quotations/QuotationEdit/quotationEditForm.html?a=aaaaaaaa'"></section>
+                                    <button type="submit" class="hide" />
+                                </form>
+                            </div>
+
+                            <div class="tab-pane" id="tasksAndNotes" tasknote module="quotations"></div>
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+
+    <footer class="footer text-right bg-light lter b-t hidden-print">
+
+        <div class="pull-left btn-group dropup m-r-xs" ng-show="quotation.quotationId">
+            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+                <span class="dropdown-label">Actions</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-select text-left">
+                <li><a ng-click="convertQuotation()" class="btn-link" ng-disabled="busy">Convert to Sales Order</a></li>
+                <li><a ng-click="copyQuotation()" class="btn-link" ng-disabled="copying">Copy</a></li>
+                <li><a href="" ng-click="openAuditLog('quotations', quotation.quotationId)" ng-disabled="busy">View Audit Log</a></li>
+                <li><a ng-click="cancelQuotation(quotation.quotationId)" class="btn-link btn-danger" ng-disabled="cancelling">Cancel Quotation</a></li>
+            </ul>
+        </div>
+
+        <div class="pull-left m-t-sm">
+            <button type="submit" ng-show="quotation.quotationId" class="btn btn-info" ng-click="openQuotationPDF(quotation)" target="_blank">PDF</button>
+        </div>
+
+        <button type="submit" ng-show="quotation.quotationStatusId < 3" class="btn btn-info" ng-click="sendApproval(quotation.quotationId)" ng-disabled="approving">Send for Approval</button>
+        <button type="submit" has-permission="PURAdmin" ng-show="quotation.quotationStatusId == 3 && quotation.settings.isApprovalRequired && !quotation.settings.isApproved" class="btn btn-info" ng-click="approve(quotation.quotationId)" ng-disabled="approving">Approve</button>
+        <button type="submit" class="btn btn-success" ng-click="saveQuotation()" btn-loading="busy" data-loading-text="Saving...">Save</button>
+    </footer>
+</section>

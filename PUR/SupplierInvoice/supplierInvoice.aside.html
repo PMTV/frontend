@@ -1,0 +1,83 @@
+<section class="scrollable" ng-controller="SupplierInvoiceEditCtrl">
+    <header class="header bg-white">
+        <p>Supplier Information <span class="label label-lg bg-info"></span></p>
+    </header>
+
+    <section class="">
+        <div class="panel-body">
+            <div class="clearfix text-center">
+                <div class="inline">
+                    <div class="thumb-lg">
+                        <img src="assets/img/avatar_default.jpg" class="img-circle">
+                    </div>
+                    <div class="clear">
+                        <div class="m-t-xs m-b-xs"><span class="h3">First Name + Last Name</span></div>
+                        <small class="text-muted">Company Name</small><br />
+                        <small class="text-muted"><i class="fa fa-map-marker" ng-show="customer.addressList.length > 0"></i> Country Name</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="panel-footer bg-light lter text-center">
+            <div class="row pull-out">
+                <div class="col-xs-4">
+                    <div class="padder-v">
+                        <div class="m-b-xs h3 block">Count Task</div>
+                        <small class="text-muted">Tasks</small>
+                    </div>
+                </div>
+                <div class="col-xs-4 lt">
+                    <div class="padder-v">
+                        <div class="m-b-xs h3 block">Count Notes</div>
+                        <small class="text-muted">Notes</small>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="padder-v">
+                        <div class="m-b-xs h3 block">{{customer.stats.countDocs}}</div>
+                        <small class="text-muted">Docs</small>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </section>
+
+    <section>
+        <div class="wrapper m-t">
+            <div class="list-group no-radius alt">
+                <a class="list-group-item" href="#">
+                    <span class="badge bg-success">Quotation list</span>
+                    <i class="fa fa-book icon-muted"></i>
+                    Quotations
+                </a>
+                <a class="list-group-item" href="#">
+                    <span class="badge bg-info">Count Sale order</span>
+                    <i class="fa fa-book icon-muted"></i>
+                    Sales
+                </a>
+            </div>
+
+            <div class="btn-group btn-group-justified m-b">
+                <a class="btn btn-success btn-rounded" href="mailto: {{customer.email}}" ng-class="{'disabled' : customer.email == null}">
+                    <i class="fa fa-eye"></i> Email
+                </a>
+                <a class="btn btn-info btn-rounded" href="{{customer.contactMobile}}" ng-class="{'disabled' : customer.contactMobile == null}">
+                    <i class="fa fa-comment-alt"></i>Contact
+                </a>
+            </div>
+            <div>
+                <small class="text-uc text-xs text-muted">about</small> <i class="fa fa-spinner fa-spin" ng-show="saveInfoInprogress"></i>
+                <p ng-show="showEditAbout"><textarea ng-model="customer.description" name="description" class="form-control" ng-blur="showEditAbout=false;"></textarea></p>
+                <p ng-show="!showEditAbout" class="text-wrap">{{customer.description}} <a ng-click="showEditAbout=true;" class="btn-link"><i class="fa fa-pencil"></i></a></p>
+                <div class="line"></div>
+                <small class="text-uc text-xs text-muted">connection</small>
+                <p class="m-t-sm">
+                    <a href="#" class="btn btn-rounded btn-twitter btn-icon"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="btn btn-rounded btn-facebook btn-icon"><i class="fa fa-facebook"></i></a>
+                    <a href="#" class="btn btn-rounded btn-gplus btn-icon"><i class="fa fa-google-plus"></i></a>
+                </p>
+            </div>
+        </div>
+    </section>
+</section>

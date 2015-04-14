@@ -1,0 +1,270 @@
+﻿<div class="row hidden-print">
+    <debug-message>{{invoice | json}}</debug-message>
+    <div ng-class="{'col-sm-6' : newStart, 'col-sm-12' : !newStart}">
+        <portlet>
+            <portlet-item title="Information">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" >
+                            <label>Customer</label><br />
+                            <customers-dropdown name="customer" ng-required="true" ng-model="invoice.customerId" data-ng-class="{ 'input-error-show' : myForm.customer.$invalid && submitted }"
+                                                ng-change="onChangedCustomer(invoice.customerId)" class="ui-select2" >
+                            </customers-dropdown>
+                            <div class="error" ng-show="(myForm.customer.$dirty && myForm.customer.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.customer.$error.required">Please select a Customer</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Invoice Date</label>
+                            <input type="text" ng-model="invoice.invoiceDate" class="form-control input-sm" date-picker placeholder="Date">
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Reference Number</label><br />
+                            <input type="text" class="form-control input-sm" ng-model="invoice.referenceNumber" placeholder="Reference Number">
+                        </div>
+
+                        <div class="col-sm-6" ng-show="editSaleOrderNumber">
+                            <label>Sale Order Number</label><br />
+                            <input type="text" readonly disabled="disabled" class="form-control input-sm" ng-model="editSaleOrderNumber" placeholder="Sale Order Number">
+                        </div>
+                    </div>
+
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+    <div class="col-sm-6" ng-if="newStart">
+        <portlet>
+            <portlet-item title="Details">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                            <div class="col-sm-12" >
+                                <label>Sales Order</label><br />
+                                <select ui-select2 class="ui-select2" name="salesOrder" data-ng-model="invoice.salesOrderId" ng-required="true"
+                                        data-ng-class="{ 'input-error-show' : myForm.salesOrder.$invalid && submitted }" ng-change="onChangedSalesOrder(invoice.salesOrderId)">
+                                    <option value="">Please select</option>
+                                    <option ng-repeat="s in invoice.salesOrdersList" value="{{s.salesOrderId}}">Sales Order {{s.salesOrderNumber}}</option>
+                                </select>
+
+                                <div class="error" ng-show="(myForm.salesOrder.$dirty && myForm.salesOrder.$invalid) || submitted">
+                                    <small class="error" ng-show="myForm.salesOrder.$error.required">Please select a Sales Order</small>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" >
+                            <label>Total Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input type="number" only-number-float class="form-control input-sm" placeholder="Total Amount" ng-model="invoice.totalAmount">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+</div>
+
+<section class="panel hidden-print" ng-show="invoiceDetailsListTemp && newStart">
+    <form method="post" name="itemsForm" novalidate>
+        <header class="panel-heading font-bold" >
+            Items
+        </header>
+        <div class="panel-body table-responsive" ng-show="invoiceDetailsListTemp">
+            <table class="table table-condensed text-sm m-b-none">
+                <thead>
+                <tr>
+                    <th width="20px">#</th>
+                    <th>Sales Order</th>
+                    <th>Product Name</th>
+                    <th>Qty</th>
+                    <th width="40px">Price</th>
+                    <th width="40px"></th>
+                    <th width="40px">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in invoice.invoiceDetailsList" ng-form="itemForm">
+                        <td>{{$index+1}}</td>
+                        <td>
+                            {{item.salesOrder.salesOrderNumber}}
+                        </td>
+                        <td class="">
+                            {{item.productName}}
+                        </td>
+                        <td class="">
+                            {{item.qty}}
+                        </td>
+                        <td class="">
+                            {{item.unitPrice}}
+                        </td>
+                        <td class="">
+                            {{item.unitPrice * item.qty | currency}}
+                        </td>
+                        <td class="">
+                            <input type="checkbox" ng-model="item.isSelected" class="btn-link" data-ng-click="isSelectInvoicesDetails($index, item, $event)" />
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th><div>{{totalQuantity}}</div></th>
+                        <th></th>
+                        <th>{{totalPrice | currency}}</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-show="freight">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Delivery Charges</th>
+                        <th>{{freight | currency}}</th>
+                    </tr>
+                    <tr ng-show="additionalCharges">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Additional Charges</th>
+                        <th>{{additionalCharges | currency}}</th>
+                    </tr>
+                    <tr ng-show="totalDiscount">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Discount</th>
+                        <th>{{totalDiscount | currency}}</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>
+                            <div class="input-group m-t" ng-show="isTaxable">
+                                <span class="input-group-addon">GST(%)</span>
+                                <input readonly="true" type="text" class="form-control input-sm" style="width:50px;" ng-model="tax" placeholder="GST">
+                            </div>
+                        </th>
+                        <th><label class="m-t-lg" ng-show="isTaxable">{{getTotalGST() | currency}}</label></th>
+                        <th></th>
+                    </tr>
+                    <tr class="warning">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Grand Total</th>
+                        <th></th>
+                        <th>{{getTotalGrand() | currency}}</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </form>
+</section>
+
+<section class="panel hidden-print" ng-hide="newStart">
+    <form method="post" name="itemsForm" novalidate>
+        <header class="panel-heading font-bold">
+            <span class="h5">Items</span>
+        </header>
+        <div class="panel-body table-responsive" ng-show="invoice.salesOrderId || invoice.invoiceDetailsList">
+            <table class="table table-condensed text-sm m-b-none">
+                <thead>
+                    <tr>
+                        <th width="5"></th>
+                        <th width="20">#</th>
+                        <th>Product Name</th>
+                        <th width="110">Unit Price</th>
+                        <th width="110">Quantity</th>
+                        <th width="110">Total</th>
+                    </tr>
+                </thead>
+                <tbody ng-form="itemForm">
+                    <tr ng-repeat="item in invoice.invoiceDetailsList">
+                        <td></td>
+                        <td>{{$index+1}}</td>
+                        <td class="">
+                            {{item.salesOrderDetails.productName}}
+                        </td>
+                        <td class="">
+                            {{item.salesOrderDetails.unitPrice | currency}}
+                        </td>
+                        <td class="">
+                            {{item.qty}}
+                        </td>
+                        <td class="">
+                            {{item.salesOrderDetails.unitPrice * item.qty | currency}}
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot class="b-t">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th><div>{{totalQuantity | number}}</div></th>
+                        <th>${{totalPrice | number:2}}</th>
+                    </tr>
+                    <tr ng-show="freight">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Delivery Charges</th>
+                        <th>{{freight | currency}}</th>
+                    </tr>
+                    <tr ng-show="additionalCharges">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Additional Charges</th>
+                        <th>{{additionalCharges | currency}}</th>
+                    </tr>
+                    <tr ng-show="totalDiscount">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Discount</th>
+                        <th>${{totalDiscount | number:2}}</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>
+                            <div class="input-group m-t" ng-show="isTaxable">
+                                <span class="input-group-addon">GST (%)</span>
+                                <input readOnly="true" type="text" class="form-control input-sm" style="width:50px;" ng-model="tax" placeholder="GST">
+                            </div>
+                        </th>
+                        <th><label class="m-t-lg" ng-show="isTaxable">${{totalGST | number :2}}</label></th>
+                    </tr>
+                    <tr class="warning">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Grand Total</th>
+                        <th>{{totalGrand | currency}}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </form>
+</section>

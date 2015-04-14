@@ -1,0 +1,36 @@
+﻿<section class="scrollable wrapper">
+    <div class="modal-header">
+        <h3>Upload Excel</h3>
+    </div>
+    <div class="modal-body ">
+        <div class="col-sm-12">
+            <portlet-item title="Warning">
+                <div class="form-group pull-in clearfix">
+                    <div class="col-sm-12">
+                        <div class="alert alert-warning">
+                            <h5>Check before import!</h5>
+                            <p> <i class="fa fa-check"></i> What format is your link? We can import CSV or Excel files from most email apps. (<a>Learn More</a>)</p>
+                            <p> <i class="fa fa-check"></i> <a>Download a sample file</a> to see what we can import. (<a>Learn More</a>)</p>
+                        </div>
+                    </div>
+                </div>
+            </portlet-item>
+
+            <portlet-item title="Upload your file">
+                <div class="col-sm-12">
+                    <input type="file" ng-file-select="onFileSelect($files)">
+                    <br />
+                    <div ng-show="dropSupported" class="drop-box" ng-file-drop="onFileSelect($files);" ng-file-drop-available="dropSupported=true">or drop files here</div>
+                    <div ng-show="!dropSupported">HTML5 Drop File is not supported on this browser</div>
+                    <br>
+                    <div class="progress progress-xs progress-striped">
+                        <div class="progress-bar progress-bar-success" data-toggle="tooltip" data-original-title="10%" style="width: {{progress}}%"></div>
+                    </div>
+                </div>
+            </portlet-item>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" data-ng-click="uploadNext()" ng-show="uploadFileName">Next </button>
+    </div>
+</section>

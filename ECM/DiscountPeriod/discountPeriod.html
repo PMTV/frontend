@@ -1,0 +1,75 @@
+<section class="vbox flex">
+    <div class="pull-left header">
+        <p class="h4">
+            <a href="#/discount-period">Discount Period</a>
+        </p>
+    </div>
+
+    <header class="header bg-light lter bg-gradient b-b" ng-include="'header.html?a=a'"></header>
+
+    <!-- .aside -->
+    <div class="bg-white">
+        <section class="vbox">
+            <header class="header bg-light bg-gradient">
+                <ul class="nav nav-tabs nav-white pull-left">
+                    <li class="active"><a data-target="#list" data-toggle="tab">Discount For 24H</a></li>
+                </ul>
+                <div class="navbar-btn pull-right">
+                    <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            </header>
+        </section>
+    </div>
+    <!-- /.aside -->
+
+    <section class="bg-white">
+        <section class="hbox stretch">
+            <section class="vbox">
+                <div class="scrollable">
+                    <section class="scrollable">
+                        <div class="tab-content">
+
+                            <div class="clearfix m bg-light padder-v">
+                                <form name="myForm" novalidate>
+
+                                    <div class="col-sm-4" ng-class="{ 'has-error' : myForm.percent.$invalid && submitted }">
+                                        <label>Discount Percentage</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa">(%)</i></span>
+                                            <input class="form-control" max="100" min="0" data-ng-model="discount.percengtage" ng-required="true" type="number" placeholder="Discount percentage..." name="percent">
+                                        </div>
+                                        <div class="error" data-ng-show="(myForm.percent.$dirty && myForm.percent.$invalid) || submitted">
+                                            <small class="error" data-ng-show="myForm.percent.$error.required">Required</small>
+                                            <small class="error" data-ng-show="myForm.percent.$error.max && !myForm.percent.$error.required">Maximum is 100</small>
+                                            <small class="error" data-ng-show="myForm.percent.$error.min && !myForm.percent.$error.required">Minimum is 0</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2 text-center m-t-xs">
+                                        <label>Active</label><br>
+                                        <label class="switch ">
+                                            <input type="checkbox" ng-change="isDiscountFor24H = !isDiscountFor24H" ng-model="discount.isDiscountFor24H">
+                                            <span></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-sm-1">
+                                        <label style="opacity: 0">Action</label><br>
+                                        <button class="btn btn-success btn-sm m-t-xs form-control" ng-click="save(discount)">Save</button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </section>
+    </section>
+    <footer class="footer bg-white-only b-t">
+    </footer>
+</section>

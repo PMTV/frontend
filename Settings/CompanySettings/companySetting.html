@@ -1,0 +1,121 @@
+<section class="vbox flex">
+    <header class="header bg-light lter bg-gradient b-b">
+        <p class="h4">Settings</p>
+
+        <div class="pull-right ">
+            <div class="collapse navbar-collapse pull-in">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden-xs">
+                        <a class="dropdown-toggle dk" data-toggle="dropdown">
+                            <i class="fa fa-bell"></i>
+                            <span class="badge up bg-danger m-l-n-sm">2</span>
+                        </a>
+                        <section class="dropdown-menu animated fadeInUp input-s-lg">
+                            <section class="panel bg-white">
+                                <header class="panel-heading">
+                                    <strong>You have <span class="count-n">2</span> notifications</strong>
+                                </header>
+                                <div class="list-group">
+                                    <a href="#" class="media list-group-item">
+                                        <span class="pull-left thumb-sm">
+                                            <img src="assets/img/avatar_default.jpg" alt="John said" class="img-circle">
+                                        </span>
+                                        <span class="media-body block m-b-none">
+                                            Use awesome animate.css<br>
+                                            <small class="text-muted">28 Aug 13</small>
+                                        </span>
+                                    </a>
+                                    <a href="#" class="media list-group-item">
+                                        <span class="media-body block m-b-none">
+                                            1.0 initial released<br>
+                                            <small class="text-muted">27 Aug 13</small>
+                                        </span>
+                                    </a>
+                                </div>
+                                <footer class="panel-footer text-sm">
+                                    <a href="#" class="pull-right"><i class="fa fa-cog"></i></a>
+                                    <a href="#">See all the notifications</a>
+                                </footer>
+                            </section>
+                        </section>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle " data-toggle="dropdown">
+                            <span class="thumb-sm avatar pull-left m-t-n-xs m-r-xs">
+                                <img src="assets/img/avatar_default.jpg" alt="" class="">
+                            </span>
+                            {{user.userName}} <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInLeft">
+                            <li>
+                                <a href="setting.html#/user">Settings</a>
+                            </li>
+                            <li>
+                                <a href="#/users">Users</a>
+                            </li>
+                            <li>
+                                <a href="profile.html">Profile</a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="badge bg-danger pull-right">3</span>
+                                    Notifications
+                                </a>
+                            </li>
+                            <li>
+                                <a href="docs.html">Help</a>
+                            </li>
+                            <li>
+                                <a ng-click="logout()" class="btn-link">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+                
+
+    </header>
+
+    <div class="bg-white">
+        <section class="vbox">
+            <header class="header bg-light bg-gradient">
+                <ul class="nav nav-tabs nav-white pull-left">
+                    <li class="active"><a data-target="#userList" data-toggle="tab">General Settings</a></li>
+                </ul>
+
+                <div class="navbar-btn pull-right">
+                    <a href="#/users/new" class="btn btn-success">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            </header>
+        </section>
+    </div>
+    <section class="bg-white">
+        <section class="hbox stretch">
+            <section class="vbox">
+                <div class="scrollable">
+                    <section class="scrollable wrapper">
+                        <div class="tab-content" slim-scroll>
+                            <div class="tab-pane active" id="list">
+                                <form name="userForm" novalidate data-validate="parsley" ng-controller="CompanySettingCtrl">
+                                    <section ng-include="'Settings/CompanySettings/companySettingEditForm.html?a=a'"></section>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+
+            <!-- /.aside -->
+        </section>
+        <footer class="footer bg-white-only b-t">
+       <a class="btn btn-danger btn-sm pull-right" href="index.html">Done</a>
+    </footer>
+    </section>
+    
+</section>

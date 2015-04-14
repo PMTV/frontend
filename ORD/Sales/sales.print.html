@@ -1,0 +1,184 @@
+<debug-message class="hidden-print">{{sales | json}}</debug-message>
+
+<div class="row sales">
+    <div class="col-sm-12">
+        <section class="panel">
+            <header class="header b-b hidden-print">
+                <button href="#" class="btn btn-sm btn-info pull-right" onclick="window.print();">Print</button>
+                <p>Sales Order {{sales.salesOrderNumber}}</p>
+            </header>
+            <div id="render page">
+                <section class="wrapper subpage">
+                    <div class="row letterhead">
+                        <div class="col-xs-6">
+                            <section class="no-borders hbox m-b-lg">
+                                <aside class="r-l text-left v-middle">
+                                    <div class="logo">
+                                        <img src="assets/img/logo.print.png" height="80">
+                                    </div>
+                                </aside>
+                            </section>
+                        </div>
+                        <div class="col-xs-6 pull-right text-right">
+                            <p class="h4"><strong>Tax Invoice</strong></p>
+                            <h6><small>Co. Reg No: 190343434 | GST Reg No: 213123-1223122</small></h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <!--<p>Bill to: {{sales.billName}}</p>-->
+                            <section class="panel">
+                                <table class="table table-striped m-b-none text-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td class="b-r" width="150">
+                                                <p>
+                                                    {{sales.billAddress}} <br>
+                                                    {{sales.billPostalCode}}<br>
+                                                    {{sales.billCity}}
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="b-r">
+                                                Attn: {{sales.billName}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+                        <div class="col-xs-6">
+                            <section class="panel">
+                                <table class="table table-striped m-b-none text-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td class="b-r" width="150">
+                                                Sales Date:
+                                            </td>
+                                            <td width="300">
+                                                {{sales.dateCreated | date}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="b-r">
+                                                Sales No:
+                                            </td>
+                                            <td>
+                                                {{sales.salesOrderNumber}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="b-r">
+                                                Terms:
+                                            </td>
+                                            <td>
+                                                {{sales.creditTerm.code}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="b-r">
+                                                Contact:
+                                            </td>
+                                            <td>
+                                                {{(sales.customer.contactOffice || sales.customer.contactMobile) || '-'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="b-r">
+                                                Sales Rep:
+                                            </td>
+                                            <td>
+                                                {{}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="b-r">
+                                                P.O No:
+                                            </td>
+                                            <td>
+                                                {{}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="60">#</th>
+                                <th>DESCRIPTION</th>
+                                <th width="100">QUANTITY</th>
+                                <th width="110">UNIT PRICE</th>
+                                <th width="110">TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="item in sales.salesOrderDetailsList">
+                            <tr>
+                                <td>{{$index+1}}</td>
+                                <td>
+                                    {{item.productName}}
+                                    <ul class="form-group" ng-show="item.salesOrderDetailsComponentsList">
+                                        <li ng-repeat="item2 in item.salesOrderDetailsComponentsList">{{item2.productId}}</li>
+                                    </ul>
+                                </td>
+                                <td>{{item.qty}}</td>
+                                <td>$ {{item.unitPrice}}</td>
+                                <td>$ {{item.unitPrice * item.qty}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th colspan="2">{{getTotalQuantity()}}</th>
+                                <th></th>
+                            </tr>
+                            <tr ng-show="sales.freight">
+                                <th></th>
+                                <th></th>
+                                <th colspan="2">Delivery Charges</th>
+                                <th>{{sales.freight | currency}}</th>
+                            </tr>
+                            <tr ng-show="sales.additionalCharges">
+                                <th></th>
+                                <th></th>
+                                <th colspan="2">Additional Charges</th>
+                                <th>{{sales.additionalCharges | currency}}</th>
+                            </tr>
+                            <tr ng-show="sales.discountAmount && sales.discountType">
+                                <th></th>
+                                <th></th>
+                                <th colspan="2">Discount</th>
+                                <th>{{sales.discountAmount}} {{sales.discountType == 1 ? '%' : ''}}</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th colspan="2">GST (7%)</th>
+                                <th>{{getTotalPrice() * 0.07 | currency}}</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th colspan="2">Grand Total</th>
+                                <th>{{(getTotalPrice()) * 1.07 | currency}}</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div class="row print_footer">
+                        <div class="col-sm-4 pull-left text-left">
+                            <p><strong>E & O E</strong></p>
+                            <br><br>
+                            <hr width="200px" class="text-left pull-left"><br>
+                            <p class="text-left pull-left"></p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </section>
+    </div>
+</div>

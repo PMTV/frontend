@@ -1,0 +1,89 @@
+<div class="row">
+    <debug-message>{{user | json}}</debug-message>
+    <div class="col-sm-7" slimscroll>
+        <section class="panel-body slim-scroll" data-height="230px">
+            <article class="media padder-b b-b" ng-repeat="user in userList">
+                <span class="pull-left thumb-sm"><img src="assets/img/avatar.jpg" class="img-circle"></span>
+                <div class="media-body">
+                    <div class="pull-right media-xs text-center text-muted">
+                        <button class="btn btn-sm btn-info" ng-click="editUser(user,index)">Edit</button>
+                    </div>
+                    <a href="#" class="h4">{{user.userName}}</a>
+                    <br>
+                    <strong class="h6 text muted"><i class="fa fa-clock"></i> Created on {{user.dateCreated | date}}</strong>
+                </div>
+            </article>
+        </section>
+        <!--<footer>
+            <div class="text-center">
+                <ul class="pagination pagination-sm">
+                    <li><a href="" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1"><i class="fa fa-chevron-left"></i></a></li>
+                    <li><a href="" ng-disabled="currentPage >= userList.length/pageSize - 1" ng-click="currentPage=currentPage+1"><i class="fa fa-chevron-right"></i></a></li>
+                    <li><a href="">{{currentPage+1}}/{{numberOfPages()}}</a></li>
+                </ul>
+            </div>
+        </footer>-->
+    </div>
+    <div class="col-sm-5">
+        <portlet ng-show="showInfo">
+            <portlet-item title="User Details">
+                <div class="panel-body">
+                    <div class="clearfix text-center m-t">
+                        <div class="inline">
+                            <div class="easypiechart" data-percent="75" data-line-width="5" data-loop="false" data-bar-color="#92cf5c" data-track-color="#f5f5f5" data-scale-color="false" data-size="150">
+                                <div class="thumb-lg">
+                                    <img src="assets/img/avatar.jpg" class="img-circle">
+                                </div>
+                            </div>
+                            <small class="text-muted m-b">{{user.employeeId}}</small>
+                        </div>
+                    </div>
+                    <form role="form">
+                        <div class="form-group">
+                            <label>User Name</label>
+                            <input type="text" class="form-control" ng-model="user.userName" placeholder="Enter user name">
+                        </div>
+                        <div class="form-group">
+                            <label>Email address</label>
+                            <input type="email" class="form-control" ng-model="user.email" placeholder="Enter email address">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirmed Email address</label>
+                            <input type="email" class="form-control" ng-model="user.emailConfirmed" placeholder="Re-enter email address">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Phone number</label>
+                                    <input type="number" class="form-control" ng-model="user.phoneNumber" placeholder="Enter phone number">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Phone number</label>
+                                    <input type="number" class="form-control" ng-model="user.phoneNumberConfirmed" placeholder="Re-enter phone number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control" ng-model="user.email" placeholder="Password">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control" ng-model="user.email" placeholder="Re-enter password">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-success" ng-click="updateUser(user)">Update</button>
+                        <button type="submit" class="btn btn-sm btn-danger" ng-click="deleteUser(index, user)">Delete</button>
+                    </form>
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+</div>

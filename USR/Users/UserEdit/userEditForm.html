@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col-sm-7">
+        <portlet>
+            <portlet-item title="Information">
+                <div >
+                    <label>Employee</label>
+                    <div class="form-group pull-in clearfix" ng-class="{ 'has-error' : userForm.employeeId.$invalid && submitted }">
+                        <div class="col-sm-12" >
+                            <employees-dropdown name="employeeId" placeholder="Employee" data-ng-model="user.employeeId" ng-required="!checkEmployee"
+                                                ng-change="onSelectEmployee(user.employeeId)" data-ng-disabled="checkEmployee"></employees-dropdown>
+                            <div class="error" data-ng-show="(userForm.employeeId.$dirty && userForm.employeeId.$invalid) || submitted">
+                                <small class="error" data-ng-show="userForm.employeeId.$error.required">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6 pull-in">
+                            <div class="col-sm-12" ng-class="{ 'has-error' : userForm.firstName.$invalid && submitted }" >
+                                <label>First Name</label>
+                                <div class="input-group">
+                                    <input name="firstName" type="text" class="form-control input-sm" placeholder="First name..." ng-model="user.firstName" ng-required="true">
+                                    <div class="error" data-ng-show="(userForm.firstName.$dirty && userForm.firstName.$invalid) || submitted">
+                                        <small class="error" data-ng-show="userForm.firstName.$error.required">Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="col-sm-12" ng-class="{ 'has-error' : userForm.lastName.$invalid && submitted }" >
+                                <label>Last Name</label>
+                                <div class="input-group">
+                                    <input name="lastName" type="text" class="form-control input-sm" placeholder="Last name..." ng-model="user.lastName" ng-required="true">
+                                    <div class="error" data-ng-show="(userForm.lastName.$dirty && userForm.lastName.$invalid) || submitted">
+                                        <small class="error" data-ng-show="userForm.lastName.$error.required">Required</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <label>Username</label>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12" ng-class="{ 'has-error' : userForm.userName.$invalid && submitted }" >
+                            <input name="userName" type="text" class="form-control input-sm" placeholder="UserName" ng-required="true" ng-model="user.userName" data-ng-disabled="checkEdit" >
+                            <div class="error" data-ng-show="(userForm.userName.$dirty && userForm.userName.$invalid) || submitted">
+                                <small class="error" data-ng-show="userForm.userName.$error.required">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <div ng-class="{ 'has-error' : userForm.password.$invalid && submitted }" >
+                                <label>Password</label>
+                                <input name="password" type="password" class="form-control input-sm" ng-model="user.password" data-ng-required="checkChangePass" value="">
+                                <div class="error" data-ng-show="(userForm.password.$dirty && userForm.password.$invalid) || submitted">
+                                    <small class="error" data-ng-show="userForm.password.$error.required">Required</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" data-ng-if="checkChangePass">
+                            <div ng-class="{ 'has-error' : userForm.retypePassword.$invalid && submitted }" >
+                                <label>Confirm Password</label>
+                                <input name="retypePassword" type="password" class="form-control input-sm" data-ng-model="user.retypePassword" data-pw-check="user.password" value="">
+                                <div class="error" data-ng-show="(userForm.retypePassword.$dirty && userForm.retypePassword.$invalid) || submitted">
+                                    <small class="error" data-ng-show="userForm.retypePassword.$error.pwMatch && !userForm.retypePassword.$error.required">Retype password not match</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <div ng-class="{ 'has-error' : userForm.password.$invalid && submitted }" >
+                                <input name="isApproved" type="checkbox" ng-model="user.isApproved">
+                                <label style="vertical-align: middle;">Is Approved</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <div ng-class="{ 'has-error' : userForm.email.$invalid && submitted }" >
+                                <label>Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">@</span>
+                                    <input name="email" type="email" class="form-control input-sm" ng-model="user.email" data-ng-required="true">
+                                </div>
+                                <div class="error" data-ng-show="(userForm.email.$dirty && userForm.email.$invalid) || submitted">
+                                    <small class="error" data-ng-show="userForm.email.$error.required">Required</small>
+                                    <small class="error" data-ng-show="userForm.email.$error.email && !userForm.email.$error.required">Not correct format</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div ng-class="{ 'has-error' : userForm.phone.$invalid && submitted }" >
+                                <label>Phone</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">#</span>
+                                    <input name="phone" type="text" class="form-control input-sm" placeholder="" ng-model="user.phoneNumber" data-ng-required="true">
+                                </div>
+                                <div class="error" data-ng-show="(userForm.phone.$dirty && userForm.phone.$invalid) || submitted">
+                                    <small data-ng-show="userForm.phone.$error.required" class="error">Required</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+
+</div>

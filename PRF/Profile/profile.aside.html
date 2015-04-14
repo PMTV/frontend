@@ -1,0 +1,18 @@
+<section class="scrollable">
+    <section slim-scroll>
+        <div class="wrapper">
+            <div class="clearfix text-center m-b m-t">
+                <div class="">
+                    <div class="thumb-xl">
+                        <img id="imageUser" data-ng-src="{{profile.profileImageUrl}}" class="img-circle">
+                    </div>
+                    <form name="formUpload" method="put" enctype="multipart/form-data">
+                        <input type="file" data-profile-upload>
+                    </form>
+
+                    <div class="h3 m-t m-b-xs">{{profile.firstName}} {{profile.lastName}}</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>

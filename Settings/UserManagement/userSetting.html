@@ -1,0 +1,41 @@
+<section class="vbox flex">
+    <div class="pull-left header">
+        <p class="h4">Settings</p>
+    </div>
+    <header ng-include="'header.html?a=a'" class="header bg-light lter b-b ng-scope"></header>
+    <div class="bg-white">
+        <section class="vbox">
+            <header class="header bg-light bg-gradient">
+                <ul class="nav nav-tabs nav-white pull-left">
+                    <li class="active"><a data-target="#userList" data-toggle="tab">Users</a></li>
+                </ul>
+                <div class="navbar-btn pull-right">
+                    <a href="#/users/new" class="btn btn-success">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            </header>
+        </section>
+    </div>
+    <section class="bg-white">
+        <section class="hbox stretch">
+            <section class="vbox">
+                <div class="scrollable">
+                    <section class="scrollable wrapper">
+                        <div class="tab-content" slim-scroll>
+                            <div class="tab-pane active" id="list">
+                                <form name="userForm" novalidate data-validate="parsley" ng-controller="UserSettingCtrl">
+                                    <section ng-include="'Settings/UserManagement/userSettingEditForm.html?a=a'"></section>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+            <!-- /.aside -->
+        </section>
+    </section>
+</section>

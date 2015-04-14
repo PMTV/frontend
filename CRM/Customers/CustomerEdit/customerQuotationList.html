@@ -1,0 +1,21 @@
+<ul class="list-group no-radius m-b-none m-t-n-xxs list-group-lg list-group m-b-none list-group-sp" ng-controller="CustomerQuotationListCtrl">
+    <li class="list-group-item" ng-repeat="quotation in quotationArr | filter:dateFilter">
+        <a class="pull-left m-r-lg">
+            #{{$index+1}}
+        </a>
+        <a class="pull-left m-r">
+            {{quotation.quotationNumber}}
+        </a>
+        <a href="#/quotations/{{quotation.quotationId}}" class="clear">
+            <div class="label label-primary">{{getQuotationStatus(quotation.quotationStatusId)}}</div>
+            <small class="pull-right text-muted">
+
+                <i class="fa fa-time"></i> {{quotation.dateCreated | fromNow}}
+            </small>
+            <strong class="block">{{customer.companyName}}</strong>
+            <small>{{quotation.remarks}}</small>
+        </a>
+    </li>
+
+    <li class="list-group-item" ng-show="!quotationArr.length">No Quotation Exists</li>
+</ul>

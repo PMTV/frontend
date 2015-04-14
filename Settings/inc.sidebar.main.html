@@ -1,0 +1,167 @@
+﻿<section class="scrollable" ng-controller="GeneralSettingCtrl">
+    <header class="nav-bar nav-brand bg-dark">
+        <a class="btn btn-link visible-xs" data-toggle="class:show" data-target=".nav-primary">
+            <i class="fa fa-reorder"></i>
+        </a>
+        <a href="#" class="nav-brand" data-toggle="fullscreen">
+            <img src="assets/img/Emerge.logo.fw.png" />
+        </a>
+        <a class="btn btn-link visible-xs" data-toggle="collapse" data-target=".navbar-collapse">
+            <i class="fa fa-comment-alt"></i>
+        </a>
+    </header>
+    <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="5px">
+        <nav class="nav-primary hidden-xs" data-ride="collapse">
+            <ul class="nav">
+                <li>
+                    <a>
+                        <i class="fa fa-user"></i>
+                        <span>ACCOUNT</span>
+                    </a>
+                    <ul class="sub-nav">
+                        <li class="fuhu-isSelected" ng-click="doAccountSummary()">
+                            <a class="btn-link" href="#/account-summary">Account Summary</a>
+                        </li>
+                        <li ng-click="doPersonalSettings()">
+                            <a class="btn-link" href="#/personal-settings">Personal Setting</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a>
+                        <i class="fa fa-cogs"></i>
+                        <span>BASIC</span>
+                    </a>
+                    <ul class="sub-nav">
+                        <li ng-click="addIndustry()">
+                            <a class="btn-link" href="">Industry</a>
+                        </li>
+                        <li ng-click="addCountry()">
+                            <a class="btn-link" href="">Countries</a>
+                        </li>
+                        <li ng-click="addWarehouse()">
+                            <a class="btn-link" href="">Warehouses</a>
+                        </li>
+                        <li ng-click="addReturnReason()">
+                            <a class="btn-link" href="">Return Reason</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a>
+                        <i class="fa fa-money"></i>
+                        <span>SALES</span>
+                    </a>
+                    <ul class="sub-nav">
+                        <li ng-click="addCurrency()">
+                            <a class="btn-link" href="">Currency</a>
+                        </li>
+                        <li ng-click="addCreditTerm()">
+                            <a class="btn-link" href="">Credit Term</a>
+                        </li>
+                        <li ng-click="addDeliveryTerm()">
+                            <a class="btn-link" href="">Delivery Term</a>
+                        </li>
+                        <li ng-click="addPaymentTerm()">
+                            <a class="btn-link" href="">Payment Term</a>
+                        </li>
+                        <li ng-click="addDeliveryMethod()">
+                            <a class="btn-link" href="">Delivery Method</a>
+                        </li>
+                        <li ng-click="addGift()">
+                            <a class="btn-link" href="">Gift</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--OLD Version-->
+                <!--<li>-->
+                    <!--<a>-->
+                        <!--<i class="fa fa-gear"></i>-->
+                        <!--<span>Setting</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a class="dropdown-toggle ">-->
+                        <!--<i class="fa fa-eye"></i>-->
+                        <!--<span>Basic</span>-->
+                    <!--</a>-->
+                    <!--<ul class="nav">-->
+                        <!--<li>-->
+                            <!--<a class="btn-link" ng-click="addIndustry()">-->
+                                <!--<i class="fa fa-building"></i>-->
+                                <!--Industry-->
+                            <!--</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a class="btn-link" ng-click="addCountry()">-->
+                                <!--<i class="fa fa-flag"></i>-->
+                                <!--Countries-->
+                            <!--</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a class="btn-link" ng-click="addWarehouse()">-->
+                                <!--<i class="fa fa-home"></i>-->
+                                <!--Warehouses-->
+                            <!--</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a class="btn-link" ng-click="addReturnReason()">-->
+                                <!--<i class="fa fa-mail-reply"></i>-->
+                                <!--Return Reason-->
+                            <!--</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a class="dropdown-toggle">-->
+                        <!--<i class="fa fa-qrcode"></i>-->
+                        <!--<span>Sales</span>-->
+                    <!--</a>-->
+                    <!--<ul class="nav">-->
+                        <!--<li>-->
+                            <!--<a class="btn-link" ng-click="addCurrency()">-->
+                                <!--<i class="fa fa-dollar"></i>-->
+                                <!--Currency-->
+                            <!--</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a class="btn-link" ng-click="addCreditTerm()">-->
+                                <!--<i class="fa fa-money"></i>-->
+                                <!--Credit Term-->
+                            <!--</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a class="btn-link" ng-click="addDeliveryTerm()">-->
+                                <!--<i class="fa fa-truck"></i>-->
+                                <!--Delivery Term-->
+                            <!--</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a class="btn-link" ng-click="addPaymentTerm()">-->
+                                <!--<i class="fa fa-money"></i>-->
+                                <!--Payment Term-->
+                            <!--</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a class="btn-link" ng-click="addDeliveryMethod()">-->
+                                <!--<i class="fa fa-gift"></i>-->
+                                <!--Delivery Method-->
+                            <!--</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a class="btn-link" ng-click="addGift()">-->
+                                <!--<i class="fa fa-hand-o-right"></i>-->
+                                <!--Gift-->
+                            <!--</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+            </ul>
+        </nav>
+    </div>
+</section>
+
+

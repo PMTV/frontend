@@ -1,0 +1,87 @@
+﻿<section class="scrollable" ng-controller="SupplierAsideCtrl">
+    <section slim-scroll>
+        <div class="wrapper">
+            <div class="clearfix m-b">
+                <a class="pull-left thumb m-r">
+                    <img src="assets/img/avatar_default.jpg" class="img-circle">
+                </a>
+                <div class="clear">
+                    <div class="label label-danger" ng-show="supplier.isDeleted">Supplier Deleted</div>
+                    <div class="h3 m-t-xs m-b-xs">{{supplier.companyName}}</div>
+                    <div class="m-t-xs m-b-xs">{{supplier.firstName}} {{supplier.lastName}}</div>
+                    <!--<small class="text-muted"><i class="fa fa-map-marker"></i> (( Country ))</small>-->
+                </div>
+            </div>
+            <div class="panel wrapper">
+                <div class="row">
+                    <div class="col-xs-4 text-center">
+                        <a href="#">
+                            <div class="m-b-xs h4 block">{{supplier.stats.totalTasks}}</div>
+                            <small class="text-muted">Tasks</small>
+                        </a>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                        <a href="#">
+                            <div class="m-b-xs h4 block">{{supplier.stats.totalNotes}}</div>
+                            <small class="text-muted">Notes</small>
+                        </a>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                        <a href="#">
+                            <div class="m-b-xs h4 block">{{supplier.stats.totalDocs}}</div>
+                            <small class="text-muted">Docs</small>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel wrapper">
+                <div class="row">
+                    <div class="col-xs-6 text-center">
+                        <a href="#">
+                            <span class="m-b-xs h4 block">{{supplier.stats.totalPurchases | number}}</span>
+                            <small class="text-muted">Purchases</small>
+                        </a>
+                    </div>
+                    <div class="col-xs-6">
+                        <a href="#">
+                            <!--<span class="m-b-xs h4 block">{{ 0 | currency }}</span>
+                            <small class="text-muted">Total Value</small>-->
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-group btn-group-justified m-b">
+                <a class="btn btn-success btn-rounded" ng-class="{'disabled' : supplier.email == null}" target="_blank" href="mailto:{{supplier.email}}">
+                    <i class="fa fa-eye"></i> Email
+                </a>
+                <a class="btn btn-info btn-rounded" ng-class="{'disabled' : supplier.website == null}" target="_blank" href="{{supplier.website}}">
+                    <i class="fa fa-comment-alt"></i>Website
+                </a>
+            </div>
+            <div>
+                <small class="text-uc text-xs text-muted">Contact Number</small>
+                <p>{{supplier.contactOffice | emptyReturn}}</p>
+
+                <small class="text-uc text-xs text-muted">Remarks</small> <i class="fa fa-spinner fa-spin" ng-show="saveInfoInprogress"></i>
+                <p ng-show="showEditAbout"><textarea ng-model="supplier.remarks" name="remarks" class="form-control" ng-blur="showEditAbout=false;"></textarea></p>
+                <p ng-show="!showEditAbout">{{supplier.remarks}} <a ng-click="showEditAbout=true;" class="btn-link"><i class="fa fa-pencil"></i></a></p>
+                
+                <small class="text-uc text-xs text-muted">Date / User Created</small>
+                <p>
+                    <a href="#">
+                        {{supplier.dateCreated | date:'fullDate'}}
+                        <small class="text-uc text-xs text-muted">/</small>
+                        {{supplier.userCreated.userName}}
+                    </a>
+                </p>
+                <div class="line"></div>
+                <small class="text-uc text-xs text-muted">connection</small>
+                <p class="m-t-sm">
+                    <a href="#" class="btn btn-rounded btn-twitter btn-icon"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="btn btn-rounded btn-facebook btn-icon"><i class="fa fa-facebook"></i></a>
+                    <a href="#" class="btn btn-rounded btn-gplus btn-icon"><i class="fa fa-google-plus"></i></a>
+                </p>
+            </div>
+        </div>
+    </section>
+</section>

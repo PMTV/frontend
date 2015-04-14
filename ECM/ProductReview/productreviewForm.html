@@ -1,0 +1,112 @@
+<section class="vbox flex" data-ng-controller="ProductReviewEditCtrl">
+    <div class="pull-left header">
+        <p class="h4">
+            <a href="#/product-review">Product Reviews</a>
+        </p>
+    </div>
+    <header class="header bg-light lter bg-gradient b-b" ng-include="'header.html?a=a'"></header>
+     <!--.aside-->
+    <div class="bg-white">
+        <section class="vbox">
+            <header class="header bg-light bg-gradient">
+                <ul class="nav nav-tabs nav-white pull-left">
+                    <li class="active"><a data-target="#productList" data-toggle="tab">Product Reviews</a></li>
+                </ul>
+                <div class="navbar-btn pull-right">
+                    <a href="#/product-review/new" class="btn btn-success">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            </header>
+        </section>
+    </div>
+    <section class="hbox stretch">
+        <section class="vbox">
+            <section class="scrollable wrapper">
+                <form name="myForm" novalidate>
+
+                    <div class="col-sm-6">
+                        <portlet>
+                            <portlet-item title="Review">
+                                <div class="row">
+                                    <div class="col-sm-12">
+
+                                            <div class="review-fields form-group" >
+                                                <label>Select Customer</label>
+                                                <select name="selectCustomer" class="ui-select2" ui-select2 data-ng-model="productreviewData.customerId" data-ng-required="true"
+                                                        data-ng-options="customer.customerId as (customer.companyName + ' -- ' + customer.firstName + ' ' + customer.lastName) for customer in productreviewData.customerList" >
+                                                    <option value="" selected>Please select customer</option>
+                                                </select>
+                                                <div class="error" data-ng-show="(myForm.selectCustomer.$dirty && myForm.selectCustomer.$invalid) || submitted">
+                                                    <small class="error" data-ng-show="myForm.selectCustomer.$error.required">Required</small>
+                                                </div>
+                                            </div>
+                                            <div class="review-fields form-group" >
+                                                <label>Select product review</label>
+                                                <select name="selectProduct" class="ui-select2" ui-select2 data-ng-model="productreviewData.productId" data-ng-required="true"
+                                                        data-ng-options="prod.productId as prod.name for prod in productreviewData.productList">
+                                                    <option value="" selected>Please select product</option>
+                                                </select>
+                                                <div class="error" data-ng-show="(myForm.selectProduct.$dirty && myForm.selectProduct.$invalid) || submitted">
+                                                    <small class="error" data-ng-show="myForm.selectProduct.$error.required">Required</small>
+                                                </div>
+                                            </div>
+                                            <div class="review-fields form-group" data-ng-class="{ 'has-error' : myForm.toHour.$invalid && submitted }">
+                                                <label>Rating</label>
+                                                <product-rating max="5" rating-value="productreviewData.rating" ng-model="productreviewData.rating"></product-rating>
+                                            </div>
+                                            <div class="review-fields form-group" data-ng-class="{ 'has-error' : myForm.toHour.$invalid && submitted }">
+                                                <label>Title</label>
+                                                <input name="inputTitle" class="form-control" type="text" placeholder="Subject" name="toHour" data-ng-model="productreviewData.title" data-ng-required="true">
+                                                <div class="error" data-ng-show="(myForm.inputTitle.$dirty && myForm.inputTitle.$invalid) || submitted">
+                                                    <small class="error" data-ng-show="myForm.inputTitle.$error.required">Required</small>
+                                                </div>
+                                            </div>
+                                            <div class="review-fields form-group" data-ng-class="{ 'has-error' : myForm.toHour.$invalid && submitted }">
+                                                <label>Comment</label>
+                                                <textarea name="inputComment" class="form-control" placeholder="Message..." name="toHour" data-ng-model="productreviewData.comment" data-ng-required="true"></textarea>
+                                                <div class="error" data-ng-show="(myForm.inputComment.$dirty && myForm.inputComment.$invalid) || submitted">
+                                                    <small class="error" data-ng-show="myForm.inputComment.$error.required">Required</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="center-block">
+                                                <button type="button" class="btn btn-success pull-right" btn-loading="saving" data-loading-text="Saving..." data-ng-click="save(productreviewData)">Save</button>
+                                                <!--<i class="fa fa-spin fa-spinner icon-xlarge pull-right" data-ng-show="saving"></i>-->
+                                            </div>
+
+
+                                    </div>
+                                </div>
+                            </portlet-item>
+                        </portlet>
+                    </div>
+
+                    <div class="col-sm-6" >
+                        <portlet>
+                            <portlet-item title="Information">
+                                <form name="myForm" novalidate>
+                                    <div class="row">
+                                        <div class="col-sm-12" style="text-align: center;margin:20px 0;">
+                                        <span class="col-md-12 hidden-print" data-ng-repeat="image in productreviewData.productList" data-ng-show="image.productId == productreviewData.productId ">
+                                            <img data-ng-src="{{image.productMediaList[image.productMediaList.length - 1].filePath}}" style="max-width: 200px;">
+                                            <label class="col-md-12 m-t-sm">{{image.name}} {{image.weight + ' ml'}}</label>
+                                            <label class="col-md-12 m-t-sm">{{'Price : $' + (image.priceRetail | number:2)}}</label>
+                                            <label class="col-md-12 m-t-sm">{{image.description}}</label>
+                                        </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </portlet-item>
+                        </portlet>
+                    </div>
+
+                </form>
+            </section>
+        </section>
+    </section>
+
+</section>

@@ -1,0 +1,71 @@
+
+<div class="thumb-lg" ng-controller="CustomerEditCtrl">
+  <!-- <div style="position:absolute;z-index:300;top:10%;left:35%;" align="center">
+      <a ng-show="show" ng-mouseover="show=true" ng-mouseout="show=false" ng-click="clicked =true" href="" class="btn btn-s-xxs btn-success btn-rounded" data-dismiss="alert"><i style="font-size: 14px;" class="fa fa-edit">Edit</i></a>
+  </div> -->
+<!--   <img src="assets/img/avatar_default.jpg" ng-show="{{customer.companyLogoFileName == null}}" ng-file-drop="onFileSelect($files)" ng-show="result == null" ng-mouseenter="show=true" ng-mouseleave="show=false" class="img-circle">
+ -->  <img ng-src="{{customer.companyLogoFileName}}" ng-file-drop="onFileSelect($files)" ng-mouseenter="show=true" ng-mouseleave="show=false" class="img-circle">
+  <div class="row pull-left">
+    <div class="col-sm-12 pull-left">
+    <a href="" ng-click="clicked=false" class="label" data-dismiss="alert"><i style="font-size: 14px;" class="fa fa-times"></i></a>
+    <input type="file" ng-file-select="onFileSelect($files)">
+    </div>
+  </div>
+</div> 
+            <!-- <div>   
+            Choose a document to upload: 
+            <input type="file" ng-file-select="onFileSelect($files)">  
+            <br/>
+            <div ng-show="dropSupported" class="drop-box" ng-file-drop="onFileSelect($files);" ng-file-drop-available="dropSupported=true">or drop files here</div>
+            <div ng-show="!dropSupported">HTML5 Drop File is not supported on this browser</div>
+            <br/> -->
+<!--             <input type="checkbox" ng-model="uploadRightAway">Upload right away
+ -->           
+            
+            <!-- <div class="row clearfix" ng-show="selectedFiles != null">
+              <div class="col-lg-12">
+                <div class="sel-file" ng-repeat="f in selectedFiles">
+                  <img ng-show="dataUrls[$index]" src="{{dataUrls[$index]}}">
+                  <button class="btn btn-s-md btn-success" ng-click="start($index)" ng-show="progress[$index] < 0">Upload</button> -->
+                  <!-- <span class="progress" ng-show="progress[$index] >= 0">           
+                    <div style="width:{{progress[$index]}}%">Progress: {{progress[$index]}}%</div>
+                  </span> -->
+
+                  <!-- <div class="progress progress-sm progress-striped" ng-show="progress[$index] >= 0">
+                    <div class="progress-bar progress-bar-success" data-toggle="tooltip" data-original-title="10%" style="width:{{progress[$index]}}%"></div>
+                  </div>
+      
+                  <button class="button" ng-click="abort($index)" ng-show="hasUploader($index) && progress[$index] < 100">Abort</button>
+                  <label class="">{{f.name}} - size: {{f.size}}B - type: {{f.type}}</label>
+                </div>
+              </div>
+            </div>
+            <br><br>
+            <div class="row clearfix">
+              <div class="col-lg-12">
+                There are {{uploadResult.length}} documents.
+              </div>
+            </div>
+            <div class="response col-lg-3 form-group" ng-repeat="result in uploadResult | orderBy:'-taskNoteId'" style="height:200px; padding-bottom:10px;">
+              <section class="panel" >
+                <section class="panel-body slim-scroll" ng-mouseover="show = true" ng-mouseout="show=false">
+                  <article style="height:160px;" class="media" >
+                    <div style="position:absolute; z-index:200; right:20px; top:40px;">
+                      <div ng-show="show" style="animated fadeIn">  
+                        <a href="" ng-click="deleteDocument(result)" class="btn btn-s-xxs btn-danger btn-rounded" data-dismiss="alert"><i style="font-size: 14px;" class="fa fa-times"></i></a>
+                      </div>
+                      <div ng-show="show" style="animated fadeIn">
+                        <a ng-href="{{result.filePath}}" class="btn btn-s-xxs btn-info btn-rounded" data-dismiss="alert"><i style="font-size: 14px;" class="fa fa-download-alt"></i></a>
+                      </div>                  
+                    </div>
+                    <img height="160px" ng-src="{{result.filePath}}" >
+                  </article>
+                </section>
+              </section>
+            </div>-->
+<!--           </div> 
+        </article>
+      </section>
+    </section>
+</div>
+ -->

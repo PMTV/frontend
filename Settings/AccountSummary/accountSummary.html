@@ -1,0 +1,26 @@
+<section class="vbox flex">
+    <div class="pull-left header">
+        <!--<p class="h4">General Settings</p>-->
+    </div>
+
+    <header ng-include="'Settings/header.html?a=a'" class="header fuhu-daker b-b"></header>
+
+    <section class="bg-white">
+        <section class="hbox stretch">
+            <section class="vbox">
+                <div class="scrollable">
+                    <section class="scrollable wrapper">
+                        <div class="tab-content" slim-scroll>
+                            <div class="tab-pane active" id="list">
+                                <form name="userForm" novalidate data-validate="parsley" ng-controller="AccountSummaryCtrl">
+                                    <section ng-include="'Settings/AccountSummary/accountSummaryEditForm.html'"></section>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+            <!-- /.aside -->
+        </section>
+    </section>
+</section>

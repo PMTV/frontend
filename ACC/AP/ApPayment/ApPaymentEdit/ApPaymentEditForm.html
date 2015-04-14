@@ -1,0 +1,259 @@
+<div class="row hidden-print">
+
+    <div class="col-sm-6">
+        <portlet>
+            <portlet-item title="Information">
+                <div>
+
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12" ng-class="{ 'has-error' : myForm.referenceNumber.$invalid && submitted }">
+                            <label>Reference Number</label><br />
+                            <input type="text" name="referenceNumber" ng-model="payment.referenceNo" class="form-control input-sm" ng-required="true" placeholder="Reference number...">
+                            <div class="error" ng-show="(myForm.referenceNumber.$dirty && myForm.supplier.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.referenceNumber.$error.required">Please select a Supplier</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12">
+                            <label>Supplier</label><br />
+                            <div ng-if="!checkEdit" ng-disabled="true" >
+                                <div style="height: 50px;width: 100%;background-color: transparent;opacity: 1;position: relative;top: 40px;margin-top: -40px;z-index: 3;"></div>
+                                <suppliers-dropdown style="z-index:1" ng-model="payment.supplierId" class="ui-select2"></suppliers-dropdown>
+                            </div>
+                            <div ng-if="checkEdit">
+                                <suppliers-dropdown ng-class="{ 'input-error-show' : myForm.supplier.$invalid && submitted }" name="supplier" ng-required="true" ng-model="payment.supplierId" ng-change="onChangedSupplier(payment.supplierId)" class="ui-select2" supplier="selected"></suppliers-dropdown>
+                            </div>
+                            <div class="error" ng-show="(myForm.supplier.$dirty && myForm.supplier.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.supplier.$error.required">Please select a Supplier</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12" >
+                            <label>Purchase Order</label><br />
+                            <label class="form-control input-sm" ng-show="!checkEdit" ng-bind="payment.purchaseOrder.purchaseOrderNumber"></label>
+                            <select ng-if="checkEdit" ng-class="{ 'input-error-show' : myForm.purchaseOrder.$invalid && submitted }" name="purchaseOrder" ng-required="true" ng-model="payment.purchaseOrderId" ng-change="onChangePurchaseOrder(payment.purchaseOrderId)" ui-select2 class="ui-select2">
+                                <option value="" selected>Select purchase</option>
+                                <option ng-repeat="p in purchaseOrderList" value="{{p.purchaseOrderId}}" ng-bind="p.purchaseOrderNumber"></option>
+                            </select>
+                            <div ng-if="checkEdit" class="error" ng-show="(myForm.purchaseOrder.$dirty && myForm.purchaseOrder.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.purchaseOrder.$error.required">Please select a Purchase Order</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Prepayment ID</label><br />
+                            <input type="text" name="prepayment" ng-model="payment.prepaymentId" disabled="disabled" class="form-control input-sm" placeholder="Prepayment id...">
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label>Prepayment Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                <input only-number disabled="disabled" name="prepaymentAmount" type="number" ng-model="payment.prepaymentAmount" class="form-control input-sm" placeholder="Prepayment amount...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" ng-class="{ 'has-error' : myForm.creditNote.$invalid && submitted }">
+                            <label>Credit Note</label><br />
+                            <input disabled="disabled" class="form-control input-sm" type="text" ng-show="creditNoteList == null || creditNoteList.length <= 0" value="There're no credit notes!">
+                            <select ng-show="creditNoteList != null && creditNoteList.length > 0" ng-model="payment.creditNoteApAgainstInvoiceId" class="ui-select2"
+                                    ng-change="onChangeCreditNote(payment.creditNoteApAgainstInvoiceId)" ui-select2>
+                                <option value="">Select Credit Notes</option>
+                                <option ng-repeat="credit in creditNoteList | orderBy: 'creditNoteApAgainstInvoiceId'" value="{{credit.creditNoteApAgainstInvoiceId}}" ng-bind="credit.creditNoteApAgainstInvoiceNumber"></option>
+                            </select>
+                            <div ng-if="checkEdit" class="error" ng-show="(myForm.creditNote.$dirty && myForm.creditNote.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.creditNote.$error.required">Please select a Credit Note</small>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label>Credit Note Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                <input only-number disabled="disabled" name="creditNoteAmount" type="number" ng-model="payment.creditNoteApAgainstInvoiceAmount" class="form-control input-sm" placeholder="Credit note amount...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="specialListCreditNote.length > 0">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div id="supplierList" class="pillbox clearfix">
+                                    <ul>
+                                        <li class="label bg-info" ng-repeat="s in specialListCreditNote | orderBy: 'id'" ng-bind="s.name"
+                                            ng-click="removeCreditNoteInList($index)">aa</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+
+    <div class="col-sm-6">
+        <portlet>
+            <portlet-item title="Details">
+                <div>
+
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" ng-class="{ 'has-error' : myForm.paymentDate.$invalid && submitted }">
+                            <label>Payment Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input ng-required="true" name="paymentDate" type="text" ng-model="payment.paymentDate" class="form-control input-sm" date-picker placeholder="Payment date...">
+                            </div>
+                            <div class="error" ng-show="(myForm.paymentDate.$dirty && myForm.paymentDate.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.paymentDate.$error.required">Please select a Payment Date!</small>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6" ng-class="{ 'has-error' : myForm.paymentTerm.$invalid && submitted }">
+                            <label>Payment Term</label>
+                            <paymentterms-dropdown name="paymentTerm" ng-model="payment.paymentTermId"></paymentterms-dropdown>
+                            <div class="error" ng-show="(myForm.paymentTerm.$dirty && myForm.paymentTerm.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.paymentTerm.$error.required">Please select a Payment Term!</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed line-lg pull-in"></div>
+
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Currency</label>
+                            <currencies-dropdown ng-class="{ 'input-error-show' : myForm.currencies.$invalid && submitted }" name="currencies" ng-required="true" ng-model="payment.currencyId" class="ui-select2"></currencies-dropdown>
+                            <div class="error" ng-show="(myForm.currencies.$dirty && myForm.currencies.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.currencies.$error.required">Please select a currency!</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Bank Charges</label>
+                            <input type="number" only-number class="form-control input-sm" ng-model="payment.bankCharges" placeholder="Bank charges...">
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed line-lg pull-in"></div>
+
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Cheque No.</label>
+                            <input type="text" class="form-control input-sm" ng-model="payment.chequeNo" placeholder="Cheque no...">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>tt No</label>
+                            <input type="text" class="form-control input-sm" ng-model="payment.ttNo" placeholder="tt no...">
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed line-lg pull-in"></div>
+
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12" ng-class="{ 'has-error' : myForm.totalAmount.$invalid && submitted }">
+                            <label>Total Amount</label><br />
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                <input only-number-float disabled="disabled" name="totalAmount" type="number" ng-model="payment.amount" class="form-control input-sm" placeholder="Total amount...">
+                            </div>
+
+                            <div class="error" ng-show="(myForm.totalAmount.$dirty && myForm.totalAmount.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.totalAmount.$error.required">Please enter a Total Amount!</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="line line-dashed line-lg pull-in"></div>
+
+                    <div class="col-sm-12" ng-class="{ 'has-error' : myForm.description.$invalid && submitted }">
+                        <label>Description</label><br />
+                        <textarea name="description" ng-model="payment.remarks" class="form-control input-sm" placeholder="Description..."></textarea>
+                        <div class="error" ng-show="(myForm.description.$dirty && myForm.supplier.$invalid) || submitted">
+                            <small class="error" ng-show="myForm.description.$error.required">Please select a Description</small>
+                        </div>
+                    </div>
+
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+
+</div>
+
+
+<section class="panel hidden-print">
+    <form method="post" name="itemsForm" novalidate>
+        <header class="panel-heading font-bold">
+            <span class="h5">Invoices</span>
+        </header>
+        <div class="panel-body table-responsive">
+            <table class="table table-condensed text-sm m-b-none">
+                <thead>
+                    <tr>
+                        <th width="5">No#</th>
+                        <th>Invoice Number</th>
+                        <th>Reference Number</th>
+                        <th>Invoice Date</th>
+                        <th>Total Amount</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody ng-form="itemForm">
+                    <tr ng-repeat="item in purchaseInvoiceList">
+                        <td>{{$index+1}}</td>
+                        <td ng-bind="item.supplierInvoiceNumber"></td>
+                        <td ng-bind="item.referenceNumber"></td>
+                        <td ng-bind="item.dateConverted"></td>
+                        <td ng-bind="item.paymentAmount | currency"></td>
+                        <td class="text-center">
+                            <input data-ng-disabled="!checkEdit" type="checkbox" ng-model="item.isCreatePaymentVoucher" class="form-control input-sm">
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                <tr ng-show="getTotalInvoiceAmount() > 0">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total Invoices Amount</td>
+                    <td class="font-bold" ng-bind="getTotalInvoiceAmount() | currency"></td>
+                    <td></td>
+                </tr>
+                <tr ng-show="getTotalPrepayment() > 0">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total Prepayment</td>
+                    <td class="font-bold" ng-bind="getTotalPrepayment() | currency"></td>
+                    <td></td>
+                </tr>
+                <tr ng-show="getTotalCreditNoteAmount() > 0">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total Credit Note</td>
+                    <td class="font-bold" ng-bind="getTotalCreditNoteAmount()|currency"></td>
+                    <td></td>
+                </tr>
+                <tr class="warning font-bold">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Grand Total Amount</td>
+                    <td ng-bind="getTotalAmount() | currency"></td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </form>
+</section>

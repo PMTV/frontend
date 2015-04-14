@@ -1,0 +1,91 @@
+﻿<section class="vbox flex" ng-controller="CustomerEditCtrl">
+    <div class="pull-left header">
+        <p class="h4">
+            <a href="#/customers">Customers</a>
+        </p>
+    </div>
+
+    <header ng-include="'header.html?a=a'" class="header bg-light lter b-b"></header>
+
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <aside class="aside-xl bg-light lter b-r main-aside" ng-hide="customer.customerId == undefined" id="sidebar">
+                <section class="vbox bg-white" ng-include="'CRM/Customers/customer.aside.html?a=aaaa'"></section>
+            </aside>
+            <!-- .aside -->
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="dker">
+                                <a data-target="#sidebar" class="btn btn-sm btn-default" data-toggle="class:hide">
+                                    <i class="fa fa-chevron-left text"></i>
+                                    <i class="fa fa-chevron-right text-active"></i>
+                                </a>
+                            </li>
+                            <li class="active"><a data-target="#list" data-toggle="tab">Info</a></li>
+                            <li ng-show="customer.customerId"><a data-target="#sales" data-toggle="tab">Quotations & Sales</a></li>
+                            <li ng-show="customer.customerId"><a data-target="#tasksAndNotes" data-toggle="tab">Tasks & Notes</a></li>
+                        </ul>
+
+                        <div class="navbar-btn pull-right">
+                            <a href="#/customers/new" class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content"> <!-- slim-scroll -->
+                            <div class="tab-pane active" id="list">
+                                <form ng-submit="saveCustomer()" name="customerForm" novalidate>
+                                    <section ng-include="'CRM/Customers/CustomerEdit/customerEditForm.html?a=aaaaaaa'"></section>
+                                    <button type="submit" class="hide" />
+                                </form>
+                            </div>
+
+                            <!--<div class="tab-pane" id="quotations" ng-include="'CRM/Customers/CustomerEdit/customerQuotationList.html?a=a'"></div>-->
+                            <div class="tab-pane" id="sales" ng-include="'CRM/Customers/CustomerEdit/customerSalesOrderList.html?a=a'"></div>
+
+                            <div class="tab-pane" id="tasksAndNotes" tasknote module="customers"></div>
+                        </div>
+                    </section>
+
+                </section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+    <footer class="footer bg-light lter b-t">
+        <button type="submit" class="btn btn-success btn-s-xs pull-right m-l" ng-click="saveCustomer()" data-loading-text="Saving..." btn-loading="busy">Save</button>
+        
+        <div class="pull-right">
+            <div class="pull-left m-t m-r">
+                <span class="">
+                    Active
+                </span>
+            </div>
+            <div class="pull-right m-t-sm">
+                <label class="switch">
+                    <input type="checkbox" ng-checked="customer.status == 1 || !customer.customerId" ng-model="status" ng-change="onChangedStatus(status)">
+                    <span></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="pull-left btn-group dropup m-r-xs" ng-show="customer.customerId">
+            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+                <span class="dropdown-label">Actions</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-select text-left">
+                <li><a href="" ng-click="addCreditNote()" ng-disabled="busy">Add Credit Note</a></li>
+                <li><a href="" ng-click="openAuditLog('customers', customer.customerId)" ng-disabled="busy">View Audit Log</a></li>
+                <li><a href="" ng-click="deleteCustomer(customer.customerId)" ng-disabled="cancelling" class="btn-link btn-danger">Delete</a></li>
+            </ul>
+        </div>
+
+    </footer>
+</section>

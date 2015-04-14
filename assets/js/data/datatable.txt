@@ -1,0 +1,23 @@
+{ "aaData": [
+	{
+		"companyName": "<a href='#/customers/1'>Company ABC</a>",
+		"customerName": "Mr. John Doh",
+		"customerGroup": "VIP",
+		"revenue": "59,000.00",
+		"action": "X"
+	},
+	{
+		"companyName": "Company XYX",
+		"customerName": "Ms. Jessica William",
+		"customerGroup": "",
+		"revenue": "580.00",
+		"action": "C"
+	},
+	{
+		"companyName": "Company Name",
+		"customerName": "Mr. Alex Max",
+		"customerGroup": "",
+		"revenue": "355.00",
+		"action": "A"
+	}
+] }

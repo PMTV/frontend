@@ -1,0 +1,361 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="EmergeApp">
+<head>
+    <meta charset="utf-8" />
+    <title ng-bind="appTitle + 'Emerge | Simplifying Process'">Emerge | Simplifying Process</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="assets/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/animate.ext.min.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/font.css" type="text/css" cache="false" />
+    <link rel="stylesheet" href="assets/js/fuelux/fuelux.css" type="text/css" />
+    <link rel="stylesheet" href="assets/js/datatables/datatables.css" type="text/css" />
+    <link rel="stylesheet" href="assets/js/slickgrid/slick.grid.css" />
+    <link rel="stylesheet" href="assets/js/slickgrid/slick-default-theme.css" />
+    <link rel="stylesheet" href="assets/js/select2/select2.css" type="text/css" />
+    <link rel="stylesheet" href="assets/js/datepicker/datepicker.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/plugin.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/app.css" type="text/css" />
+    <link href="assets/js/nestable/nestable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/js/toastr/toastr.min.css" type="text/css" />
+    <link rel="stylesheet" href="assets/lib/base/angular.plugins/ng-grid/ng-grid.css" />
+    <link rel="stylesheet" href="assets/css/emerge.css" />
+    <!--test google map-->
+    <link rel="stylesheet" href="assets/css/leaflet.css" />
+    <!--<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />-->
+
+
+    <!--[if lt IE 9]>
+      //<script src="assets/js/ie/respond.min.js" cache="false"></script>
+      //<script src="assets/js/ie/html5.js" cache="false"></script>
+      //<script src="assets/js/ie/fix.js" cache="false"></script>
+    <![endif]-->
+    <!-- TODO TO BE REMOVED ON LIVE-->
+</head>
+
+<body class="ng-cloak">
+    <!--<debug-window class="debug-window">Debug</debug-window>-->
+    <toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
+
+    <div class="overlayBackground fadeIn" ng-show="tracker.active()">
+        <img class="progress-indicator" src="assets/img/loader.gif" />
+    </div>
+
+    <section class="hbox stretch">
+        <!-- .aside -->
+        <aside ng-include="'inc.sidebar.nav.html'" class="hidden-print bg-dark aside-md" id="nav" style="position: relative; z-index: 1050; "></aside>
+        <!-- /.aside -->
+
+        <section id="content">
+            <section class="hbox stretch">
+                <aside ng-view></aside>
+            </section>
+        </section>
+
+        <aside ng-include="'inc.sidebar.chat.html'" class="hidden-print bg-white b-l aside-xl slideInRight" ng-hide="hideChat"></aside>
+        <!-- ShareSide -->
+        <!--<aside ng-include="'inc.sidebar.share.html'" class="hidden-print bg-white b-l aside-sm slideInRight" ng-show="hideChat"></aside>-->
+        <!-- /ShareSide -->
+    </section>
+
+    <!--<div class="slideInRight" style=" height:100%; position:absolute; top:0; right:0; left:0; right:0; background:#000; z-index:999;">
+        <div style="height: 100%; position:absolute; top:0; right:0;" class="bg-white">
+        </div>
+    </div>-->
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery-ui-1.10.4.min.js"></script>
+    <!--<script src="assets/js/jquery-ui-1.10.3.custom.min.js"></script>-->
+    <script src="assets/js/bootstrap.js"></script>
+    <script src="assets/lib/angular/angular.js"></script>
+    <script src="assets/lib/angular/angular-route.min.js"></script>
+    <script src="assets/lib/angular/angular-resource.min.js"></script>
+    <script src="assets/lib/angular/angular-animate.min.js"></script>
+    <script src="assets/lib/angular/angular-cookies.min.js"></script>
+
+    <!-- Firebase -->
+    <script src="assets/lib/base/angular.plugins/firebase.js"></script>
+    <script src="assets/lib/base/angular.plugins/angularfire.min.js"></script>
+
+    <!-- AngularJS Plugins -->
+    <script src="assets/lib/base/angular.plugins/angular-promise-tracker.js"></script>
+    <script src="assets/lib/base/angular.plugins/angular-file-upload.min.js"></script>
+    <script src="assets/lib/base/angular.plugins/angular-debounce.js" cache="false"></script>
+    <script src="assets/lib/base/angular.plugins/angular-select2.js" cache="false"></script>
+    <script src="assets/lib/base/angular.plugins/angular-http-auth.js" cache="false"></script>
+    <script src="assets/lib/base/angular.plugins/angular-toastr.min.js" cache="false"></script>
+    <script src="assets/lib/base/angular.plugins/ui-bootstrap-tpls.min.js"></script> <!--Modal-->
+    <script src="assets/lib/base/angular.plugins/angular-underscore-module.js"></script>
+    <script src="assets/lib/base/angular.plugins/angular-translate.min.js"></script>
+    <script src="assets/lib/base/angular.plugins/angular.hotkeys.js"></script>
+    <!-- <script src="assets/lib/angular/angular-dragdrop.js"></script> -->
+
+    <script src="assets/js/sortable.js"></script>
+
+    <!-- ngGrid -->
+    <script src="assets/lib/base/angular.plugins/ng-grid/ng-grid-2.0.11.min.js"></script>
+    <!-- sparkline -->
+    <script src="assets/js/charts/sparkline/jquery.sparkline.min.js"></script>
+    <!-- Morris chart -->
+    <script src="assets/js/charts/morris/raphael-min.js" cache="false"></script>
+    <script src="assets/js/charts/morris/morris.min.js" cache="false"></script>
+    <!-- Highcharts chart -->
+    <script src="assets/js/charts/highcharts/highcharts.js"></script>
+    <script src="assets/js/charts/highcharts/exporting.js"></script>
+    <!-- Nestable -->
+    <script src="assets/js/nestable/jquery.nestable.js"></script>
+    <!-- datepicker -->
+    <script src="assets/js/datepicker/bootstrap-datepicker.js"></script>
+    <!-- datatables -->
+    <script src="assets/js/datatables/jquery.dataTables.min.js"></script>
+    <!-- barcode -->
+    <script src="assets/js/barcode/jquery-barcode.min.js"></script>
+    <!-- parsley -->
+    <script src="assets/js/parsley/parsley.min.js" cache="false"></script>
+    <script src="assets/js/parsley/parsley.extend.js" cache="false"></script>
+    <!-- select2 -->
+    <script src="assets/js/select2/select2.min.js" cache="false"></script>
+    <!-- Slickgrid -->
+    <script src="assets/js/slickgrid/lib/jquery.event.drag-2.2.js"></script>
+    <script src="assets/js/slickgrid/slick.core.js"></script>
+    <script src="assets/js/slickgrid/slick.grid.js"></script>
+    <!-- wysiwyg -->
+    <script src="assets/lib/base/angular.plugins/textAngular.min.js"></script>
+    <script src="assets/lib/base/angular.plugins/textAngular-sanitize.min.js"></script>
+    <!-- slimscroll -->
+    <script src="assets/js/slimscroll/jquery.slimscroll.min.js" cache="false"></script>
+    <!-- toastr -->
+    <script src="assets/js/toastr/toastr.min.js"></script>
+    <!-- idle -->
+    <script src="assets/js/idle/idle.js"></script>
+    <!-- Mousetrap -->
+    <script src="assets/js/mousetrap/mousetrap.min.js"></script>
+
+    <!-- App -->
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/app.data.js"></script>
+    <script src="assets/js/app.plugin.js"></script>
+    <script src="assets/js/libs/underscore-min.js"></script>
+    <script src="assets/js/libs/moment.min.js"></script>
+    <!-- fuelux -->
+    <!--<script src="assets/js/fuelux/fuelux.js"></script>-->
+
+    <!--Settings -->
+    <script src="Settings/setting.js"></script>
+
+    <!-- Emerge -->
+    <script src="assets/lib/EmergeApp.js"></script>
+    <script src="assets/lib/base/directives.js"></script>
+    <script src="assets/lib/base/filters.js"></script>
+    <script src="assets/lib/base/emerge.logger.js"></script>
+    <script src="assets/lib/base/emerge.translate.en.js"></script>
+    <script src="assets/lib/controllers.js"></script>
+
+    <!-- Modules -->
+    <script src="USR/Users/user.service.js"></script>
+    <script src="USR/Users/UserEdit/userEdit.directive.js"></script>
+    <script src="USR/Users/UserEdit/userEdit.controller.js"></script>
+
+    <!--test google map-->
+
+    <script src="assets/lib/base/angular.plugins/leaflet/leaflet.js"></script>
+    <script src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+    <script src="assets/lib/base/angular.plugins/leaflet/leaflet-google.js"></script>
+    <!--<script src="assets/lib/base/angular.plugins/leaflet/leaflet-openStreet.js"></script>-->
+
+
+    <!-- GNM -->
+    <script src="GNM/CreditTerms/creditTerm.js"></script>
+    <script src="GNM/DeliveryTerms/deliveryTerm.js"></script>
+    <script src="GNM/DeliveryMethods/deliveryMethod.js"></script>
+    <script src="GNM/Currencies/currency.js"></script>
+    <script src="GNM/Countries/countries.js"></script>
+    <script src="GNM/Industries/industries.js"></script>
+    <script src="GNM/PaymentTerms/paymentTerm.js"></script>
+    <script src="GNM/Addresses/address.js"></script>
+    <script src="GNM/Contacts/contact.js"></script>
+    <script src="GNM/Media/media.js"></script>
+    <script src="GNM/AuditLog/auditlog.js"></script>
+    <script src="GNM/LeadSources/leadsource.js"></script>
+    <script src="GNM/Warehouses/warehouse.js"></script>
+    <script src="GNM/ReturnReason/returnReason.js"></script>
+
+    <!-- CRM -->
+    <script src="CRM/Customers/customer.service.js"></script>
+    <script src="CRM/Customers/CustomerEdit/customerEdit.directive.js"></script>
+    <script src="CRM/Customers/CustomerEdit/customerEdit.controller.js"></script>
+
+    <script src="CRM/CustomerGroups/customerGroup.service.js"></script>
+    <script src="CRM/CustomerGroups/customerGroup.directive.js"></script>
+    <script src="CRM/CustomerGroups/customerGroup.controller.js"></script>
+
+    <!-- ACC -->
+    <script src="ACC/AR/Invoices/invoice.service.js"></script>
+    <script src="ACC/AR/Invoices/InvoiceEdit/invoiceEdit.directive.js"></script>
+    <script src="ACC/AR/Invoices/InvoiceEdit/invoiceEdit.controller.js"></script>
+    <script src="ACC/AR/CreditNotes/CreditNoteEdit/OpenCreditNotes/openCreditNote.service.js"></script>
+    <script src="ACC/AR/CreditNotes/CreditNoteEdit/OpenCreditNotes/openCreditNoteEdit.directive.js"></script>
+    <script src="ACC/AR/CreditNotes/CreditNoteEdit/OpenCreditNotes/openCreditNoteEdit.controller.js"></script>
+    <script src="ACC/AR/CreditNotes/CreditNoteEdit/AdvanceCreditNotes/advanceCreditNote.service.js"></script>
+    <script src="ACC/AR/CreditNotes/CreditNoteEdit/AdvanceCreditNotes/advanceCreditNoteEdit.directive.js"></script>
+    <script src="ACC/AR/CreditNotes/CreditNoteEdit/AdvanceCreditNotes/advanceCreditNoteEdit.controller.js"></script>
+    <script src="ACC/AR/CreditNotes/CreditNoteEdit/AgainstInvoice/againstInvoice.service.js"></script>
+    <script src="ACC/AR/CreditNotes/CreditNoteEdit/AgainstInvoice/againstInvoiceEdit.directive.js"></script>
+    <script src="ACC/AR/CreditNotes/CreditNoteEdit/AgainstInvoice/againstInvoiceEdit.controller.js"></script>
+    <script src="ACC/AR/DebitNotes/debitNote.service.js"></script>
+    <script src="ACC/AR/DebitNotes/DebitNoteEdit/debitNoteEdit.directive.js"></script>
+    <script src="ACC/AR/DebitNotes/DebitNoteEdit/debitNoteEdit.controller.js"></script>
+    <script src="ACC/AR/Receipts/receipt.service.js"></script>
+    <script src="ACC/AR/Receipts/ReceiptEdit/receiptEdit.directive.js"></script>
+    <script src="ACC/AR/Receipts/ReceiptEdit/receiptEdit.controller.js"></script>
+
+    <!--AP-->
+    <script src="ACC/AP/CreditNoteApAgainstInvoice/CreditNoteApAgainstInvoice.service.js"></script>
+    <script src="ACC/AP/CreditNoteApAgainstInvoice/CreditNoteApAgainstInvoiceEdit/CreditNoteApAgainstInvoiceEdit.controller.js"></script>
+    <script src="ACC/AP/CreditNoteApAgainstInvoice/CreditNoteApAgainstInvoiceEdit/CreditNoteApAgainstInvoiceEdit.directive.js"></script>
+    <script src="ACC/AP/ApPrepayment/ApPrepayment.service.js"></script>
+    <script src="ACC/AP/ApPrepayment/ApPrepaymentEdit/ApPrepaymentEdit.controller.js"></script>
+    <script src="ACC/AP/ApPrepayment/ApPrepaymentEdit/ApPrepaymentEdit.directive.js"></script>
+    <script src="ACC/AP/ApPayment/ApPayment.service.js"></script>
+    <script src="ACC/AP/ApPayment/ApPaymentEdit/ApPaymentEdit.directive.js"></script>
+    <script src="ACC/AP/ApPayment/ApPaymentEdit/ApPaymentEdit.controller.js"></script>
+
+    <!-- PRD -->    
+    <script src="PRD/Products/product.service.js"></script>
+    <script src="PRD/Products/ProductEdit/productEdit.directive.js"></script>
+    <script src="PRD/Products/ProductEdit/productEdit.controller.js"></script>
+    <script src="PRD/Categories/category.service.js"></script>
+    <script src="PRD/Categories/CategoryEdit/categoryEdit.directive.js"></script>
+    <script src="PRD/Categories/CategoryEdit/categoryEdit.controller.js"></script>
+    <script src="PRD/Brands/brand.service.js"></script>
+    <script src="PRD/Brands/BrandEdit/brandEdit.directive.js"></script>
+    <script src="PRD/Brands/BrandEdit/brandEdit.controller.js"></script>
+
+    <!-- PUR -->
+    <script src="PUR/Purchases/purchase.service.js"></script>
+    <script src="PUR/Purchases/PurchaseEdit/purchaseEdit.controller.js"></script>
+    <script src="PUR/Purchases/PurchaseEdit/purchaseEdit.directive.js"></script>
+
+    <script src="PUR/Suppliers/supplier.service.js"></script>
+    <script src="PUR/Suppliers/SupplierEdit/supplierEdit.controller.js"></script>
+    <script src="PUR/Suppliers/SupplierEdit/supplierEdit.directive.js"></script>
+
+    <script src="PUR/SupplierInvoice/supplierInvoice.service.js"></script>
+    <script src="PUR/SupplierInvoice/SupplierInvoiceEdit/supplierInvoiceEdit.directive.js"></script>
+    <script src="PUR/SupplierInvoice/SupplierInvoiceEdit/supplierInvoiceEdit.controller.js"></script>
+
+    <script src="PUR/ReturnOrder/returnOrder.service.js"></script>
+    <script src="PUR/ReturnOrder/ReturnOrderEdit/returnOrderEdit.controller.js"></script>
+    <script src="PUR/ReturnOrder/ReturnOrderEdit/returnOrderEdit.directive.js"></script>
+
+    <!-- ORD -->
+    <script src="ORD/Quotations/quotation.service.js"></script>
+    <script src="ORD/Quotations/QuotationEdit/quotationEdit.controller.js"></script>
+    <script src="ORD/Quotations/QuotationEdit/quotationEdit.directive.js"></script>
+    <script src="ORD/Sales/sales.service.js"></script>
+    <script src="ORD/Sales/SalesEdit/salesEdit.controller.js"></script>
+    <script src="ORD/Sales/SalesEdit/salesEdit.directive.js"></script>
+    <script src="ORD/Deliveries/DeliveryOrders/delivery.service.js"></script>
+    <script src="ORD/Deliveries/DeliveryOrders/DeliveryEdit/deliveryEdit.controller.js"></script>
+    <script src="ORD/Deliveries/DeliveryOrders/DeliveryEdit/deliveryEdit.directive.js"></script>
+    <script src="ORD/Deliveries/PackingLists/packingList.service.js"></script>
+    <script src="ORD/Deliveries/PackingLists/PackingListEdit/packingListEdit.controller.js"></script>
+    <script src="ORD/Deliveries/PackingLists/PackingListEdit/packingListEdit.directive.js"></script>
+    <script src="ORD/ReturnSaleOrder/returnSaleOrder.service.js"></script>
+    <script src="ORD/ReturnSaleOrder/ReturnSaleOrderEdit/returnSaleOrderEdit.controller.js"></script>
+    <script src="ORD/ReturnSaleOrder/ReturnSaleOrderEdit/returnSaleOrderEdit.directive.js"></script>
+
+    <!-- INV -->
+    <script src="INV/Acquisitions/acquisition.service.js"></script>
+    <script src="INV/Acquisitions/AcquisitionEdit/acquisitionEdit.controller.js"></script>
+    <script src="INV/Acquisitions/AcquisitionEdit/acquisitionEdit.directive.js"></script>
+    <script src="INV/StockTakes/stockTake.service.js"></script>
+    <script src="INV/StockTakes/StockTakeEdit/stockTakeEdit.controller.js"></script>
+    <script src="INV/StockTakes/StockTakeEdit/stockTakeEdit.directive.js"></script>
+    <script src="INV/StockAdjustments/stockAdjust.service.js"></script>
+    <script src="INV/StockAdjustments/stockAdjustEdit/stockAdjustEdit.controller.js"></script>
+    <script src="INV/StockAdjustments/stockAdjustEdit/stockAdjustEdit.directive.js"></script>
+    <script src="INV/StockTransfers/StockTransfer.service.js"></script>
+    <script src="INV/StockTransfers/StockTransferEdit/StockTransferEdit.controller.js"></script>
+    <script src="INV/StockTransfers/StockTransferEdit/StockTransferEdit.directive.js"></script>
+
+    <!--HRM-->
+    <!--<script src="HRM/Employees/employee.service.js"></script>
+    <script src="HRM/Employees/EmployeeEdit/employeeEdit.controller.js"></script>
+    <script src="HRM/Employees/EmployeeEdit/employeeEdit.directive.js"></script>-->
+
+    <!-- TNM -->
+    <script src="TNM/taskandnote.js"></script>
+
+    <!-- ECM -->
+    <script src="ECM/Payments/payments.service.js"></script>
+    <script src="ECM/Payments/payments.controller.js"></script>
+    <script src="ECM/Payments/payments.directive.js"></script>
+
+    <script src="ECM/Coupon/coupon.service.js"></script>
+    <script src="ECM/Coupon/coupon.controller.js"></script>
+    <script src="ECM/Coupon/coupon.directive.js"></script>
+
+    <script src="ECM/TimeSlots/timeSlot.service.js"></script>
+    <script src="ECM/TimeSlots/timeSlot.controller.js"></script>
+    <script src="ECM/TimeSlots/timeSlot.directive.js"></script>
+
+    <script src="ECM/LoyaltyPoints/loyaltypoints.service.js"></script>
+    <script src="ECM/LoyaltyPoints/loyaltypoints.controller.js"></script>
+    <script src="ECM/LoyaltyPoints/loyaltypoints.directive.js"></script>
+
+    <script src="ECM/Commission/commission.service.js"></script>
+    <script src="ECM/Commission/commission.controller.js"></script>
+    <script src="ECM/Commission/commission.directive.js"></script>
+
+    <script src="ECM/ProductReview/productreview.service.js"></script>
+    <script src="ECM/ProductReview/productreview.controller.js"></script>
+    <script src="ECM/ProductReview/productreview.directive.js"></script>
+
+    <script src="ECM/DeliveryDate/deliverydate.service.js"></script>
+    <script src="ECM/DeliveryDate/deliverydate.controller.js"></script>
+    <script src="ECM/DeliveryDate/deliverydate.directive.js"></script>
+
+    <script src="ECM/SalemanCommission/salemancommission.service.js"></script>
+    <script src="ECM/SalemanCommission/salemancommission.controller.js"></script>
+    <script src="ECM/SalemanCommission/salemancommission.directive.js"></script>
+
+    <script src="ECM/Notification/ReceiveNotification/receiveNotification.service.js"></script>
+    <script src="ECM/Notification/ReceiveNotification/receiveNotification.directive.js"></script>
+    <script src="ECM/Notification/ReceiveNotification/receiveNotification.controller.js"></script>
+
+    <script src="ECM/Notification/SendNotification/notification.service.js"></script>
+    <script src="ECM/Notification/SendNotification/notification.directive.js"></script>
+    <script src="ECM/Notification/SendNotification/notification.controller.js"></script>
+
+    <script src="ECM/DiscountPeriod/discountPeriod.service.js"></script>
+    <script src="ECM/DiscountPeriod/discountPeriod.directive.js"></script>
+    <script src="ECM/DiscountPeriod/discountPeriod.controller.js"></script>
+
+    <!--Profile-->
+    <script src="PRF/Profile/profile.service.js"></script>
+    <script src="PRF/Profile/profile.directive.js"></script>
+    <script src="PRF/Profile/profile.controller.js"></script>
+
+    <!--DashBoard-->
+    <script src="Dashboard/dashboard.services.js"></script>
+    <script src="Dashboard/DashBoardPartial/dashboard.directives.js"></script>
+    <script src="Dashboard/DashBoardPartial/dashboard.controller.js"></script>
+    
+    <!--Import Excel-->
+    <script src="ImportExcel/importExcel.controller.js"></script>
+    <script src="ImportExcel/importExcel.directive.js"></script>
+    <script src="ImportExcel/importExcel.service.js"></script>
+
+    <script>
+        EmergeApp.controller('timer', function ($scope, $timeout) {
+            $scope.timerReached = false;
+            var mytimeout = $timeout(function () {
+                $scope.timerReached = true;
+            }, 1000);
+        })
+    </script>
+</body>
+</html>

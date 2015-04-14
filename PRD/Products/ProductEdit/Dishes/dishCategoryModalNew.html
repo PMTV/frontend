@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h3>Currencies</h3>
+</div>
+<div class="modal-body">
+    <form class="bs-example form-horizontal">
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Currencies Code</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" placeholder="Currency Code" ng-model="Currencies.code">
+                <span class="help-block m-b-none">Code of the currency (e.g SGD)</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Exchange Rate</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" placeholder="Exchange Rate" ng-model="Currencies.exchangeRate">
+                <span class="help-block m-b-none">Exchange rate (e.g 1.2)</span>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-success" ng-click="save()">Save</button>
+</div>

@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="EmergeApp">
+<head>
+    <meta charset="utf-8" />
+    <title>Emerge</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="assets/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/font.css" type="text/css" cache="false" />
+    <link rel="stylesheet" href="assets/css/plugin.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/app.css" type="text/css" />
+    <!--[if lt IE 9]>
+      <script src="js/ie/respond.min.js" cache="false"></script>
+      <script src="js/ie/html5.js" cache="false"></script>
+      <script src="js/ie/fix.js" cache="false"></script>
+    <![endif]-->
+</head>
+<body>
+    <section id="content" class="m-t-lg wrapper-md animated fadeInUp" ng-controller="LoginCtrl">
+        <div class="text-center">
+            <a href="#">
+                <img src="assets/img/emerge.logo.png" width="200" class="padder-v m-t m-b" />
+            </a>
+        </div>
+        <div class="row m-n">
+            <div class="col-md-4 col-md-offset-4 m-t-lg">
+                <section class="panel">
+                    <header class="panel-heading text-center">
+                        Sign in
+                    </header>
+                    <form class="panel-body" ng-submit="login()">
+                        <div class="form-group">
+                            <label class="control-label">Email</label>
+                            <input type="text" placeholder="test@higheridentity.com" class="form-control" ng-model="appUser.username">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Password</label>
+                            <input type="password" id="inputPassword" placeholder="Password" class="form-control" ng-model="appUser.password">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Keep me logged in
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-info btn-block" btn-loading="submitted" data-loading-text="<i class='icon icon-spinner icon-spin m-l-sm'></i> Loading..."> Login</button>
+                        <!--<div class="line line-dashed"></div>
+                        <a href="#" class="btn btn-facebook btn-block m-b-sm"><i class="icon-facebook pull-left"></i>Sign in with Facebook</a>
+                        <a href="#" class="btn btn-twitter btn-block"><i class="icon-twitter pull-left"></i>Sign in with Twitter</a>-->
+                        <div class="line line-dashed"></div>
+                        <p class="text-muted text-center"><small>Do not have an account?</small></p>
+                        <a href="#" class="btn btn-white btn-block">Request for an account</a>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </section>
+    <!-- footer -->
+    <footer id="footer">
+        <div class="text-center padder clearfix">
+            <p>
+                <small>Emerge <br>&copy; 2013</small>
+            </p>
+        </div>
+    </footer>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="assets/lib/angular/angular.js"></script>
+    <script src="assets/lib/angular/angular-route.min.js"></script>
+    <script src="assets/lib/angular/angular-resource.min.js"></script>
+    <script src="assets/lib/angular/angular-animate.min.js"></script>
+    <script src="assets/lib/angular/angular-cookies.min.js"></script>
+
+    <!-- Firebase -->
+    <script src="assets/lib/base/angular.plugins/firebase.js"></script>
+    <script src="assets/lib/base/angular.plugins/angularfire.min.js"></script>
+
+    <!-- AngularJS Plugins -->
+    <script src="assets/lib/base/angular.plugins/angular-promise-tracker.js"></script>
+    <script src="assets/lib/base/angular.plugins/angular-file-upload.min.js"></script>
+    <script src="assets/lib/base/angular.plugins/angular-debounce.js" cache="false"></script>
+    <script src="assets/lib/base/angular.plugins/angular-select2.js" cache="false"></script>
+    <script src="assets/lib/base/angular.plugins/angular-http-auth.js" cache="false"></script>
+    <script src="assets/lib/base/angular.plugins/angular-toastr.min.js" cache="false"></script>
+    <script src="assets/lib/base/angular.plugins/ui-bootstrap-tpls.min.js"></script> <!--Modal-->
+    <!-- Bootstrap -->
+    <script src="assets/js/bootstrap.js"></script>
+    <!-- datepicker -->
+    <script src="assets/js/datepicker/bootstrap-datepicker.js"></script>
+    <!-- datatables -->
+    <script src="assets/js/datatables/jquery.dataTables.min.js"></script>
+    <!-- parsley -->
+    <script src="assets/js/parsley/parsley.min.js" cache="false"></script>
+    <script src="assets/js/parsley/parsley.extend.js" cache="false"></script>
+    <!-- select2 -->
+    <script src="assets/js/select2/select2.min.js" cache="false"></script>
+    <!-- Slickgrid -->
+    <script src="assets/js/slickgrid/lib/jquery.event.drag-2.2.js"></script>
+    <script src="assets/js/slickgrid/slick.core.js"></script>
+    <script src="assets/js/slickgrid/slick.grid.js"></script>
+    <!-- slimscroll -->
+    <script src="assets/js/slimscroll/jquery.slimscroll.min.js" cache="false"></script>
+    <!-- toastr -->
+    <script src="assets/js/toastr/toastr.min.js"></script>
+    <!-- idle -->
+    <script src="assets/js/idle/idle.js"></script>
+    <!-- App -->
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/app.data.js"></script>
+    <script src="assets/js/app.plugin.js"></script>
+    <script src="assets/js/libs/underscore-min.js"></script>
+    <script src="assets/js/libs/moment.min.js"></script>
+
+    <!-- fuelux -->
+    <!--<script src="assets/js/fuelux/fuelux.js"></script>-->
+    <!-- Emerge -->
+    <script src="assets/lib/EmergeApp.js"></script>
+    <script src="assets/lib/base/directives.js"></script>
+    <script src="assets/lib/base/filters.js"></script>
+
+    <!-- Modules -->
+    <script src="USR/Users/user.service.js"></script>
+
+    <!-- GNM -->
+    <script src="GNM/CreditTerms/creditTerm.js"></script>
+    <script src="GNM/DeliveryTerms/deliveryTerm.js"></script>
+    <script src="GNM/DeliveryMethods/deliveryMethod.js"></script>
+    <script src="GNM/Currencies/currency.js"></script>
+    <script src="GNM/Countries/countries.js"></script>
+    <script src="GNM/Industries/industries.js"></script>
+    <script src="GNM/PaymentTerms/paymentTerm.js"></script>
+
+    <!-- CRM -->
+    <script src="CRM/Customers/customer.service.js"></script>
+    <script src="CRM/Customers/CustomerEdit/customerEdit.directive.js"></script>
+    <script src="CRM/Customers/CustomerEdit/customerEdit.controller.js"></script>
+
+    <!-- PRD -->
+    <script src="PRD/Products/product.service.js"></script>
+    <script src="PRD/Products/ProductEdit/productEdit.directive.js"></script>
+    <script src="PRD/Products/ProductEdit/productEdit.controller.js"></script>
+
+    <!-- PUR -->
+    <script src="PUR/Purchases/purchase.service.js"></script>
+    <script src="PUR/Purchases/purchaseEdit/purchaseEdit.controller.js"></script>
+    <script src="PUR/Purchases/purchaseEdit/purchaseEdit.directive.js"></script>
+    <script src="PUR/Suppliers/supplier.service.js"></script>
+
+    <!-- ORD -->
+    <script src="ORD/Quotations/quotation.service.js"></script>
+    <script src="ORD/Sales/sales.service.js"></script>
+    <script src="ORD/Sales/SalesEdit/salesEdit.controller.js"></script>
+    <script src="ORD/Sales/SalesEdit/salesEdit.directive.js"></script>
+
+    <!-- INV -->
+    <script src="INV/Acquisitions/acquisition.service.js"></script>
+    <script src="INV/Acquisitions/acquisitionEdit/acquisitionEdit.controller.js"></script>
+    <script src="INV/Acquisitions/acquisitionEdit/acquisitionEdit.directive.js"></script>
+
+    <!--HRM-->
+    <script src="HRM/Employees/employee.service.js"></script>
+    <script src="HRM/Employees/EmployeeEdit/employeeEdit.controller.js"></script>
+    <script src="HRM/Employees/EmployeeEdit/employeeEdit.directive.js"></script>
+
+    <!-- TNM -->
+    <script src="TNM/taskandnote.js"></script>
+
+    <script>
+
+        EmergeApp.controller('LoginCtrl', function ($scope, Auth) {
+            $scope.appUser = {};
+            $scope.submitted = false;
+
+            $scope.login = function () {
+                $scope.submitted = true;
+                var user = $scope.appUser;
+
+                var userData = {
+                    grant_type: 'password',
+                    username: user.username,
+                    password: user.password
+                }
+
+                if (!user.username && !user.password) {
+                    $scope.submitted = false;
+                    alert('Please enter your Username and Password');
+                } else {
+                Auth.login(userData).error(function (error) {
+                    $scope.submitted = false;
+                    console.log(error);
+                    alert(error.error_description);
+                });
+            }
+            }
+        });
+    </script>
+
+    <script src="assets/lib/base/directives.js"></script>
+</body>
+</html>

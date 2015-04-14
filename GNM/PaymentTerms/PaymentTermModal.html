@@ -1,0 +1,53 @@
+<div class="modal-header">
+    <h3>Payment Term</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-lg-6 b-r" ng-show="showPanel">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Payment Term Code</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="paymentTerm in paymentTermArr">
+                        <td>{{paymentTerm.paymentTermId}}</td>
+                        <td>{{paymentTerm.code}}</td>
+                        <td>{{paymentTerm.description}}</td>
+                        <td>
+                            <a ng-click="editItem(paymentTerm)" class="btn-link pull-left">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <button type="button" class="close pull-left" ng-click="removeItem($index, paymentTerm.paymentTermId)">&times;</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <form class="bs-example form-horizontal" ng-class="showPanel ?  'col-lg-6' : 'col-lg-12'">
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Payment Term Code</label>
+                <div class="col-lg-9">
+                    <input type="text" class="form-control" placeholder="Payment Term Code" ng-model="paymentTerm.code">
+                    <span class="help-block m-b-none">Code of the Payment Term (e.g FOB)</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Description</label>
+                <div class="col-lg-9">
+                    <input type="text" class="form-control" placeholder="Description" ng-model="paymentTerm.description">
+                    <span class="help-block m-b-none">Optional</span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" ng-click="cancel()">Close</button>
+        <button class="btn btn-success" ng-click="save()">Save</button>
+        <button class="btn btn-default pull-left" ng-click="showPanel = !showPanel; resize(showPanel ? 1100 : 0)"> <i class="fa" ng-class="{'fa-caret-right':showPanel, 'fa-caret-left':!showPanel}"></i> Manage </button>
+    </div>
+</div>

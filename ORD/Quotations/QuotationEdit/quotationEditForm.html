@@ -1,0 +1,436 @@
+﻿<div class="row">
+    <debug-message>{{quotation | json}}</debug-message>
+    <div class="form-group clearfix m-t">
+        <div class="col-sm-6 h4">
+            <span class="text-muted">Quotation #</span> {{quotation.quotationNumber}}
+        </div>
+
+        <div class="col-sm-6">
+            <label class="h4 pull-left">Status: <i class="fa fa-spinner fa-spin" ng-show="changingStatus"></i></label>
+            <div class="input-group-btn pull-left btn-link">
+                <div data-toggle="dropdown" class="h4 m-l text-primary">
+                    {{quotation.quotationStatusId | quotationStatus:quotation.settings.isApproved}} <span class="caret"></span>
+                </div>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="status in statusArr">
+                        <a ng-click="selectStatus(status.value)">{{status.name}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--<div class="col-sm-6" ng-show="userList.length">
+            <label>Users viewing now:</label>
+            <span class="badge bg-warning" ng-repeat="item in userList">{{item}}</span>
+        </div>-->
+    </div>
+    <div class="col-sm-6">
+        <portlet>
+            <portlet-item title="Information">
+                <div>
+                    <div ng-hide="!quotation.salesOrderId">
+                        <div class="alert alert-info wrapper-sm">Quotation converted to <a href="#/sales/{{quotation.salesOrderId}}">SalesOrder </a></div>
+                        <div class="line line-dashed line-lg pull-in"></div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" >
+                            <label>Customer</label>
+                            <button-customer-preview ng-class="{ 'input-error-show' : myForm.customer.$invalid && submitted }" class="pull-right"><button>Add New</button></button-customer-preview>
+                            <br />
+                            <customers-dropdown ng-class="{ 'input-error-show' : myForm.customer.$invalid && submitted }" name="customer" ng-required="true" ng-model="quotation.customerId" ng-change="onChangedCustomer(quotation.customerId)" customer="selected"></customers-dropdown>
+
+                            <div class="error" ng-show="(myForm.customer.$dirty && myForm.customer.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.customer.$error.required">Please select a Customer</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Date Ordered</label>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input date-picker ng-model="quotation.dateOrdered" type="text" class="form-control input-sm" placeholder="Date">
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="panel-footer pos-rlt pull-in">
+                        <span class="arrow top"></span>
+
+                        <label>Description</label>
+
+                        <div class="pull-out">
+                            <textarea class="form-control no-border input-lg text-sm" type="text" placeholder="Write a Description" rows="6" ng-model="quotation.remarks"></textarea>
+                        </div>
+                    </footer>
+                </div>
+            </portlet-item>
+            <portlet-item title="Charges & Discounts">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" ng-class="{ true: 'has-error' }[ myForm.add.$invalid && submitted ]">
+                            <label>Additional Charges</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input name="add" only-number-float type="number" class="form-control input-sm" placeholder="Additional charges" ng-model="quotation.additionalCharges">
+                            </div>
+                            <div class="error" ng-show="(myForm.add.$dirty && myForm.add.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.add.$error.required">Please enter a additional charge</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-class="{ true: 'has-error' }[ myForm.delivery.$invalid && submitted ]">
+                            <label>Delivery Charges</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input only-number-float name="delivery" type="number" class="form-control input-sm" placeholder="Delivery charges" ng-model="quotation.freight">
+                            </div>
+                            <div class="error" ng-show="(myForm.delivery.$dirty && myForm.delivery.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.delivery.$error.required">Please enter a delivery charge</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" ng-class="{ true: 'has-error' }[ myForm.discountType.$invalid && submitted ]">
+                            <label>Discount Type</label>
+                            <select ui-select2 name="discountType" class="ui-select2" ng-model="quotation.discountTypeId">
+                                <option value="">Please Select</option>
+                                <option value="1">Percentage</option>
+                                <option value="2">Fixed</option>
+                            </select>
+
+                            <div class="error" ng-show="(myForm.discountType.$dirty && myForm.discountType.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.discountType.$error.required">Please select a Discount Type</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Discount Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">{{quotation.discountType == 1 ? '%' : '$'}}</span>
+                                <input only-number-float type="text" class="form-control input-sm" placeholder="Discount amount" ng-model="quotation.discountAmount">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+    <div class="col-sm-6">
+        <portlet>
+            <portlet-item title="Shipping & Billing">
+                <div>
+                    <!-- ADDRESS SELECTION FOR BILLING AND SHIPPING -->
+                    <div ng-show="((addressType == 'Shipping' && !quotation.shipAddress) || (addressType == 'Billing' && !quotation.billAddress)) && customer.addressList.length">
+                        Select {{addressType}} Address
+                        <br />
+                        <ul class="list-group gutter list-group-sp sortable">
+                            <li class="list-group-item" ng-repeat="address in customer.addressList">
+                                <i class="fa fa-home"></i>
+                                <a class="btn-link" ng-click="selectAddress(address, addressType);">
+                                    ({{address.addressType | addressType:addressType}}) Block {{address.blkNo}}, {{address.streetName}}, {{address.unitNo}}, Postal {{address.postalCode}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- END OF ADDRESS SELECTION -->
+
+                    <ng-form ng-show="showEditShipping && addressType=='Shipping'">
+                        <div>
+                            <div class="form-group clearfix">
+                                <div class="form-group">
+                                    <label>Ship Name</label>
+                                    <input type="text" class="form-control input-sm" placeholder="Shipping Name" ng-model="quotation.shipName">
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input type="text" class="form-control input-sm" placeholder="Shipping Address" ng-model="quotation.shipAddress">
+                                </div>
+                                <div class="form-group pull-in clearfix">
+                                    <div class="col-sm-6">
+                                        <label>Postal Code</label>
+
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm" placeholder="Postal Code" ng-model="quotation.shipPostalCode">
+                                            <span class="input-group-btn" tooltip="Find Address">
+                                                <button class="btn btn-white input-sm" type="button" ng-click="findAddress('sales', quotation.shipPostalCode)"><i class="fa fa-globe" /></button>
+                                            </span>
+                                        </div><!-- /input-group -->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label>Country</label>
+                                        <input type="text" class="form-control input-sm" placeholder="Country" ng-model="quotation.shipCountry">
+                                    </div>
+                                </div>
+                                <div class="form-group pull-in clearfix">
+                                    <div class="col-sm-6">
+                                        <label>State</label>
+                                        <input type="text" class="form-control input-sm" placeholder="State" ng-model="quotation.shipState">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label>City</label>
+                                        <input type="text" class="form-control input-sm" placeholder="City" ng-model="quotation.shipCity">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-sm" ng-click="editAddress(); showEditShipping = false;">Save</button>
+                    </ng-form>
+
+
+                    <ng-form ng-show="showEditBilling && addressType=='Billing'">
+                        <div>
+                            <div class="form-group clearfix">
+                                <div class="form-group">
+                                    <label>Ship Name</label>
+                                    <input type="text" class="form-control input-sm" placeholder="Billing Name" ng-model="quotation.billName">
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input type="text" class="form-control input-sm" placeholder="Billing Address" ng-model="quotation.billAddress">
+                                </div>
+                                <div class="form-group pull-in clearfix">
+                                    <div class="col-sm-6">
+                                        <label>Postal Code</label>
+
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm" placeholder="Postal Code" ng-model="quotation.billPostalCode">
+                                            <span class="input-group-btn" tooltip="Find Address">
+                                                <button class="btn btn-white input-sm" type="button" ng-click="findAddress('billing', quotation.billPostalCode)"><i class="fa fa-globe" /></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label>Country</label>
+                                        <input type="text" class="form-control input-sm" placeholder="Country" ng-model="quotation.billCountry">
+                                    </div>
+                                </div>
+                                <div class="form-group pull-in clearfix">
+                                    <div class="col-sm-6">
+                                        <label>State</label>
+                                        <input type="text" class="form-control input-sm" placeholder="State" ng-model="quotation.billState">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label>City</label>
+                                        <input type="text" class="form-control input-sm" placeholder="City" ng-model="quotation.billCity">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-sm" ng-click="editAddress(); showEditBilling = false;">Save</button>
+
+                    </ng-form>
+                    <!-- SELECTED ADDRESS -->
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <div ng-show="quotation.shipAddress && !showEditBilling && !showEditShipping;">
+                                <strong>Shipping Address</strong>
+                                <a ng-click="showEditShipping = true; addressType='Shipping';" class="btn-link">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a ng-click="removeAddress('Shipping');addressType='Shipping';" class="btn-link"><i class="fa fa-times"></i></a>
+                                <br />
+                                {{quotation.shipName}}<br />
+                                {{quotation.shipAddress}}<br />
+                                {{quotation.shipPostalCode}}<br />
+                                {{quotation.shipCity}}, {{quotation.shipCountry}}
+                            </div>
+                            <button type="button" class="btn btn-white form-control" ng-click="addressType='Shipping'; showEditShipping = !customer.addressList.length? true : false;" ng-show="!quotation.shipAddress && !showEditShipping && !showEditBilling">Select Shipping Address</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <div ng-show="quotation.billAddress && !showEditBilling && !showEditShipping">
+                                <strong>Billing Address</strong>
+                                <a ng-click="showEditBilling = true;addressType='Billing';" class="btn-link">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a ng-click="removeAddress('Billing');" class="btn-link"><i class="fa fa-times"></i></a>
+                                <br />
+                                {{quotation.billName}}<br />
+                                {{quotation.billAddress}}<br />
+                                {{quotation.billPostalCode}}<br />
+                                {{quotation.billCity}}, {{quotation.billCountry}}
+                            </div>
+                            <button type="button" class="btn btn-white form-control" ng-click="addressType='Billing'; showEditBilling = !customer.addressList.length ? true : false;" ng-show="!quotation.billAddress && !showEditBilling && !showEditShipping">Select Billing Address</button>
+                        </div>
+                    </div>
+                    <!-- END OF SELECTED ADDRESS -->
+                </div>
+            </portlet-item>
+            <portlet-item title="Options">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" >
+                            <label>Currency</label>
+                            <currencies-dropdown ng-class="{ 'input-error-show' : myForm.currency.$invalid && submitted }" name="currency" ng-required="true" ng-model="quotation.currencyId"></currencies-dropdown>
+
+                            <div class="error" ng-show="(myForm.currency.$dirty && myForm.currency.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.currency.$error.required">Please select a Currency</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Credit Term</label>
+                            <creditterms-dropdown name="creditTerm" ng-model="quotation.creditTermId"></creditterms-dropdown>
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" ng-class="{ true: 'has-error' }[ myForm.deliveryMethod.$invalid && submitted ]">
+                            <label>Delivery Method</label>
+                            <deliverymethods-dropdown name="deliveryMethod" ng-model="quotation.deliveryMethodId"></deliverymethods-dropdown>
+
+                            <div class="error" ng-show="(myForm.deliveryMethod.$dirty && myForm.deliveryMethod.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.deliveryMethod.$error.required">Please select a Delivery Method</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Delivery Term</label>
+                            <deliveryterms-dropdown name="deliveryTerm" ng-model="quotation.deliveryTermId"></deliveryterms-dropdown>
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group">
+                        <div class="input-group m-b">
+                            <span class="input-group-addon">#</span>
+                            <tags ng-model="quotation.tags" placeholder="Insert Tags" class="ui-select2"></tags>
+                        </div>
+                    </div>
+                </div>
+            </portlet-item>
+
+            <!-- <portlet-item title="Upload Floor Plan">
+                 <div>
+                     <div uploader></div>
+                 </div>
+            </portlet-item> -->
+
+
+
+    </div>
+</div>
+
+<section class="panel">
+    <form method="post" ng-submit="addItem()" name="itemsForm" novalidate>
+        <header class="panel-heading font-bold">
+            <span class="h5">Items</span>
+            <div class="pull-right">
+            </div>
+        </header>
+        <div class="panel-body table-responsive">
+            <table class="table table-condensed text-sm m-b-none">
+                <thead>
+                    <tr>
+                        <th width="20">#</th>
+                        <th>Product Name</th>
+                        <th>Description</th>
+                        <th>Unit</th>
+                        <th width="90">Unit Price</th>
+                        <th width="90">Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in quotation.quotationDetailsList" ng-form="itemForm">
+                        <td>{{$index+1}}</td>
+                        <td>
+                            <products-dropdown ng-model="item" ng-change="onChangedProduct($index, item)" ng-hide="item.quotationDetailsId"></products-dropdown>
+                            <label ng-show="item.quotationDetailsId">{{item.productName || item.product.productName}}</label>
+                        </td>
+                        <td class="">
+                            <input class="form-control input-sm" name="description" ng-model="item.description" />
+                        </td>
+                        <td class="">
+                            <select class="form-control input-sm" ng-model="item.productUOMId">
+                                <option value="" ng-selected="item.productUOMId == null">{{item.product.uom}} [1]</option>
+                                <option ng-repeat="uom in item.product.productUOMList" value="{{uom.productUOMId}}" ng-selected="uom.productUOMId == item.productUOMId">{{uom.name}} [{{uom.value}}]</option>
+                            </select>
+                        </td>
+                        <td class="">
+                            <div class="form-group" ng-class="{ 'has-error': itemForm.unitPrice.$invalid && submitted }">
+                                <input name="unitPrice" class="form-control input-sm" ng-model="item.unitPrice" type="number" ng-required="true" />
+
+                                <div class="error">
+                                    <small class="error" ng-show="itemForm.unitPrice.$error.required && submitted">Required</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="">
+                            <div class="form-group" ng-class="{ 'has-error': itemForm.quantity.$invalid && submitted }">
+                                <input name="quantity" class="form-control input-sm" ng-model="item.qty" type="number" ng-required="true" />
+
+                                <div class="error">
+                                    <small class="error" ng-show="itemForm.quantity.$error.required && submitted">Required</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="">{{item.unitPrice * item.qty | currency}} <button type="button" class="close" aria-hidden="true" ng-click="removeItem($index, item.quotationDetailsId)" ng-class="{ 'text-danger': item.quotationDetailsId!=null }">&times;</button></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="2">
+                            <input type="submit" value="Add Item" ng-click="addItem()" class="btn btn-success btn-sm" />
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th><div class="text-center">{{totalQuantity | number}}</div></th>
+                        <th>{{totalPrice | currency}}</th>
+                    </tr>
+                    <tr ng-show="quotation.freight">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th colspan="2">Delivery Charges</th>
+                        <th>{{quotation.freight | currency}}</th>
+                    </tr>
+                    <tr ng-show="quotation.additionalCharges">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th colspan="2">Additional Charges</th>
+                        <th>{{quotation.additionalCharges | currency}}</th>
+                    </tr>
+                    <tr ng-show="quotation.discountAmount && quotation.discountTypeId">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th colspan="2">Discount</th>
+                        <th>{{quotation.discountAmount}} {{quotation.discountTypeId == 1 ? '%' : ''}}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">
+                            <div class="pull-left m-t-lg m-r">
+                                <span class="">
+                                    Taxable
+                                </span>
+                            </div>
+                            <div class="pull-left m-t">
+                                <label class="switch">
+                                  <input type="checkbox" ng-checked="quotation.isTaxable == 1 " ng-model="isTaxable" ng-change="onChangedTaxable(isTaxable)">
+                                  <span>{{}}</span>
+                                </label>
+                            </div>
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th colspan="2">  
+                            <!-- <label>Date Ordered</label> -->
+
+                            <div class="input-group m-t" ng-show="isTaxable || quotation.isTaxable">
+                                <span class="input-group-addon">GST (%)</span>
+                                <input type="text" class="form-control input-sm" ng-model="quotation.tax" placeholder="GST">
+                            </div>
+                        </th>
+                        <th><label class="m-t-lg" ng-show="isTaxable || quotation.isTaxable">{{totalGST | currency}}</label></th>
+                    </tr>
+                    <tr class="warning">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th colspan="2">Grand Total</th>
+                        <th>{{totalGrand | currency}}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </form>
+</section>

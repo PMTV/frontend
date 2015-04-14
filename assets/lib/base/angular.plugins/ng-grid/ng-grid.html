@@ -1,0 +1,22 @@
+﻿﻿<div ng-grid-master>
+    <div style="height:60px; padding: 15px;" class="grid_search">
+        <div class="pull-left pull-in col-sm-6" ng-show="showViewMap">
+            <button class="btn btn-warning" ng-click="openMap()">
+                <i class="fa fa-map-marker"></i> View Map
+            </button>
+        </div>
+
+        <div class="pull-right col-sm-6">
+            <label>Search</label>
+            <input type="text" ng-model="search" class="form-control search" style="width:300px; padding:3px;" />
+        </div>
+    </div>
+
+    <div ng-grid="options"></div>
+
+    <pagination ng-change="pageChanged(currentPage)" total-items="totalServerItems" items-per-page="15" ng-model="currentPage" max-size="10" class="pagination-sm" boundary-links="true" rotate="false" style="position:absolute; bottom: 5px; right: 20px;"></pagination> 
+    <div style="position:absolute; bottom: 20px; left: 20px;" class="grid_page">
+        Showing {{15 * currentPage - 15 + 1}} to {{ 15 * currentPage < totalServerItems ? 15 * currentPage : totalServerItems || 1 }} of {{totalServerItems}} entries
+    </div>
+</div>
+

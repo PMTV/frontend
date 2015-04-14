@@ -1,0 +1,50 @@
+<div class="row">
+    <debug-message>{{product | json}}</debug-message>
+
+    <div class="form-group col-sm-6">
+        <label>Main Categories</label>
+        <select ng-model="mainCategory" ng-change="onChangeCategory(mainCategory)" ui-select2 class="input-xl">
+            <option value="">Loading Main Category</option>
+            <option value="{{item.productCategoryId}}" ng-repeat="item in catArr">{{item.name}}</option>
+        </select>
+
+
+        <span class="btn btn-info btn-xs" ng-click="addSelected(mainCategory)"><b style="font: 1.2em;">Add>></b></span>
+        <br><br><label>Sub Categories</label> <br>
+        <!-- <label>Multiple select:&nbsp;</label>
+        <button type="button" class="btn btn-default" ng-model="subCategory" ng-change="addSelected(subCategory)" data-html="1" data-multiple="1" data-animation="am-flip-x" ng-options="c.name for c in mainCategory.children" bs-select>
+          Action <span class="caret"></span>
+        </button> -->
+        <select ng-model="subCategory" ui-select2 class="input-xl" ng-change="addSelected(mainCategory)">
+            <option value="">Loading Sub Category</option>
+            <option value="{{item}}" ng-repeat="item in selectedCategory.children">{{item.name}}</option>
+        </select>
+
+        <pre>selected category: {{selectedCategory}}</pre>
+    </div>
+
+    <div class="form-group col-sm-6">
+        <label>Chosen Categories</label>
+        <div class="list-group bg-white m-b-none" ng-repeat="item in product.productCategoriesList">
+            <div class="list-group-item" ng-hide="item.isDeleted">
+                <div class="row">
+                    <div class="col-sm-5">
+<!--                        <span class="badge bg-info" ng-show="{{item.parent}}"> {{item.parent.name}}</span>-->
+                        <span class="badge bg-default" ng-hide="{{item.parent}}">main</span>
+                    </div>
+                    <div class="col-sm-5 text-left">
+                        {{item.name}}
+                    </div>
+                    <div class="col-sm-2">
+                        <a href="" ng-click="removeSelected($index,item)"><i class="fa fa-remove"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <label>Chos1en Categories</label>
+        <ul class="form-control" ng-repeat="item in product.productCategoriesList">
+           <li><strong>[{{item.parentCategoryName}}]</strong> {{item.name}}</li>
+        </ul> -->
+    </div>
+</div>

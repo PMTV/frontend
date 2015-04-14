@@ -1,0 +1,80 @@
+﻿<div>
+    <div class="row">
+        <div class="col-sm-12 ">
+            <portlet>
+                <portlet-item title="Price for quantity">
+                    <div class="row">
+                        <form name="myForm" novalidate>
+                            <div class="clearfix m ">
+                                <div class="col-lg-3 form-group m-t">
+                                    <label>From</label>
+                                    <input only-number class="form-control" type="number" name="fromQuantity" data-ng-model="mQuantity.fromQuantity">
+                                </div>
+
+                                <!--<div class="col-lg-3 form-group m-t">-->
+                                    <!--<label>To</label>-->
+                                    <!--<input class="form-control" type="number" name="toQuantity" data-ng-model="mQuantity.toQuantity" data-ng-required="true">-->
+                                <!--</div>-->
+
+                                <div class="col-lg-3 form-group m-t">
+                                    <label>Price</label>
+                                    <input only-number-float class="form-control" type="number" placeholder="Price" name="price" data-ng-model="mQuantity.price">
+                                </div>
+                                <div class="col-lg-3 form-group m-t-lg text-center">
+                                    <a class="btn btn-success btn-sm m-t-xs" ng-click="createQuantityPrice()">
+                                        <i class="fa fa-save"></i>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </portlet-item>
+            </portlet>
+        </div>
+
+    </div>
+    <div class="">
+        <portlet>
+
+            <portlet-item title="Preview">
+                <div class="table-responsive">
+                    <table class="table table-condensed b-t text-sm m-b-none" dishesitems-table="">
+                        <thead>
+                            <tr>
+                                <th width="20%">From</th>
+                                <th width="20%">To</th>
+                                <th width="10%">Price</th>
+                                <th width="5%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in quantityPrice">
+                                <td>
+                                    <!--<div data-ng-hide="item.fromQuantity==undefined||item.fromQuantity.length==0">-->
+                                    {{item.fromQuantity}}
+                                    <!--</div>-->
+                                </td>
+                                <td>
+                                    <!--{{item.toQuantity}}--> {{item.calToQuantity}}
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">$</span>
+                                        <input type="text" readonly="true" class="form-control input-sm text-right" placeholder="Price" ng-model="item.price" />
+                                    </div>
+                                </td>
+                                <td class="v-middle">
+                                    <a href="" ng-click="removeSelected($index)" title="Remove">
+                                        <i class="fa fa-minus"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </portlet-item>
+
+        </portlet>
+    </div>
+</div>

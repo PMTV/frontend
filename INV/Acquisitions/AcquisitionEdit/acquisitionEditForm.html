@@ -1,0 +1,180 @@
+﻿<div class="row">
+    <debug-message>{{inventoryAcquisition | json}}</debug-message>
+    <div class="form-group clearfix m-t">
+        <div class="col-sm-6 h4">
+            <span class="text-muted">Inventory Acquisition Order #</span> {{inventoryAcquisition.inventoryAcquisitionNumber}}
+        </div>
+        <div class="col-sm-6" ng-show="userList.length">
+            <label>Users viewing now:</label>
+            <span class="badge bg-warning" ng-repeat="item in userList">{{item}}</span>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <portlet>
+            <portlet-item title="Information">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" ng-class="{ 'has-error' : myForm.supplier.$invalid && submitted }">
+                            <label>Supplier</label><br />
+                            <suppliers-dropdown name="supplier" ng-required="true" ng-model="inventoryAcquisition.supplierId" ng-change="onSelectSupplier(inventoryAcquisition.supplierId)" class="ui-select2"></suppliers-dropdown>
+
+                            <div class="error" ng-show="(myForm.supplier.$dirty && myForm.supplier.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.supplier.$error.required">Please select a Supplier</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Date Received</label>
+                            <input date-picker type="text" class="form-control input-sm" placeholder="Date" ng-model="inventoryAcquisition.dateAcquisition">
+                        </div>
+                    </div>
+                    <footer class="panel-footer pos-rlt pull-in">
+
+                        <span class="arrow top"></span>
+                        <div class="pull-out">
+                            <textarea class="form-control no-border input-lg text-sm" placeholder="Write a Description" rows="6" ng-model="inventoryAcquisition.remarks"></textarea>
+                        </div>
+                    </footer>
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+    <div class="col-sm-6">
+        <portlet>
+            <portlet-item title="Options">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" ng-class="{ true: 'has-error' }[ myForm.warehouse.$invalid && submitted ]">
+                            <label>Location</label>
+
+                            <warehouses-dropdown name="warehouse" ng-required="true" ng-model="inventoryAcquisition.warehouseId"></warehouses-dropdown>
+
+                            <div class="error" ng-show="(myForm.warehouse.$dirty && myForm.warehouse.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.warehouse.$error.required">Please select a Warehouse</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group">
+                        <div class="input-group m-b">
+                            <span class="input-group-addon">#</span>
+                            <tags ng-model="inventoryAcquisition.tags" placeholder="Insert tags" class="ui-select2"></tags>
+                        </div>
+                    </div>
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+</div>
+
+<div class="col-sm-12">
+    <ul class="nav nav-tabs nav-justified">
+        <li class="text-left" ng-class="{active:showFirst}" ng-hide="!showFirst"><a ng-href="#invd" target="_self" data-toggle="tab">Items <span class="label label-default">{{inventoryAcquisition.inventoryAcquisitionsDetailsList.length}}</span></a></li>
+        <li class="text-left" ng-class="{active:showSecond}"><a ng-href="#pod" target="_self" data-toggle="tab">Add Items <span class="label label-default">{{purchaseOrderDetailsList.length}}</span></a></li>
+    </ul>
+</div>
+
+<section class="panel">
+    <form method="post" name="itemsForm" novalidate>
+        <div class="tab-content">
+            <div class="tab-pane" ng-class="{active:showFirst}" id="invd" ng-show="inventoryAcquisition.inventoryAcquisitionsDetailsList.length>0">
+                <header class="panel-heading font-bold">
+                    <span class="h5">Items</span>
+                </header>
+                <div class="panel-body table-responsive">
+                    <table class="table table-condensed text-sm m-b-none" ng-form="itemForm">
+                        <thead>
+                            <tr>
+                                <th class="col-sm-1">#</th>
+                                <th class="col-sm-2">PO Number</th>
+                                <th>Product Name</th>
+                                <th class="col-sm-2">Product Batch</th>
+                                <th>Description</th>
+                                <!--<th class="col-sm-2">Unit</th>-->
+                                <th class="col-sm-1">Quantity</th>
+                                <th class="col-sm-1"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in inventoryAcquisition.inventoryAcquisitionsDetailsList" ng-form="subForm">
+                                <debug-message>{{inventoryAcquisition.inventoryAcquisitionsDetailsList | json}}</debug-message>
+                                <td>
+                                    <strong>{{$index+1}}</strong>
+                                </td>
+                                <td>
+                                    {{item.purchaseOrderDetails.purchaseOrder.purchaseOrderNumber || item.purchaseOrderNumber}}
+                                </td>
+                                <td>
+                                    {{item.purchaseOrderDetails.productName || item.productName}}
+                                </td>
+                                <td>
+                                    <div ng-show="!item.purchaseOrderDetails.isBatchItem && !item.isBatchItem">-</div>
+                                    <productbatch-dropdown name="productBatch" product-id="{{item.productId}}" ng-model="item.productBatchId" class="ui-select2" ng-show="item.purchaseOrderDetails.isBatchItem || item.isBatchItem" ng-required="item.purchaseOrderDetails.isBatchItem || item.isBatchItem"></productbatch-dropdown>
+                                    <div class="error" ng-show="(subForm.productBatch.$dirty && subForm.productBatch.$invalid) || submitted">
+                                        <small class="error" ng-show="subForm.productBatch.$error.required">Please select a Batch</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <textarea name="remarks" class="input-sm form-control" ng-model="item.remarks" />
+                                </td>
+                                <td>
+                                    <input name="quantity" class="form-control input-sm" ng-model="item.qty" type="number" ng-required="true" />
+                                </td>
+                                <td>
+                                    <div class="btn-link"><i tooltip="Delete" class="fa fa-times" ng-class="{'text-danger' : item.inventoryAcquisitionsDetailsId, 'fa-spinner fa-spin' : item.isDeleting}" ng-click="removeAcquisitionItem($index, item)"></i></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane" ng-class="{active:showSecond}" id="pod">
+                <header class="panel-heading font-bold">
+                    <span class="h5">Items</span>
+                </header>
+                <div class="panel-body table-responsive">
+                    <table class="table table-condensed text-sm m-b-none" ng-form="itemForm">
+                        <thead>
+                            <tr>
+                                <th class="col-sm-1"></th>
+                                <th class="col-sm-1">#</th>
+                                <th class="col-sm-2">PO Number</th>
+                                <th class="col-sm-2">Product Name</th>
+                                <th>Description</th>
+                                <th class="col-sm-1">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="po in purchaseOrderList" ng-init="outerIndex = $index">
+                            <debug-message>{{purchaseOrderList | json}}</debug-message>
+                            <tr ng-repeat="item in po.purchaseOrderDetailsList" ng-init="innerIndex = $index" ng-class="{'alert-warning' : item.checked}" ng-click="selectAcquisitionItem(po.purchaseOrderNumber, item)">
+                                <td><input type="checkbox" ng-model="item.checked" ng-click="selectAcquisitionItem(po.purchaseOrderNumber, item); $event.stopPropagation();" /></td>
+                                <td><strong>{{outerIndex+1}}</strong></td>
+                                <td>
+                                    {{po.purchaseOrderNumber}}
+                                </td>
+                                <td>
+                                    {{item.productName}}
+                                </td>
+                                <td>
+                                    {{item.description}}
+                                </td>
+                                <td>
+                                    <div class="form-group" ng-class="{ 'has-error': itemForm.quantity.$invalid }">
+                                        <input name="quantity" class="input-sm form-control" type="number" ng-required="item.checked" ng-model="item.receivedQty" ng-click="$event.stopPropagation()" ng-show="item.checked" ng-change="updateQuantity(item)" />
+                                        <!--<div class="error">
+                                            <small class="error" ng-show="itemForm.quantity.$error.required">Required</small>
+                                        </div>-->
+                                        <div ng-show="!item.checked">{{item.qtyInProgress}} / <strong>{{item.qty}}</strong></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

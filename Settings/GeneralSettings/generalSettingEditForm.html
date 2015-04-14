@@ -1,0 +1,77 @@
+<div class="row padder-v">
+    <!--<debug-message>{{user | json}}</debug-message>-->
+    <div class="col-sm-12">
+        <article class="media padder-v">
+            <div class="media-body">
+                <a class="h2 text-success">Basic</a>
+            </div>
+        </article>
+        <div class="line pull-in"></div>
+
+        <button ng-click="addIndustry()" class="btn btn-white btn-lg m-r">
+            <i class="fa fa-building-o fa-4x text-muted"></i>
+            <label class="block h5 font-thin">Industry</label>
+            <p class="text-xs text-muted">{{industryArr.length}} industry created!</p>
+        </button>
+
+        <button ng-click="addCountry()" class="btn btn-white btn-lg m-r">
+            <i class="fa fa-flag fa-4x text-muted"></i>
+            <label class="block h5 font-thin">Countries</label>
+            <p class="text-xs text-muted">{{countrysArr.length}} countries created!</p>
+        </button>
+
+        <button ng-click="addWarehouse()" class="btn btn-white btn-lg m-r">
+            <i class="fa fa-home fa-4x text-muted"></i>
+            <label class="block h5 font-thin">Warehouses</label>
+            <p class="text-xs text-muted">{{warehouseArr.length}} warehouses created!</p>
+        </button>
+
+        <button ng-click="addReturnReason()" class="btn btn-white btn-lg m-r">
+            <i class="fa fa-mail-reply fa-4x text-muted"></i>
+            <label class="block h5 font-thin">Return Reason</label>
+            <p class="text-xs text-muted">{{returnReasonArr.length}} return reason created!</p>
+        </button>
+    </div>
+    <div class="col-sm-12 m-t">
+        <article class="media padder-v">
+            <div class="media-body">
+                <a class="h2 text-success">Sales</a>
+            </div>
+        </article>
+        <div class="line pull-in"></div>
+        <button ng-click="addCurrency()" class="btn btn-white btn-lg m-r">
+            <i class="fa fa-dollar fa-4x text-muted"></i>
+            <label class="block h5 font-thin ">Currency</label>
+            <p class="text-xs text-muted">{{currencyArr.length}} currencies created!</p>
+        </button>
+        <button ng-click="addCreditTerm()" class="btn btn-white btn-lg m-r">
+            <i class="fa fa-money fa-4x text-muted"></i>
+            <label class="block h5 font-thin">Credit Term</label>
+            <p class="text-xs text-muted">{{creditTermArr.length}} credit term created!</p>
+        </button>
+
+        <button ng-click="addDeliveryTerm()" class="btn btn-white btn-lg m-r">
+            <i class="fa fa-truck fa-4x text-muted"></i>
+            <label class="block h5 font-thin">Delivery Term</label>
+            <p class="text-xs text-muted">{{deliveryTermArr.length}} delivery term created!</p>
+        </button>
+
+        <button ng-click="addPaymentTerm()" class="btn btn-white btn-lg m-r">
+            <i class="fa fa-money fa-4x text-muted"></i>
+            <label class="block h5 font-thin">Payment Term</label>
+            <p class="text-xs text-muted">{{PaymentTermArr.length}} payment term created!</p>
+        </button>
+
+        <button ng-click="addDeliveryMethod()" class="btn btn-white btn-lg m-r">
+            <i class="fa fa-hand-o-right fa-4x text-muted"></i>
+            <label class="block h5 font-thin">Delivery Method</label>
+            <p class="text-xs text-muted">{{DeliveryMethodArr.length}} delivery methods created!</p>
+        </button>
+        
+        <button ng-click="addGift()" class="btn btn-white btn-lg m-r">
+            <i class="fa fa-gift fa-4x text-muted"></i>
+            <label class="block h5 font-thin">Gift</label>
+            <p class="text-xs text-muted">{{giftArr.length}} gift types created!</p>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+﻿<section class="vbox flex" ng-controller="CategoryEditCtrl">
+    <div class="pull-left header">
+        <p class="h4">Categories</p>
+    </div>
+    <header class="header bg-light lter b-b hidden-print" ng-include="'header.html?a=a'"></header>
+
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+<!--             <aside class="aside-lg bg-light lter b-r main-aside" ng-hide="customer.customerId == undefined" id="sidebar">
+                <section class="vbox bg-white" ng-include="'CRM/Customers/customer.aside.html?a=b'"></section>
+            </aside> -->
+            <!-- .aside -->
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="dker">
+                                <a data-target="#sidebar" class="btn btn-sm btn-default" data-toggle="class:hide">
+                                    <i class="fa fa-chevron-left text"></i>
+                                    <i class="fa fa-chevron-right text-active"></i>
+                                </a>
+                            </li>
+                            <li class="active"><a data-target="#list" data-toggle="tab">Categories</a></li>
+                            <!-- <li ng-hide="customer.customerId == undefined"><a data-target="#quotations" data-toggle="tab">Quotations</a></li>
+                            <li ng-hide="customer.customerId == undefined" class=""><a data-target="#salesorder" data-toggle="tab">Sales Orders<!-- <span class="badge m-l-xs bg-danger">4 New</span> </a></li> -->
+                        </ul>
+
+                        <div class="navbar-btn pull-right">
+                            <a href="#/categories/new" class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="list">
+                                <section class="tab-pane" id="validation">
+                                    <section ng-include="'PRD/Categories/CategoryEdit/categoryEditForm.html?a=a'"></section>
+                                </section>
+                            </div>
+                        </div>
+                    </section>
+
+                </section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+
+    <footer class="footer text-right bg-light lter b-t">
+        <a href="#/categories" class="btn btn-success btn-s-xs" ng-disabled="busy">Done</a>
+        <!-- <button type="submit" class="btn btn-success btn-s-xs" data-loading-text="Saving..." ng-click="#/categories" ng-disabled="busy">Done</button> -->
+    </footer>
+</section>

@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-sm-8 col-md-offset-2">
+        <portlet>
+            <portlet-item title="Warehouse">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" ng-class="{ 'has-error' : myForm.supplier.$invalid && submitted }">
+                            <label>Choose Warehouse</label><br />
+                            <suppliers-dropdown name="supplier" ng-required="true" ng-model="inventoryAcquisition.supplierId" ng-change="onSelectSupplier(inventoryAcquisition.supplierId)" class="ui-select2"></suppliers-dropdown>
+
+                            <div class="error" ng-show="(myForm.supplier.$dirty && myForm.supplier.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.supplier.$error.required">Please select a Supplier</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Choose Warehouse Section</label>
+                            <suppliers-dropdown name="supplier" ng-required="true" ng-model="inventoryAcquisition.supplierId" ng-change="onSelectSupplier(inventoryAcquisition.supplierId)" class="ui-select2"></suppliers-dropdown>
+                        </div>
+                    </div>
+                    <footer class="panel-footer pos-rlt pull-in">
+
+                        <span class="arrow top"></span>
+                        <div class="col-sm-12">
+                            <label>Warehouse Name</label>
+                            <input type="text" class="form-control input-sm" placeholder="Please enter warehouse name..." value="">
+                        </div>
+
+                    </footer>
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+</div>

@@ -1,0 +1,198 @@
+<debug-message class="hidden-print">{{packingList | json}}</debug-message>
+
+<div class="row">
+    <div class="col-sm-12">
+      <section class="panel ">
+        <header class="header b-b hidden-print">
+          <button href="#" class="btn btn-sm btn-info pull-right" onClick="window.print();">Print</button>
+          <!-- <button href="#" class="btn btn-sm btn-info pull-right" ng-click="toPdf('render')">PDF</button> -->
+          <!-- <pdf source="render_me"></pdf> -->
+          <p>Packing List: {{packingList.packingListNumber}}</p>
+        </header>
+        <div id="render page">
+          <section class="wrapper subpage" >
+<!--             <i class="fa fa-apple icon-3x"></i>
+ -->            
+            <div class="row">
+              <div class="col-xs-5">
+                <section class="no-borders hbox m-b-lg">
+                  <aside class="r-l text-left v-middle">
+                    <div >
+                      <!-- <i class="fa fa-sun icon-4x"></i>                       -->
+                      <img src="assets/img/royal_logo.jpg" width="150">
+                    </div>
+                  </aside>
+                </section>
+                <p>Bill to: {{quotation.billName}}</p>
+                <section class="panel">
+                  <table class="table table-striped m-b-none text-sm">
+                    <tbody>
+                      <tr>                    
+                        <td class="b-r" width="150">
+                          <p>{{quotation.billAddress}} <br>
+                            {{quotation.billPostalCode}}<br>
+                            {{quotation.billCity}}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>                    
+                        <td class="b-r">
+                          Attn: {{quotation.billName}}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </section>     
+              </div>
+              <div class="col-xs-4 pull-right text-right">
+                <p class="h4"><strong>Tax Invoice</strong></p>
+                <h6><small>| Co. Reg No: 190343434 | GST Reg No: 213123-1223122</small></h6>  
+                <section class="panel">
+                  <table class="table table-striped m-b-none text-sm">
+                    <tbody>
+                      <tr>                    
+                        <td class="b-r" width="150">
+                          Quotation Date:
+                        </td>
+                        <td width="300">
+                          {{quotation.dateRequired | date}}
+                        </td>
+                      </tr>
+                      <tr>                    
+                        <td class="b-r">
+                          Quotation No:
+                        </td>
+                        <td>
+                          {{quotation.quotationNumber}}
+                        </td>
+                      </tr>
+                      <tr>                    
+                        <td class="b-r">
+                          Terms:
+                        </td>
+                        <td>
+                          {{}} 
+                        </td>
+                      </tr>
+                      <tr>                    
+                        <td class="b-r">
+                          Contact:
+                        </td>
+                        <td>
+                          {{}} 
+                        </td>
+                      </tr>
+                      <tr>                    
+                        <td class="b-r">
+                          Sales Rep:
+                        </td>
+                        <td>
+                          {{}} 
+                        </td>
+                      </tr>
+                      <tr>                    
+                        <td class="b-r">
+                          P.O No:
+                        </td>
+                        <td>
+                          {{}} 
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </section>         
+              </div>
+            </div>          
+            <!-- <div class="well m-t">
+              <div class="row">
+                <div class="col-xs-6 b">
+                  <strong>TO:</strong>
+                  <h4>{{sales.billName}}</h4>
+                  <p>
+                   {{sales.billAddress}}
+                   <br>
+                   {{sales.billPostalCode}}, {{sales.billCity}}
+                   <br>
+                   {{sales.billRegion}}, {{sales.billCountry}}
+                  </p>
+                </div>
+                <div class="col-xs-6">
+                  <strong>SHIP TO:</strong>
+                  <h4>{{sales.shipName}}</h4>
+                  <p>
+                   {{sales.shipAddress}}
+                   <br>
+                   {{sales.shipPostalCode}}, {{sales.shipCity}}
+                   <br>
+                   {{sales.shipRegion}}, {{sales.shipCountry}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <p class="m-t m-b">Order date: <strong>{{sales.dateOrdered}}</strong><br>
+                Order status: <span class="label bg-success">{{sales.salesOrderStatusId}}</span><br>
+                Order ID: <strong>{{sales.salesOrderNumber}}</strong>
+            </p> -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th width="60">#</th>
+                  <th>DESCRIPTION</th>
+                  <th width="100">QUANTITY</th>
+                  <th width="100">UNIT PRICE</th>
+                  <th width="100">TOTAL CHARGES</th>
+                </tr>
+              </thead>
+              <tbody ng-repeat="item in quotation.quotationDetailsList">
+                <tr>
+                  <td>{{$index+1}}</td>
+                  <td>
+                    {{item.productName}}
+                    <ul class="form-group" ng-show="item.quotationDetailsComponentsList">
+                      <li ng-repeat="item2 in item.quotationDetailsComponentsList">{{item2.productId}}</li>
+                    </ul>
+                  </td>
+                  <td>#</td>
+                  <td>$ {{item.unitPrice}}</td>
+                  <td>$ {{item.unitPrice * item.qty}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="7" class="text-left">
+                    <strong>Comments</strong>
+                    <p>asdasdasdasdsa</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4" class="text-right"><strong>Subtotal</strong></td>
+                  <td>$1607.00</td>
+                </tr>
+                <tr>
+                  <td colspan="4" class="text-right no-border"><strong>Shipping</strong></td>
+                  <td>$0.00</td>
+                </tr>
+                <tr>
+                  <td colspan="4" class="text-right no-border"><strong>VAT Included in Total</strong></td>
+                  <td>$0.00</td>
+                </tr>
+                <tr>
+                  <td colspan="4" class="text-right no-border"><strong>Total</strong></td>
+                  <td><strong>$1607.00</strong></td>
+                </tr>
+              </tfoot>
+            </table>
+            <div class="row print_footer">
+              <div class="col-sm-4 pull-left text-left">
+                <p><strong>E & O E</strong></p>
+                <br><br>
+                <hr width="200px" class="text-left pull-left"><br>
+                <p class="text-left pull-left">for Royal Catering Service Pte Ltd</p>
+              </div>
+            </div>
+          </section>
+          
+        </div>
+      </section>  
+    </div>
+</div>

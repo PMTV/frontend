@@ -1,0 +1,47 @@
+<div class="modal-header">
+  <h3>Add Credit Note</h3>
+</div>
+<div class="modal-body">
+  <!-- .nav-justified -->
+    <div class="panel-body">
+      <div class="form-group pull-in clearfix">
+        <div class="col-sm-12">
+            <label>Reference Number</label><br />
+            <input type="text" class="form-control input-sm" ng-model="newCustomer.referenceNumber" placeholder="Reference Number">
+        </div>
+      </div>
+      <div class="line line-dashed line-lg pull-in"></div>
+      <div class="form-group pull-in clearfix">
+          <div class="col-sm-6">
+              <label>Currencies</label><br />
+              <currencies-dropdown name="currencies" ng-required="true" ng-model="newCustomer.currencyId" ng-change="onChangedCurrencies(newCustomer.currencyId)" class="ui-select2"></currencies-dropdown>
+
+              <div class="error" ng-show="(myForm.currencies.$dirty && myForm.currencies.$invalid) || submitted">
+                  <small class="error" ng-show="myForm.currencies.$error.required">Please select a Currency</small>
+              </div>
+          </div>
+      </div>
+      <div class="form-group pull-in clearfix">
+          <div class="col-sm-6">
+              <label>Amount</label>
+              <div class="input-group">
+                  <span class="input-group-addon">$</span>
+                  <input type="text" class="form-control input-sm" data-type="text" placeholder="Amount" ng-model="newCustomer.amount">
+              </div>
+          </div>
+          <div class="col-sm-6">
+              <label>Tax Amount</label>
+              <div class="input-group">
+                  <span class="input-group-addon">$</span>
+                  <input type="text" class="form-control input-sm" data-type="text" placeholder="Amount" ng-model="newCustomer.taxAmount">
+              </div>
+          </div>
+      </div>
+    </div>
+  <!-- / .nav-justified -->
+
+</div>
+<div class="modal-footer">
+  <button type="submit" class="btn btn-success btn-s-xs" ng-click="ok(newCustomer)" ng-disabled="busy">Create</button>
+  <button type="submit" class="btn btn-danger btn-s-xs" ng-click="cancel()" ng-disabled="busy">Cancel</button>
+</div>

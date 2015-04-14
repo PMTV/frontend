@@ -1,0 +1,98 @@
+
+<section class="scrollable" id="pjax-container">
+  <section class="vbox flex">
+    <header class="header bg-white dker">
+      <div class="row b-b">
+        <h3 class="m-t m-b-none m-l">Edit Delivery Items</h3>
+        <p class="block text-muted m-l"></p>
+      </div>
+    </header>
+    <section >
+      <section >
+        <section class="">
+           <section class="hbox stretch ">
+              <aside class="aside-lg bg-light lter b-r">
+                <section class="vbox ">
+
+                  <section class="scrollable ">
+                    <div class="panel-body table-responsive" >
+                      <table class="table table-condensed b-t text-sm m-b-none" deliveryitems-table>
+                        <thead>
+                          <tr>
+                            <th width="5%">#</th>
+                            <th width="20%">Dishes Name</th>
+                            <th width="20%">UOM</th>
+                            <!-- <th width="20%">Value</th> -->
+                            <th width="20%">Qty</th>
+                            <th width="15%">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in dishesArray">
+                              <td>{{$index+1}}</td>
+                              <td>
+                                <label>{{item.productName}}</label>  
+                              </td>
+                              <td>
+                                <label>{{item.productUOMName}}[{{item.productUOMValue}}]</label>
+                              </td>
+                              <td>
+                                <input type="number" class="form-control input-sm" ng-model="item.qty">
+                              </td>
+                              <!-- <td>
+                                <div class="form-group" ng-class="{ 'has-error': itemForm.uom.$invalid }">
+                                  <select ui-select2 class="ui-select2" ng-model="selectedDishUom">
+                                    <option value="" ng-selected="item.productUOMId == null">{{item.childProduct.uom}} [{{item.childProduct.qtyperUnit}}]</option>
+                                    <option ng-repeat="uom in item.childProduct.productUOMList" value="{{uom.name}}" ng-selected="uom.productUOMId == item.childProduct.productUOMList[0].productUOMId">{{uom.name}} [{{uom.value}}]</option>
+                                  </select>
+                                  <div class="error">
+                                    <small class="error" ng-show="itemForm.quantity.$error.required">Required</small>
+                                  </div>
+                                </div>
+                              </td> -->
+                              <td>
+                                  <input name="form{{item.productCategoryId}}" type="checkbox" ng-click="selectedDishes($index, item2, item)" ng-checked="checkInArr(item2) ">
+                              </td>
+                            </tr>
+                        </tbody>
+                        <!-- <thead>
+                          <tr>
+                            <th width="5%">#</th>
+                            <th width="50%">Dishes Name</th>
+                            <th width="30%">Category</th>
+                            <th width="15%">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody ng-repeat="item in dishesArray" ng-form="itemForm">
+                          <tr ng-repeat="item2 in item.productList">
+                            <td>{{$index+1}}</td>
+                            <td>
+                              <label>{{item2.name}}</label>  
+                            </td>
+                            <td>
+                              <label>{{item.name}}</label>  
+                            </td>
+                           
+                            <td>
+                              <input type="checkbox" ng-click="selectedDishes($index, item2)" ng-checked="checkInArr(item2)">
+                            </td>
+                          </tr>
+                        </tbody> -->
+                      </table>
+                    </div>
+                    
+                  </section>
+                  <footer class="footer text-right bg-light lter">
+                    <button type="submit" class="btn btn-success btn-s-xs" ng-click="ok()" ng-disabled="busy">Okay</button>
+                    <button type="submit" class="btn btn-danger btn-s-xs" ng-click="cancel()" ng-disabled="busy">Cancel</button>
+                  </footer>
+                </section>
+              
+              </aside>
+              
+            </section>
+          </section>
+        </section>
+      </section>
+    </section>
+  </section>

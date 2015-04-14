@@ -1,0 +1,59 @@
+<section class="vbox flex" ng-controller="ReturnSaleOrderEditCtrl">
+    <div class="pull-left header hidden-print">
+        <p class="h4">
+            <a href="#/return-saleOrder">Return Sale Order</a>
+        </p>
+    </div>
+    <header class="header bg-light lter b-b hidden-print" ng-include="'header.html?a=a'"></header>
+
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <aside class="aside-lg bg-light lter b-r main-aside" ng-hide="returnOrder.supplierId == undefined" id="sidebar">
+                <section class="vbox bg-white" ng-include="'PUR/Suppliers/supplier.aside.html?a=aaaaaaaaa'"></section>
+            </aside>
+            <!-- .aside -->
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient hidden-print">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="dker">
+                                <a data-target="#sidebar" class="btn btn-sm btn-default" data-toggle="class:hide">
+                                    <i class="fa fa-chevron-left text"></i>
+                                    <i class="fa fa-chevron-right text-active"></i>
+                                </a>
+                            </li>
+                            <li class="active"><a data-target="#item" data-toggle="tab">Return Sale Order</a></li>
+                        </ul>
+                        <div class="navbar-btn pull-right">
+                            <a href="#/return-saleOrder/new" class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content">
+                            <!-- slim-scroll -->
+                            <div class="tab-pane active" id="item">
+                                <form name="myForm" novalidate>
+                                    <section ng-include="'ORD/ReturnSaleOrder/ReturnSaleOrderEdit/returnSaleOrderEditForm.html?a=aa'"></section>
+                                    <button type="submit" class="hide" />
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+
+    <footer class="footer text-right bg-light lter b-t hidden-print">
+        <div class="pull-left m-t-sm">
+            <button type="submit" ng-show="!checkEdit" class="btn btn-info" ng-click="openPDF()" target="_blank">PDF</button>
+        </div>
+        <button type="submit" ng-click="save()" class="btn btn-success" btn-loading="busy" data-loading-text="Saving...">Save</button>
+    </footer>
+</section>

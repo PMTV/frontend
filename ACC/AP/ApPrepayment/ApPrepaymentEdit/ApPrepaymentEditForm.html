@@ -1,0 +1,94 @@
+<div class="row hidden-print">
+
+    <div class="col-sm-6">
+        <portlet>
+            <portlet-item title="Information">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12">
+                            <label>Supplier</label><br />
+                            <div ng-if="!checkEdit" ng-disabled="true" >
+                                <div style="height: 50px;width: 100%;background-color: transparent;opacity: 1;position: relative;top: 40px;margin-top: -40px;z-index: 3;"></div>
+                                <suppliers-dropdown style="z-index:1" ng-model="prepayment.supplierId" class="ui-select2" ></suppliers-dropdown>
+                            </div>
+                            <div ng-if="checkEdit">
+                                <suppliers-dropdown name="supplier" ng-required="true" ng-model="prepayment.supplierId" ng-change="onChangedSupplier(prepayment.supplierId)"
+                                       ng-class="{ 'input-error-show' : myForm.supplier.$invalid && submitted }" class="ui-select2" supplier="selected"></suppliers-dropdown>
+                            </div>
+                            <div class="error" ng-show="(myForm.supplier.$dirty && myForm.supplier.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.supplier.$error.required">Please select a Supplier</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12">
+                            <label>Purchase Order</label><br />
+                            <label class="form-control input-sm" ng-show="!checkEdit" ng-bind="prepayment.purchaseOrder.purchaseOrderNumber"></label>
+                            <select ng-if="checkEdit" name="purchaseOrder" ng-class="{ 'input-error-show' : myForm.purchaseOrder.$invalid && submitted }" ng-required="true" ng-model="prepayment.purchaseOrderId" ng-change="onChangePurchaseOrder(purchaseSelectedObject)" ui-select2 class="ui-select2">
+                                <option value="" selected>Select purchase</option>
+                                <option ng-repeat="p in purchaseOrderList" value="{{p.purchaseOrderId}}" ng-bind="p.purchaseOrderNumber"></option>
+                            </select>
+                            <div ng-if="checkEdit" class="error" ng-show="(myForm.purchaseOrder.$dirty && myForm.purchaseOrder.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.purchaseOrder.$error.required">Please select a Purchase Order</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" ng-class="{ 'has-error' : myForm.prepaymentDate.$invalid && submitted }">
+                            <label>Prepayment Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input ng-required="true" name="prepaymentDate" type="text" ng-model="prepayment.prepaymentDate" class="form-control input-sm" date-picker placeholder="prepayment date...">
+                            </div>
+                            <div class="error" ng-show="(myForm.prepaymentDate.$dirty && myForm.prepaymentDate.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.prepaymentDate.$error.required">Please select a prepayment Date!</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-class="{ 'has-error' : myForm.referenceNumber.$invalid && submitted }">
+                            <label>Reference Number</label><br />
+                            <input name="referenceNumber" type="text" ng-model="prepayment.referenceNumber" ng-required="true" class="form-control input-sm" placeholder="Reference number...">
+                            <div class="error" ng-show="(myForm.referenceNumber.$dirty && myForm.referenceNumber.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.referenceNumber.$error.required">Please select a reference number!</small>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+
+    <div class="col-sm-6">
+        <portlet>
+            <portlet-item title="Details">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" ng-class="{ 'has-error' : myForm.amount.$invalid && submitted }">
+                            <label>Amount</label>
+                            <input type="number" name="amount" class="form-control input-sm" ng-required="true" ng-model="prepayment.paymentAmount" only-number placeholder="Amount...">
+                            <div class="error" ng-show="(myForm.amount.$dirty && myForm.amount.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.amount.$error.required">Please enter amount value!</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" >
+                            <label>Currency</label>
+                            <currencies-dropdown ng-class="{ 'input-error-show' : myForm.currencies.$invalid && submitted }" name="currencies" ng-required="true" ng-model="prepayment.currencyId" class="ui-select2"></currencies-dropdown>
+                            <div class="error" ng-show="(myForm.currencies.$dirty && myForm.currencies.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.currencies.$error.required">Please select a currency!</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12">
+                            <label>Description</label>
+                            <textarea class="form-control input-sm" ng-model="prepayment.description" placeholder="Description..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+
+</div>
+

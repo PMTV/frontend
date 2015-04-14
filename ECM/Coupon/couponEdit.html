@@ -1,0 +1,142 @@
+﻿<section class="vbox flex" ng-controller="CouponEditCtrl">
+    <div class="pull-left header">
+        <p class="h4">
+            <a href="#/coupon">Coupons</a>
+        </p>
+    </div>
+
+    <header class="header bg-light lter bg-gradient b-b" ng-include="'header.html?a=a'"></header>
+
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">          
+            <!-- .aside -->
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="dker">
+                                <a data-target="#sidebar" class="btn btn-sm btn-default" data-toggle="class:hide">
+                                    <i class="fa fa-chevron-left text"></i>
+                                    <i class="fa fa-chevron-right text-active"></i>
+                                </a>
+                            </li>
+                            <li class="lter"><a data-target="#list" data-toggle="tab">Coupon</a></li>
+                        </ul>
+                        <div class="navbar-btn pull-right">
+                            <a href="#/customers/new" class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content slim-scroll">
+                            <div class="tab-pane active" id="list">
+                                <section class="tab-pane" id="validation">
+                                    <!-- Edit Form -->
+                                    <div class="row">
+                                        <form name="myForm">                                          
+                                            <section class="col-sm-7">
+                                                <portlet>
+                                                    <portlet-item title="Information">
+                                                        <div>
+
+                                                            <div class="form-group" ng-class="{ 'has-error' : myForm.couponType.$invalid && submitted }">
+                                                                <label>Coupon Type</label>
+                                                                <select class="form-control" name="couponType" ng-required="true" data-ng-model="couponObj.CouponType">
+                                                                    <option value="">- Select -</option>
+                                                                    <option value="1">Fixed Price</option>
+                                                                    <option value="2">Percent Discount</option>                                    
+                                                                </select>
+                                                                <div class="error" ng-show="(myForm.couponType.$dirty && myForm.couponType.$invalid) || submitted">
+                                                                    <small class="error" ng-show="myForm.couponType.$error.required">Required</small>
+                                                                </div>
+                                                            </div>                                                            
+                                                            <div class="line line-dashed line-lg pull-in"></div>
+                                                                                                                        
+
+                                                            <div class="form-group pull-in clearfix" ng-class="{ 'has-error' : myForm.couponValue.$invalid && submitted }">
+                                                                <div class="col-sm-6">
+                                                                    <label>Value</label>
+                                                                    <input type="number" name="couponValue" only-number-float class="form-control input-sm" ng-required="true" ng-model="couponObj.CouponValue" placeholder="Coupon value..."/>
+                                                                    <div class="error" ng-show="(myForm.couponValue.$dirty && myForm.couponValue.$invalid) || submitted">
+                                                                        <small class="error" ng-show="myForm.couponValue.$error.required">Required</small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>	
+                                                            <div class="line line-dashed line-lg pull-in"></div>														
+						
+                                                         
+
+                                                            <div class="form-group" ng-class="{ 'has-error' : myForm.dateValidFrom.$invalid && submitted }">
+                                                                <label>Valid From</label>
+                                                                <input class="form-control" name="dateValidFrom" ng-required="true" type="text" placeholder="Valid From" data-ng-model="couponObj.DateValidFrom" date-picker data-date="">
+                                                                <div class="error" ng-show="(myForm.dateValidFrom.$dirty && myForm.dateValidFrom.$invalid) || submitted">
+                                                                    <small class="error" ng-show="myForm.dateValidFrom.$error.required">Required</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="line line-dashed line-lg pull-in"></div>
+                                                            
+
+                                                            <div class="form-group" ng-class="{ 'has-error' : myForm.dateValidUntil.$invalid && submitted }">
+                                                                <label>Valid Until</label>
+                                                                <input class="form-control" name="dateValidUntil" ng-required="true" type="text" placeholder="Valid Until" data-ng-model="couponObj.DateValidUntil" date-picker data-date="">
+                                                                <div class="error" ng-show="(myForm.dateValidUntil.$dirty && myForm.dateValidUntil.$invalid) || submitted">
+                                                                    <small class="error" ng-show="myForm.dateValidUntil.$error.required">Required</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="line line-dashed line-lg pull-in"></div>
+
+                                                            
+
+                                                            <div class="form-group pull-in clearfix">
+                                                                <div class="col-sm-6" ng-class="{ 'has-error' : myForm.minTotalPrice.$invalid && submitted }">
+                                                                    <label>Min Total Price</label>
+                                                                    <input type="number" name="minTotalPrice" only-number-float placeholder="Min total price..." class="form-control input-sm" ng-required="true" ng-model="couponObj.MinTotalPrice"/>
+                                                                    <div class="error" ng-show="(myForm.minTotalPrice.$dirty && myForm.minTotalPrice.$invalid) || submitted">
+                                                                        <small class="error" ng-show="myForm.minTotalPrice.$error.required">Required</small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>	
+                                                            <div class="line line-dashed line-lg pull-in"></div>
+
+
+
+                                                            <div class="form-group pull-in clearfix">
+                                                                <div class="col-sm-6" ng-class="{ 'has-error' : myForm.maxTotalPrice.$invalid && submitted }">
+                                                                    <label>Max Total Price</label>
+                                                                    <input type="number" only-number-float name="maxTotalPrice" placeholder="Max total price..." class="form-control input-sm" ng-required="true" ng-model="couponObj.MaxTotalPrice"/>
+                                                                    <div class="error" ng-show="(myForm.maxTotalPrice.$dirty && myForm.maxTotalPrice.$invalid) || submitted">
+                                                                        <small class="error" ng-show="myForm.maxTotalPrice.$error.required">Required</small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>	
+                                                            <div class="line line-dashed line-lg pull-in"></div>														
+						
+                                                        </div>
+                                                    </portlet-item>
+                                                </portlet>
+                                            </section>
+
+                                        </form>
+                                    </div>
+
+                                    <!-- //Edit Form -->
+                                </section>
+                            </div>
+                        </div>
+                    </section>
+
+                </section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+
+
+    <footer class="footer text-right bg-light lter b-t">
+        <button type="submit" class="btn btn-success btn-s-xs" ng-click="doAdd()" btn-loading="busy" data-loading-text="Saving...">Save</button>
+    </footer>
+</section>

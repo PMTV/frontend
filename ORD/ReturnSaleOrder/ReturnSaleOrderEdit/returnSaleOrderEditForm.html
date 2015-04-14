@@ -1,0 +1,216 @@
+<div class="row hidden-print">
+
+    <div class="col-sm-6">
+        <portlet>
+            <portlet-item title="Information">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" ng-class="{ 'has-error' : myForm.supplier.$invalid && submitted }">
+                            <label>Customer</label><br />
+                            <div ng-if="!checkEdit" ng-disabled="true">
+                                <div style="height: 50px;width: 100%;background-color: transparent;opacity: 1;position: relative;top: 40px;margin-top: -40px;z-index: 3;"></div>
+                                <customers-dropdown name="customer" ng-required="true" ng-model="returnSaleOrder.customerId" ng-change="onChangedCustomer(returnSaleOrder.customerId)" class="ui-select2"></customers-dropdown>
+                            </div>
+                            <div ng-if="checkEdit">
+                                <suppliers-dropdown name="supplier" ng-required="true" ng-model="returnSaleOrder.supplierId" ng-change="onChangedSupplier(returnSaleOrder.supplierId)" class="ui-select2" supplier="selected"></suppliers-dropdown>
+                            </div>
+                            <div class="error" ng-show="(myForm.supplier.$dirty && myForm.supplier.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.supplier.$error.required">Please select a Supplier</small>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6" ng-class="{ 'has-error' : myForm.saleOrder.$invalid && submitted }">
+                            <label>Sale Order</label><br />
+                            <label class="form-control input-sm" ng-show="returnSaleOrder.returnSaleOrderId">{{returnSaleOrder.purchaseOrderNumber}}</label>
+                            <select ng-required="true" ui-select2 class="ui-select2" name="saleOrder" data-ng-model="returnSaleOrder.saleOrderId"
+                                    ng-change="onChangePurchaseOrder(returnSaleOrder.purchaseOrderId)" ng-hide="returnSaleOrder.returnSaleOrderId">
+                                <option value="">Please select</option>
+                                <option ng-repeat=" s in returnSaleOrder.salesOrderList" value="{{s.purchaseOrderId}}">SO {{s.purchaseOrderNumber}}</option>
+                            </select>
+                            <div ng-if="checkEdit" class="error" ng-show="(myForm.purchaseOrder.$dirty && myForm.purchaseOrder.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.purchaseOrder.$error.required">Please select a Sale Order</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+
+                    <div class="col-sm-12">
+                        <label>Credit Note List</label><br />
+                        <!--<div class="form-group" ng-show="specialListCreditNote.length > 0">-->
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div id="supplierList" class="pillbox clearfix">
+                                        <ul>
+                                            <!--<li class="label bg-info" ng-repeat="s in specialListCreditNote | orderBy: 'id'" ng-bind="s.name"-->
+                                                <!--ng-click="removeCreditNoteInList($index)">aa</li>-->
+                                            <li class="label bg-info">dasdas</li>
+                                            <li class="label bg-info">aaaa</li>
+                                            <li class="label bg-info">cccc</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+
+    <div class="col-sm-6">
+        <portlet>
+            <portlet-item title="Options">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" ng-class="{ 'has-error' : myForm.paymentTerm.$invalid && submitted }">
+                            <label>Payment Terms</label>
+                            <paymentterms-dropdown name="paymentTerm" ng-required="true" ng-model="returnSaleOrder.paymentTermId"></paymentterms-dropdown>
+                            <div class="error" ng-show="(myForm.paymentTerm.$dirty && myForm.paymentTerm.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.paymentTerm.$error.required">Please select a Payment Terms</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Currency</label>
+                            <currencies-dropdown name="currencies" ng-required="true" ng-model="returnSaleOrder.currencyId" class="ui-select2"></currencies-dropdown>
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12">
+                            <label>Descrption</label>
+                            <textarea class="form-control input-sm" ng-model="returnSaleOrder.remarks" placeholder="Remark..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+</div>
+
+
+<section class="panel hidden-print">
+    <form method="post" name="itemsForm" novalidate>
+        <header class="panel-heading font-bold">
+            <span class="h5">Details</span>
+        </header>
+        <div class="panel-body table-responsive">
+            <table class="table table-condensed text-sm m-b-none">
+                <thead>
+                <tr>
+
+                    <th width="20">No#</th>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th width="110">Return Reason</th>
+                    <th width="110">Unit Price($)</th>
+                    <th width="110">Quantities</th>
+                    <th width="110">UOM</th>
+                    <th width="110">Total($)</th>
+                </tr>
+                </thead>
+                <tbody ng-form="itemForm">
+                <tr ng-repeat="item in returnSaleOrder.returnSaleOrderDetailsList" ng-form="itemForm">
+
+                    <td>{{$index+1}}</td>
+                    <td ng-bind="item.productName"></td>
+                    <td ng-bind="item.description"></td>
+                    <td ng-class="{ 'has-error': itemForm.returnreason.$invalid }">
+                        <returnreason-dropdown name="returnreason" ng-required="true" ng-model="item.returnReasonId" class="ui-select2"></returnreason-dropdown>
+                        <div class="error">
+                            <small class="error" ng-show="itemForm.returnreason.$error.required">Required</small>
+                        </div>
+                    </td>
+                    <td ng-bind="item.unitPrice"></td>
+                    <td class="">
+                        <div class="form-group">
+                            <input name="quantity" max-number-quantity class="form-control input-sm" ng-model="item.qty" type="number" />
+                        </div>
+                    </td>
+                    <td ng-bind="item.productUOMValue"></td>
+                    <td ng-bind="item.qty * item.unitPrice"></td>
+                    <td>
+                        <i title="Remove this item" class="fa fa-times" style="cursor: pointer;" data-ng-click="removeItem($index)"></i>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th><div>Total Quantity</div></th>
+                    <th data-ng-bind="TotalQuantity"></th>
+                </tr>
+                <tr ng-show="getDeliveryCharges() > 0">
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Delivery Charges</th>
+                    <th data-ng-bind="getDeliveryCharges()"></th>
+                </tr>
+                <tr ng-show="false">
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Additional Charges</th>
+                    <th>{{sales.additionalCharges | currency}}</th>
+                </tr>
+                <tr ng-show="getDiscount() != 0">
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Discount</th>
+                    <th ng-bind="returnSaleOrder.discountAmount"></th>
+                </tr>
+                <tr ng-show="true">
+                    <th colspan="3">
+                        <div class="pull-left m-t-lg m-r">
+                            <span class="">
+                                Taxable
+                            </span>
+                        </div>
+                        <div class="pull-left m-t">
+                            <label class="switch">
+                                <input type="checkbox" ng-show="returnSaleOrder.tax">
+                                <span></span>
+                            </label>
+                        </div>
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th colspan="2">
+                        <div class="input-group m-t" ng-show="returnSaleOrder.isTaxable">
+                            <span class="input-group-addon">GST (%)</span>
+                            <input type="text" class="form-control input-sm" ng-model="returnSaleOrder.tax" placeholder="GST">
+                        </div>
+                    </th>
+                </tr>
+                <tr class="warning">
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Grand Total</th>
+                    <th ng-model="returnSaleOrder.grandTotal" data-ng-bind="getGrandTotal(returnSaleOrder.returnSaleOrderDetailsList)"></th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </form>
+</section>

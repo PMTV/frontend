@@ -1,0 +1,182 @@
+﻿<div class="row hidden-print">
+    <debug-message>{{againstInvoice | json}}</debug-message>
+    <section class="col-sm-6">
+        <portlet>
+            <portlet-item title="Information">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" >
+                            <label>Customer</label><br />
+                            <customers-dropdown ng-class="{ 'input-error-show' : myForm.customer.$invalid && submitted }" name="customer" ng-required="true" ng-model="creditNotes.customerId" ng-change="onChangedCustomer(creditNotes.customerId)" class="ui-select2"></customers-dropdown>
+
+                            <div class="error" ng-show="(myForm.customer.$dirty && myForm.customer.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.customer.$error.required">Please select a Customer</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Reference Number</label><br />
+                            <input type="text" class="form-control input-sm" ng-model="creditNotes.referenceNumber" placeholder="Reference Number">
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12">
+                            <label>Description</label>
+                            <textarea class="form-control input-sm" ng-model="creditNotes.description" placeholder="Description"></textarea>
+                        </div>
+                    </div>
+                    
+                </div>
+            </portlet-item>
+        </portlet>
+    </section>
+
+    <section class="col-sm-6">
+        <portlet>
+            <portlet-item title="Options">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Invoice</label><br />
+                            <invoicebycustomer-dropdown ng-show="newSession" ng-model="creditNotes.invoiceId" customer="creditNotes.customerId" ng-change="onChangedInvoice(creditNotes.invoiceId)"></invoicebycustomer-dropdown>
+                            <input type="text" class="form-control input-sm" data-ng-hide="newSession" name="invoiceNumber" placeholder="InvoiceNumber" readonly="true" ng-model="creditNotes.invoice.invoiceNumber">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Sales Order</label>
+                            <input type="text" class="form-control input-sm" name="salesOrder" placeholder="SalesOrder" readonly="true" ng-model="creditNotes.salesOrderNumber">
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" >
+                            <label>Credit Terms</label>
+                            <creditterms-dropdown name="creditTerm" ng-model="creditNotes.creditTermId"></creditterms-dropdown>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Currency</label><br />
+                            <currencies-dropdown ng-model="creditNotes.currencyId"></currencies-dropdown>
+                        </div>
+                    </div>
+                </div>
+            </portlet-item>
+        </portlet>
+    </section>
+</div>
+
+<section class="panel hidden-print">
+    <form method="post" name="itemsForm" novalidate>
+        <header class="panel-heading font-bold">
+            <span class="h5">Details</span>
+        </header>
+        <div class="panel-body table-responsive">
+            <table class="table table-condensed text-sm m-b-none">
+                <thead>
+                    <tr>
+                        <th width="20">SN#</th>
+                        <th>Product Name</th>
+                        <th>Description</th>
+                        <th>Unit</th>
+                        <th width="90">Unit Price</th>
+                        <th width="90">Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in creditNotes.creditNoteDetailsList" ng-form="itemForm">
+                        <td>{{$index+1}}</td>
+                        <td>
+                            <div class="ui-select2" ui-select2="select2OptionsProduct" ng-model="item" ng-focus="true" ng-change="onChangedProduct($index,item)" ng-hide="item.creditNoteDetailsId"></div>
+                            <label ng-show="item.creditNoteDetailsId">{{item.productName}}</label>
+                        </td>
+                        <td class="">
+                            <input class="form-control input-sm" name="description" ng-model="item.productDescription" />
+                        </td>
+                        <td class="">
+                            <select class="form-control input-sm" ng-model="item.productUOMId">
+                                <option value="" ng-selected="item.productUOMId == null">{{item.product.uom}} [1]</option>
+                                <option ng-repeat="uom in item.product.productUOMList" value="{{uom.productUOMId}}" ng-selected="uom.productUOMId == item.productUOMId">{{uom.name}} [{{uom.value}}]</option>
+                            </select>
+                        </td>
+                        <td class="">
+                            <div class="form-group" ng-class="{ 'has-error': itemForm.unitPrice.$invalid }">
+                                <input name="unitPrice" class="form-control input-sm" ng-model="item.unitPrice" type="number" ng-required="true" />
+
+                                <div class="error">
+                                    <small class="error" ng-show="itemForm.unitPrice.$error.required">Required</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="">
+                            <div class="form-group" ng-class="{ 'has-error': itemForm.quantity.$invalid }">
+                                <input name="quantity" class="form-control input-sm" ng-model="item.qty" type="number" ng-required="true" />
+
+                                <div class="error">
+                                    <small class="error" ng-show="itemForm.quantity.$error.required">Required</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="">
+                            {{item.unitPrice * item.qty * getUOMNumber(item.productUOMId, item.product.productUOMList) | currency}}
+                            <button type="button" class="close" aria-hidden="true" ng-click="removeItem($index, item.creditNoteDetailsId)" ng-class="{ 'text-danger': item.creditNoteDetailsId!=null }">&times;</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="2"><input type="submit" value="Add Item" class="btn btn-success btn-sm" ng-click="addItem()" /></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>
+                            <div class="text-center">{{getTotalQuantity()}}</div>
+                        </th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th colspan="2">Total Before Tax</th>
+                        <th>{{getTotalPrice() | currency}}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">
+                            <div class="pull-left m-t-lg m-r">
+                                <span class="">
+                                    Taxable
+                                </span>
+                            </div>
+                            <div class="pull-left m-t">
+                                <label class="switch">
+                                    <input type="checkbox" ng-checked="creditNotes.isTaxable == 1" ng-model="isTaxable" ng-change="onChangedTaxable(isTaxable)">
+                                    <span>{{}}</span>
+                                </label>
+                            </div>
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th colspan="2">
+                            <!-- <label>Date Ordered</label> -->
+
+                            <div class="input-group m-t" ng-show="isTaxable || creditNotes.isTaxable">
+                                <span class="input-group-addon">GST (%)</span>
+                                <input type="number" class="form-control input-sm" ng-model="creditNotes.taxPlus" placeholder="GST" ng-change="convertTax(creditNotes.taxPlus)">
+                                <input type="text" ng-hide="true" class="form-control input-sm" ng-model="creditNotes.tax" placeholder="GST">
+                            </div>
+                        </th>
+                        <th><label class="m-t-lg" ng-show="isTaxable || creditNotes.isTaxable">{{getTotalGST() | currency}}</label></th>
+                    </tr>
+                    <tr class="warning">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th colspan="2">Total After Tax</th>
+                        <th>{{getGrandTotal() | currency}}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </form>
+</section>

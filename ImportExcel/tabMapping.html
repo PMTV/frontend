@@ -1,0 +1,31 @@
+﻿<section class="scrollable wrapper">
+    <div class="modal-header">
+        <h3>Mapping fields</h3>
+    </div>
+    <div class="modal-body ">
+        <portlet-item title="Match your fields to Customer fields">
+            <table class="table table-condensed text-sm m-b-none">
+                <thead>
+                    <tr>
+                        <th>Imported Excel Fields</th>
+                        <th>Custom Fields</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in excelColumnList" ng-form="itemForm">
+                        <td>
+                            <label>{{item.excelColumn}}</label>
+                        </td>
+                        <td>
+                            <customfield-dropdown name="customColumn" ng-required="true" ng-model="item.customColumn" loadname="dropdownLoad" class="ui-select2"></customfield-dropdown>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </portlet-item>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" data-ng-click="loadNewLayout(1);"> Back </button>
+        <button class="btn btn-success" data-ng-click="mappingNext()"> Next </button>
+    </div>
+</section>

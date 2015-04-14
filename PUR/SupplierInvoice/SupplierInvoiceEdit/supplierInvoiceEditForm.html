@@ -1,0 +1,235 @@
+<div class="row hidden-print">
+
+    <div class="col-sm-6">
+        <portlet>
+            <portlet-item title="Information">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12">
+                            <label>Supplier</label><br />
+                            <div ng-if="!checkEdit" ng-disabled="true" >
+                                <div style="height: 50px;width: 100%;background-color: transparent;opacity: 1;position: relative;top: 40px;margin-top: -40px;z-index: 3;"></div>
+                                <suppliers-dropdown style="z-index:1" ng-model="sInvoice.supplierId" class="ui-select2"></suppliers-dropdown>
+                            </div>
+                            <div ng-if="checkEdit">
+                                <suppliers-dropdown name="supplier" ng-required="true" ng-model="sInvoice.supplierId" ng-change="onChangedSupplier(sInvoice.supplierId)"
+                                    ng-class="{ 'input-error-show' : myForm.supplier.$invalid && submitted }" class="ui-select2" supplier="selected"></suppliers-dropdown>
+                            </div>
+                            <div class="error" ng-show="(myForm.supplier.$dirty && myForm.supplier.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.supplier.$error.required">Please select a Supplier</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" ng-class="{ 'has-error' : myForm.invoiceDate.$invalid && submitted }">
+                            <label>Invoice Date</label><br />
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input data-ng-disabled="!checkEdit" type="text" name="invoiceDate" ng-model="sInvoice.billDate" ng-required="true" class="form-control input-sm" date-picker placeholder="Invoice date...">
+                            </div>
+                            <div class="error" ng-show="(myForm.invoiceDate.$dirty && myForm.invoiceDate.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.invoiceDate.$error.required">Please select a Invoice Date!</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Due Date</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input data-ng-disabled="!checkEdit" type="text" ng-model="sInvoice.dueDate" class="form-control input-sm" date-picker placeholder="Due date...">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Reference Number</label><br />
+                            <input type="text" ng-model="sInvoice.referenceNumber" class="form-control input-sm" placeholder="Reference number...">
+                        </div>
+                    </div>
+
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+
+    <div class="col-sm-6">
+        <portlet>
+            <portlet-item title="Details">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12">
+                            <label>Purchase Order</label><br />
+                            <label class="form-control input-sm" ng-show="!checkEdit">{{purchaseSelectedObject.purchaseOrderNumber}}</label>
+                            <select ng-if="checkEdit" name="purchaseOrder" ng-required="true" ng-model="purchaseSelectedObject" ng-change="onChangePurchaseOrder(purchaseSelectedObject)"
+                                    ng-class="{ 'input-error-show' : myForm.purchaseOrder.$invalid && submitted }" ui-select2 class="ui-select2">
+                                <option value="" selected>Select purchase</option>
+                                <option ng-repeat="p in purchaseOrderList" value="{{p}}" ng-bind="p.purchaseOrderNumber"></option>
+                            </select>
+                            <div ng-if="checkEdit" class="error" ng-show="(myForm.purchaseOrder.$dirty && myForm.purchaseOrder.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.purchaseOrder.$error.required">Please select a Purchase Order</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Payment Terms</label>
+                            <creditterms-dropdown name="paymentTerm" ng-required="true" ng-model="sInvoice.paymentTermId"  ng-class="{ 'input-error-show' : myForm.paymentTerm.$invalid && submitted }"></creditterms-dropdown>
+                            <div class="error" ng-show="(myForm.paymentTerm.$dirty && myForm.paymentTerm.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.paymentTerm.$error.required">Please select a Payment Terms</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Discount Amount</label>
+                            <input type="number" only-number-float class="form-control input-sm" ng-model="sInvoice.discountAmount" placeholder="Discount amount...">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Delivery Charges Amount</label>
+                            <input type="number" only-number-float class="form-control input-sm" ng-model="sInvoice.deliveryChargeAmount" placeholder="Delivery charges...">
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Total Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                <input data-ng-disabled="true" type="number" ng-pattern="/^-?(?:[0-9]+|[0-9]*\.[0-9]+)$/" class="form-control input-sm" ng-model="sInvoice.paymentAmount" placeholder="Total amount...">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Currency</label>
+                            <currencies-dropdown name="currencies" ng-required="true" ng-model="sInvoice.currencyId" class="ui-select2"></currencies-dropdown>
+                        </div>
+                    </div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12">
+                            <label>Remark</label>
+                            <textarea class="form-control input-sm" ng-model="sInvoice.remarks" placeholder="Remark..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+
+</div>
+
+
+<section class="panel hidden-print">
+    <form method="post" name="itemsForm" novalidate>
+        <header class="panel-heading font-bold">
+            <span class="h5">Items (Purchase Order Items)</span>
+        </header>
+        <div class="panel-body table-responsive">
+            <table class="table table-condensed text-sm m-b-none">
+                <thead>
+                    <tr>
+                        <th width="20">No#</th>
+                        <th>Product Name</th>
+                        <th>Product Description</th>
+                        <th width="110">Unit Price</th>
+                        <th width="110">Quantities</th>
+                        <th width="110">UOM</th>
+                        <th width="110">Total</th>
+                        <th width="5"></th>
+                    </tr>
+                </thead>
+                <tbody ng-form="itemForm">
+                    <tr ng-repeat="item in sInvoice.purchaseOrder.purchaseOrderDetailsList">
+
+                        <td>{{$index+1}}</td>
+                        <td ng-bind="item.productName"></td>
+                        <td ng-bind="item.description"></td>
+                        <td ng-bind="item.unitPrice | currency"></td>
+                        <td class="">
+                            <div class="form-group">
+                                <input name="quantity" max-number-quantity class="form-control input-sm" ng-model="item.qty" type="number"/>
+                            </div>
+                        </td>
+                        <td ng-bind="item.productUOMValue"></td>
+                        <td ng-bind="item.qty * item.unitPrice | currency"></td>
+                        <td>
+                            <i title="Remove this item" class="fa fa-times" style="cursor: pointer;" data-ng-click="removeItem($index, item.supplierInvoiceDetailsId)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr ng-show="TotalQuantity > 0">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th><div>Total Quantity</div></th>
+                        <th data-ng-bind="TotalQuantity"></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr ng-show="getDeliveryCharges() > 0">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th colspan="2" class="text-right">Delivery Charges</th>
+                        <th data-ng-bind="getDeliveryCharges() | currency"></th>
+                        <th></th>
+                    </tr>
+                    <tr ng-show="false">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Additional Charges</th>
+                        <th>{{sales.additionalCharges | currency}}</th>
+                    </tr>
+                    <tr ng-show="getDiscount() != 0">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th class="text-right">Discount</th>
+                        <th ng-bind="sInvoice.discountAmount | currency"></th>
+                        <th></th>
+                    </tr>
+                    <tr ng-show="true">
+                        <th colspan="2">
+                            <div class="pull-left m-t-lg m-r">
+                                <span class="">
+                                    Taxable
+                                </span>
+                            </div>
+                            <div class="pull-left m-t">
+                                <label class="switch">
+                                    <input type="checkbox" ng-model="sInvoice.isTaxable">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th colspan="2">
+                            <div class="input-group m-t" ng-show="sInvoice.isTaxable">
+                                <span class="input-group-addon">GST (%)</span>
+                                <input type="text" class="form-control input-sm" ng-model="sInvoice.tax" placeholder="GST">
+                            </div>
+                        </th>
+                        <th style="vertical-align: middle;" ng-show="sInvoice.isTaxable">{{totalTaxValue | currency}}</th>
+                        <th></th>
+                    </tr>
+                    <tr class="warning">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th colspan="2">Grand Total</th>
+                        <th ng-model="sInvoice.paymentAmount" data-ng-bind="getGrandTotal(sInvoice.purchaseOrder.purchaseOrderDetailsList) | currency"></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </form>
+</section>

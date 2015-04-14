@@ -1,0 +1,41 @@
+<div class="modal-header">
+    <h3>Quotation # {{quotation.quotationNumber}}</h3>
+</div>
+<div class="modal-body">
+    <!-- .nav-justified -->
+    <section class="panel">
+        <header class="panel-heading bg-light">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a ng-href="#preview" target="_self" data-toggle="tab" ng-click="previewPDF()">Preview</a></li>
+                <li><a ng-href="#customize" target="_self" data-toggle="tab">Customize Template</a></li>
+            </ul>
+        </header>
+        <div class="panel-body">
+            <div class="tab-content">
+                <div class="tab-pane active" id="preview">
+                    <span ng-show="loading" class="text-center"><img src="assets/img/loader.gif"> Loading...</span>
+                    <iframe class="iframe_pdf" ng-show="pdfUrl" ng-src="{{pdfUrl}}"> </iframe>
+                </div>
+                <div class="tab-pane" id="customize">
+                    <form role="form">
+                        <div class="form-group">
+                            <label>Header Message</label>
+                            <text-angular ta-toolbar="[['h1','h2','h3','p'],['bold','italics'],['ul','ol','justifyLeft','justifyCenter','justifyRight']]" ng-model="quotation.headerDescription"></text-angular>
+                        </div>
+                        <div class="form-group">
+                            <label>Footer Message</label>
+                            <text-angular ta-toolbar="[['h1','h2','h3','p'],['bold','italics'],['ul','ol','justifyLeft','justifyCenter','justifyRight']]" ng-model="quotation.footerDescription"></text-angular>
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-success pull-right" ng-click="saveCustomized(quotation)">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / .nav-justified -->
+
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-info btn-s-xs" ng-click="openEmail()" ng-disabled="busy">Email</button>
+    <button type="submit" class="btn btn-danger btn-s-xs" ng-click="cancel()" ng-disabled="busy">Cancel</button>
+</div>

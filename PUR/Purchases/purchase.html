@@ -1,0 +1,53 @@
+﻿<section class="vbox flex">
+    <div class="pull-left header">
+        <p class="h4">
+            <a href="#/purchases">Purchases</a>
+        </p>
+    </div>
+
+    <header class="header bg-light lter b-b" ng-include="'header.html?a=a'"></header>
+
+    <!-- .aside -->
+    <div class="bg-white">
+        <section class="vbox">
+            <header class="header bg-light bg-gradient">
+                <ul class="nav nav-tabs nav-white pull-left">
+                    <li class="active"><a data-target="#list" data-toggle="tab">Purchases</a></li>
+                </ul>
+                <div class="navbar-btn pull-right">
+                    <a href="#/purchases/new" class="btn btn-success">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            </header>
+        </section>
+    </div>
+    <!-- /.aside -->
+
+    <section class="bg-white">
+        <section class="hbox stretch">
+            <section class="vbox">
+                <div class="scrollable">
+                    <section class="scrollable" ng-controller="PurchaseListCtrl">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="list">
+                                <purchases-grid items="purchaseOrders" cols="columnDefs" selected-items="selectedItems" custom-options="gridOptions"></purchases-grid>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </section>
+    </section>
+    <footer class="footer bg-white-only b-t">
+        <!--<p class="checkbox">
+            <label>
+                <input id="toggle-all" type="checkbox">
+                Mark all as complete
+            </label>
+        </p>-->
+    </footer>
+</section>

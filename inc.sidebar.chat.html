@@ -1,0 +1,79 @@
+﻿<section class="vbox flex hidden-print" ng-controller="ChatController">
+    <header class="header bg-light lt m-b">
+        <p class="m-b">
+            <span class="text-muted">Chat</span>
+        </p>
+        <p class="pull-right">
+            <i class="close" ng-click="closeChat()">&times;</i>
+        </p>
+    </header>
+    <section class="scrollable">
+        <section class="hbox stretch">
+            <section>
+                <div slim-scroll>
+                    <section class="chat-list panel-body">
+                        <article id="chat-id-1" class="chat-item" ng-repeat="msg in messages" ng-class="appUser.userName == msg.from ? 'right' : ''">
+                            <a href="#" class="thumb-sm avatar" ng-class="appUser.userName == msg.from ? 'pull-right' : 'pull-left'"><img src="assets/img/avatar.jpg" class="img-circle"></a>
+                            <section class="chat-body">
+                                <div class="panel text-sm m-b-none" ng-class="appUser.userName == msg.from ? 'bg bg-success' : ''">
+                                    <div class="panel-body">
+                                        <span class="arrow" ng-class="appUser.userName == msg.from ? 'right' : ''"></span>{{msg.body}}
+                                    </div>
+                                </div>
+                                <small class="text-muted">{{msg.from}} @ {{msg.time | fromNow}}</small>
+                            </section>
+                        </article>
+                    </section>
+                </div>
+            </section>
+        </section>
+    </section>
+
+    <footer class="footer bg-light lter clearfix b-t">
+        <div class="input-group m-t-sm">
+            <input type="text" class="form-control" id="task-c-input" placeholder="Share" ng-model="msg" ng-keydown="addMessage($event)">
+            <span class="input-group-btn">
+                <button class="btn btn-success btn-sm" type="button" id="task-c-btn" ng-click="addMessage()"><i class="fa fa-pencil"></i></button>
+            </span>
+        </div>
+    </footer>
+</section>
+
+
+<script>
+    function ChatController($scope, $rootScope, $firebase, $emerge, toaster) {
+
+        $rootScope.hideChat = true;
+
+        var chatRef = new Firebase($emerge.firebaseUrl + "/chat").limit(100);
+
+        $scope.msg = "";
+        $scope.messages = $firebase(chatRef);
+
+        $scope.addMessage = function (e) {
+            if ((e && e.keyCode != 13) || $scope.msg == "") return;
+            $rootScope.$broadcast('addMessage', $scope.msg);
+            $scope.msg = "";
+        }
+
+        $rootScope.$on('addMessage', function (event, msg) {
+            $scope.messages.$add({ from: $rootScope.appUser.userName, body: msg, time: Firebase.ServerValue.TIMESTAMP });
+            $scope.msg = "";
+            $rootScope.hideChat = false;
+        });
+
+        $scope.closeChat = function () {
+            $rootScope.hideChat = true;
+        }
+
+        var first = true;
+        chatRef.endAt().limit(1).on('child_added', function (snapshot) {
+            if (first) {
+                first = false;
+                return;
+            }
+
+            toaster.pop('note', "Message from " + snapshot.val().from, snapshot.val().body);
+        });
+    }
+</script>

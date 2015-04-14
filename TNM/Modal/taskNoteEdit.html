@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <h3>
+        Post {{tnm.type == 1 ? 'Note' : 'Task'}}
+    </h3>
+    <label class="text-muted text-sm" ng-show="tnm.name">Title: {{tnm.name}}</label>
+
+</div>
+<div class="modal-body">
+    <div class="row">
+                <div class="col-sm-12">
+            <div class="form-group">
+                <textarea class="form-control no-border" rows="4" ng-model="tnm.description" placeholder="Enter task/note details..."></textarea>
+                </div>
+            </div>
+    </div>
+            <div class="line line-dashed line-lg pull-in"></div>
+
+    <div class="row ">
+        <div class="col-sm-2">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-sm btn-warning active" ng-click="onChangedType(1)">
+                    <input type="radio" name="options" ng-model="tnm.type"> <i ng-show="tnm.type == 1" class="fa fa-ok text-active"></i>Note
+                </label>
+                <label class="btn btn-sm btn-info" ng-click="onChangedType(2)">
+                    <input type="radio" name="options" ng-model="tnm.type" ng-checked="true"> <i ng-show="tnm.type == 2" class="fa fa-ok text-active"></i>Task
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <input type="text" class="form-control input-sm" placeholder="Title" ng-required="true" ng-model="tnm.name">
+        </div>
+        <div class="col-sm-3" ng-show="tnm.type == 2">
+            <input type="text" class="form-control input-sm" placeholder="Date" ng-required="true" date-picker ng-model="tnm.dateTimeFrom" ng-change="changeDate(tnm.dateTimeFrom)" />
+        </div>
+        <div class="col-sm-2" ng-show="tnm.type == 2">
+            <users-dropdown name="owner" ng-model="tnm.assignedUserId"></users-dropdown>
+        </div>
+
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-success btn-s-xs" ng-click="save(tnm)" ng-disabled="busy">Post It</button>
+    <button type="submit" class="btn btn-danger btn-s-xs" ng-click="cancel()" ng-disabled="busy">Cancel</button>
+</div>

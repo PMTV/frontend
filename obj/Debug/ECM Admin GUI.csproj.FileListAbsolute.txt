@@ -1,0 +1,5 @@
+D:\Projects\Emerge\Emerge\FrontEnd\EmergeApp--ECM\bin\WebApplication1.dll
+D:\Projects\Emerge\Emerge\FrontEnd\EmergeApp--ECM\bin\WebApplication1.pdb
+D:\Projects\Emerge\Emerge\FrontEnd\EmergeApp--ECM\obj\Debug\ECM Admin GUI.csprojResolveAssemblyReference.cache
+D:\Projects\Emerge\Emerge\FrontEnd\EmergeApp--ECM\obj\Debug\WebApplication1.dll
+D:\Projects\Emerge\Emerge\FrontEnd\EmergeApp--ECM\obj\Debug\WebApplication1.pdb

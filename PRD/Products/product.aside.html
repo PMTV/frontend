@@ -1,0 +1,130 @@
+﻿<section class="scrollable" ng-controller="ProductAsideCtrl">
+    <section slim-scroll>
+        <!--<header class="header bg-light lt b-b">
+            <p>
+                Overview
+            </p>
+        </header>-->
+        <div class="wrapper">
+            <div class="clearfix text-center m-b m-t">
+                <div media module="products" aa-data="product.productMediaList"></div>
+                <div class="h3 m-t m-b-xs">{{product.name | emptyReturn:'-'}}</div>
+                <!-- <small class="text-muted m-b">{{product.brandName}}</small> -->
+            </div>
+
+            <div class="panel wrapper">
+                <div class="row">
+                    <div class="col-xs-6" align="center">
+                        <a>
+                            <span class="m-b-xs h4 block">{{product.productInventory.qtyPurchaseTotal | number}}</span>
+                            <small class="text-muted">Purchased</small>
+                        </a>
+                    </div>
+                    <div class="col-xs-6" align="center">
+                        <a>
+                            <span class="m-b-xs h4 block">{{product.productInventory.qtySalesTotal | number}}</span>
+                            <small class="text-muted">Sold</small>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="btn-group btn-group-justified m-b">
+                <a class="btn btn-success btn-rounded">
+                    <i class="fa fa-eye"></i> Email
+                </a>
+                <a class="btn btn-info btn-rounded">
+                    <i class="fa fa-comment-alt"></i>Contact
+                </a>
+            </div> -->
+            <div>
+                <small class="text-uc text-xs text-muted">Item Code</small>
+                <p>{{product.itemCode | emptyReturn}}</p>
+                <small class="text-uc text-xs text-muted">Qty In Stock</small>
+                <p ng-class="product.productInventory.qtyInStock < 0 ? 'text-danger' : ''">{{product.productInventory.qtyInStock | number}}</p>
+                <small class="text-uc text-xs text-muted">Weight</small>
+                <p>{{product.weight ? product.weight + 'kg' : '' | emptyReturn}} </p>
+                <small class="text-uc text-xs text-muted">Description</small>
+                <p>{{product.description | emptyReturn}}</p>
+                <div class="line"></div>
+            </div>
+        </div>
+        <!--<section class="panel no-borders">
+            <header class="panel-heading bg-success lter">
+                <span class="pull-right">Month</span>
+                <span class="h4">
+                    {{ 0 | currency}}<br>
+                    <small class="text-muted">+1.05 (2.15%)</small>
+                </span>
+                <div class="text-center padder m-b-n-sm m-t-sm">
+                    <sparkline class="sparkline" data-type="line" data-resize="true" data-height="65" data-width="100%" data-line-width="2" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="3" data-data="[220,210,200,325,250,320,345,250,250,250,400,380]"></sparkline>
+                    <sparkline class="sparkline inline" data-type="bar" data-height="45" data-bar-width="6" data-bar-spacing="10" data-bar-color="#92cf5c">9,9,11,10,11,10,12,10,9,10,11,9,8</sparkline>
+                </div>
+            </header>
+        </section>-->
+        <!-- <section class="panel" ng-controller="CustomerEditCtrl">
+          <div class="panel-body">
+            <div class="clearfix text-center m-t">
+              <div class="inline">
+                <div class="easypiechart" data-percent="75" data-line-width="5" data-loop="false" data-bar-color="#92cf5c" data-track-Color="#f5f5f5" data-scale-Color="false" data-size="150">
+                  <div class="thumb-lg">
+                    <img src="assets/img/avatar_default.jpg" class="img-circle">
+                  </div>
+
+                </div>
+                <div class="h4 m-t m-b-xs" >{{customer.firstName}} {{customer.middleName}} {{customer.lastName}}</div>
+                <small class="text-muted m-b">{{customer.companyName}}</small>
+              </div>
+            </div>
+          </div>
+          <footer class="panel-footer lter text-center">
+            <div class="row">
+              <div class="col-xs-4">
+                <div class="padder-v">
+                  <span class="m-b-xs h4 block" ng-controller="QuotationListCtrl" >{{quotationArr.length}}</span>
+                  <small class="text-muted">Quotations</small>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="padder-v">
+                  <span class="m-b-xs h4 block" ng-controller="SalesOrderListCtrl">{{salesorderArr.length}}</span>
+                  <small class="text-muted">Sales Order</small>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="padder-v">
+                  <span class="m-b-xs h4 block">{{noteArr.length}}</span>
+                  <small class="text-muted">Notes</small>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-4">
+                <div class="padder-v">
+                  <span class="m-b-xs h4 block">{{taskArr.length}}</span>
+                  <small class="text-muted">Tasks</small>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="padder-v">
+                  <span class="m-b-xs h4 block">{{documentsCount}}</span>
+                  <small class="text-muted">Documents</small>
+                </div>
+              </div>
+            </div>
+          </footer>
+            <div class="panel wrapper">
+                <small class="text-uc text-xs text-muted">info</small>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat.</p>
+                <small class="text-uc text-xs text-muted">Sales Representative</small>
+                <p><a href="#">Benjamin Yee</a></p>
+                <div class="line"></div>
+                <small class="text-uc text-xs text-muted">connection</small>
+                <p class="m-t-sm">
+                    <a href="#" class="btn btn-rounded btn-twitter btn-icon"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="btn btn-rounded btn-facebook btn-icon"><i class="fa fa-facebook"></i></a>
+                    <a href="#" class="btn btn-rounded btn-gplus btn-icon"><i class="fa fa-google-plus"></i></a>
+                </p>
+            </div>
+        </section> -->
+    </section>
+</section>

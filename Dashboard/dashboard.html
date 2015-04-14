@@ -1,0 +1,42 @@
+﻿﻿<section class="vbox flex" data-ng-controller="DashboardCtrl" style="margin-top: -20px;">
+    <div class="pull-left header">
+        <p class="h4">Dashboard</p>
+    </div>
+    <header class="header bg-light lter bg-gradient b-b" ng-include="'header.html?a=a'"></header>
+    <div class="wrapper bg-light b-b font-bold" style="padding-bottom: 0px;" >
+        <ul class="nav nav-tabs nav-justified">
+            <li class="active" style="width: 140px;">
+                <a data-ng-click="loadNewLayout(1)" data-target="#tab-analysis" data-toggle="tab" class="m-r"><i class="fa fa-bar-chart-o fa-2x icon-muted v-middle"></i>Analysis</a>
+
+
+                <!--will use-->
+                <!--<li>-->
+                <!--<a data-ng-click="loadNewLayout(2)" data-target="#tab-message" data-toggle="tab" class="m-r"><span class="badge up m-r-n bg-danger">4</span><i class="fa fa-envelope icon-2x icon-muted v-middle"></i> Message</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a data-ng-click="loadNewLayout(3)" data-target="#tab-calendar" data-toggle="tab" class="m-r"><i class="fa fa-calendar icon-2x icon-muted v-middle"></i>My Calendar</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a data-ng-click="loadNewLayout(4)" data-target="#tab-setting" data-toggle="tab"><i class="fa fa-cog icon-2x icon-muted v-middle"></i>Settings</a>-->
+                <!--</li>-->
+        </ul>
+    </div>
+
+    <section class="bg-light lter">
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside class="tab-content">
+                <section id="tabSelected" class="vbox tab-pane active" data-ng-include="tabPath"></section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+
+    <!--<footer class="footer bg-white-only b-t">
+        <p class="checkbox">
+            <label>
+                <input id="toggle-all" type="checkbox">
+                Mark all as completea</label>
+        </p>
+    </footer>-->
+</section>

@@ -1,0 +1,42 @@
+<section class="vbox flex" ng-controller="WarehouseEditCtrl">
+    <div class="pull-left header">
+        <p class="h4">Warehouse</p>
+    </div>
+    <header class="header bg-light lter bg-gradient b-b" ng-include="'header.html?a=a'"></header>
+
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="active"><a data-target="#list" data-toggle="tab">Warehouse</a></li>
+                        </ul>
+                        <div class="navbar-btn pull-right">
+                            <a href="#/warehouse/new" class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <button class="btn btn-white" tooltip data-toggle="tooltip" data-title="Refresh" data-placement="bottom" data-original-title="Refresh" ng-click="reload();">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content" slim-scroll>
+                            <div class="tab-pane active" id="list">
+                                <form name="myForm" novalidate data-validate="parsley">
+                                    <section ng-include="'INV/Warehouse/WarehouseEdit/warehouseEditForm.html?a=a'"></section>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+
+    <footer class="footer text-right bg-light lter b-t">
+        <button type="submit" class="btn btn-success btn-s-xs" ng-click="saveWarehouse()" ng-disabled="busy">Save</button>
+    </footer>
+</section>

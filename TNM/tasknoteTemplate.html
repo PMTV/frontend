@@ -1,0 +1,65 @@
+﻿<section class="panel scrollable wrapper">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="m-b">
+                <label>Filter by: </label>
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-sm btn-default " ng-click="onChangedType(4)">
+                        <input type="radio" ng-model="taskType"> <i ng-show="taskType == 2" class="icon-ok text-active"></i>All
+                    </label>
+                    <label class="btn btn-sm btn-info" ng-click="onChangedType(2)">
+                        <input type="radio" ng-model="taskType"> <i ng-show="taskType == 1" class="icon-ok text-active"></i>Task
+                    </label>
+                    <label class="btn btn-sm btn-warning" ng-click="onChangedType(1)">
+                        <input type="radio" ng-model="taskType"> <i ng-show="taskType == 3" class="icon-ok text-active"></i>Note
+                    </label>
+                    <label class="btn btn-sm btn-primary" ng-click="onChangedType(3)">
+                        <input type="radio" ng-model="taskType"> <i ng-show="taskType == 4" class="icon-ok text-active"></i>Doc
+                    </label>
+                </div>
+                <!--<div class="btn-group m-l">
+                    <ul class="pagination pagination-sm">
+                        <li><a href="" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1"><i class="icon-chevron-left"></i></a></li>
+                        <li><a href="" ng-disabled="currentPage >= tasknoteArr.length/pageSize - 1" ng-click="currentPage=currentPage+1"><i class="icon-chevron-right"></i></a></li>
+                        <li><a href="">{{currentPage+1}}/{{numberOfPages()}}</a></li>
+                    </ul>
+                </div>-->
+                <button class="btn btn-primary btn-s-xs pull-right" ng-click="addDocument()"><icon class="icon-file"></icon> Upload Doc</button>
+                <button class="btn btn-success btn-s-xs pull-right m-r" ng-click="addTaskNote()"><icon class="icon-pencil"></icon> Post Task/Note</button>
+            </div>
+
+            <!-- .comment-list -->
+            <section class="comment-list block">
+                <article class="comment-item" ng-repeat="item in tasknoteArr | filter:taskType">  <!--| startFrom:currentPage*pageSize | limitTo:pageSize-->
+                    <a class="pull-left thumb-sm avatar"><img src="assets/img/avatar.jpg" class="img-circle"></a>
+                    <span class="arrow left"></span>
+                    <section class="comment-body panel">
+                        <header class="panel-heading">
+                            <label class="label bg-warning m-l-xs" ng-show="item.taskType == 1">Note</label>
+                            <label class="label bg-info m-l-xs" ng-show="item.taskType == 2">Task</label>
+                            <label class="label bg-primary m-l-xs" ng-show="item.taskType == 3">.{{item.fileExt}}</label>
+                            <a href="#" class="m-l"><strong>{{item.name}}</strong></a>
+                            <span class="text-muted m-l-sm pull-right">
+                                <i class="icon-time"></i>
+                                {{item.dateCreated | date}}
+                            </span>
+                        </header>
+                        <div class="panel-body">
+                            <div ng-show="item.filePath && item.taskType == 3">
+                                <a class="btn btn-default btn-sm" ng-href="{{item.filePath}}" target="_blank">Download File </a>
+                                <a href="" class="btn btn-danger btn-xs pull-right" ng-click="removeTNM($index, item.taskNoteId)"><i class="icon-trash "></i>Remove</a>
+                            </div>
+                            <div ng-show="item.description">
+                                <span class="font-thin h4">{{item.description}}</span>
+                                <a href="" class="btn btn-danger btn-xs pull-right" ng-click="removeTNM($index, item.taskNoteId)"><i class="icon-trash "></i>Remove</a>
+                            </div>
+                            <div class="comment-action m-t-sm text-sm text-muted" ng-show="item.dateTimeFrom && item.dateTimeTo">
+                                <i>{{item.dateTimeFrom | date}}</i> until <i>{{item.dateTimeTo |date}}</i>
+                            </div>
+                        </div>
+                    </section>
+                </article>
+            </section>
+        </div>
+    </div>
+</section>

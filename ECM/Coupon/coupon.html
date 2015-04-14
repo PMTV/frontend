@@ -1,0 +1,120 @@
+﻿<section class="vbox flex">
+    <div class="pull-left header">
+        <p class="h4">
+            <a href="#/coupon">Coupons</a>
+        </p>
+    </div>
+
+    <header class="header bg-light lter bg-gradient b-b" ng-include="'header.html?a=a'"></header>
+   
+    
+     <!-- .aside -->
+    <div class="bg-white">
+        <section class="vbox">
+            <header class="header bg-light bg-gradient">
+                <ul class="nav nav-tabs nav-white pull-left">
+                    <li class="active"><a data-target="#coupon" data-toggle="tab">Coupons</a></li>
+                </ul>
+                <div class="navbar-btn pull-right">
+                    <a href="#/coupon/new" class="btn btn-success">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            </header>
+        </section>
+    </div>
+    <!-- /.aside -->
+
+
+
+    <section class="bg-white">
+        <section class="hbox stretch">
+            <section class="vbox">
+                <div class="scrollable">
+
+                    <section data-ng-controller="CouponListCtrl">
+
+                        <div class="clearfix m bg-light">
+                            
+                            <div class="col-lg-2-4 form-group m-t">
+                                <label>Coupon Status</label>
+                                <select class="form-control" data-ng-model="couponStatus">
+                                    <option value="">- Select -</option>
+                                    <option value="new">New</option>
+                                    <option value="used">Used</option>                                    
+                                </select>
+                            </div>
+                           
+                             <div class="col-lg-2-4 form-group m-t">
+                                <label>Coupon Type</label>
+                                <select class="form-control" data-ng-model="couponType">
+                                    <option value="">- Select -</option>
+                                    <option value="fixed">Fixed Price</option>
+                                    <option value="percent">Percent Discount</option>                                    
+                                </select>
+                            </div>
+
+                            <div class="col-lg-2-4 form-group m-t">
+                                <label>&nbsp;</label>
+                                <button class="form-control btn" data-ng-click="doSearch()">Search</button>
+                            </div>
+                        </div>
+
+
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="productList">
+                                <div class="table-responsive">
+
+
+                                    <table class="table table-striped b-t text-sm" coupon-Datatable aa-data="couponTableData">
+                                        <thead>
+                                            <tr>
+                                                <th>Coupon<br />Id</th>
+                                                <th>Coupon<br />Code</th>
+                                                <th>Value</th>
+                                                <th>Min<br />Total</th>
+                                                <th>Max<br />Total</th>
+                                                <th>Valid<br />From</th>
+                                                <th>Valid<br />To</th>
+                                                <th>Status</th>
+                                                <th>Type</th>
+                                                <th>CustId<br />Used</th>
+                                            </tr>
+                                        </thead>
+                                        
+                                        <tbody></tbody>
+
+<!--                                        <tfoot>
+                                            <tr>
+                                                <th colspan="9" class="text-right" rowspan="1">Total Amout:
+                                                </th>
+                                                <th rowspan="1" colspan="1"></th>
+                                            </tr>
+                                        </tfoot>-->
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </section>
+
+
+                </div>
+            </section>
+        </section>
+    </section>
+
+
+    <footer class="footer bg-white-only b-t">
+    </footer>
+
+
+</section>

@@ -1,0 +1,48 @@
+﻿<section class="vbox flex" ng-controller="StockTransferEditCtrl">
+    <div class="pull-left header">
+        <p class="h4">Stock Transfers</p>
+    </div>
+
+    <header ng-include="'header.html?a=a'" class="header bg-light lter b-b"></header>
+
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <!--<aside class="aside-lg bg-light lter b-r main-aside" ng-hide="supplier==null">
+                <section class="vbox bg-white" ng-include="'INV/Suppliers/supplier.aside.html?a=a'"></section>
+            </aside>-->
+            <!-- .aside -->
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="active"><a data-target="#list" data-toggle="tab">Stock Transfer</a></li>
+                        </ul>
+
+                        <div class="navbar-btn pull-right">
+                            <a href="#/stockTransfers/new" class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <button class="btn btn-white" tooltip data-toggle="tooltip" data-title="Refresh" data-placement="bottom" data-original-title="Refresh" ng-click="reload();">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content" slim-scroll>
+                            <div class="tab-pane active" id="list">
+                                <form name="myForm" novalidate data-validate="parsley">
+                                    <section ng-include="'INV/StockTransfers/stockTransferEdit/stockTransferEditForm.html?a=aaaa'"></section>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+
+    <footer class="footer text-right bg-light lter b-t">
+        <button type="submit" class="btn btn-success btn-s-xs" ng-click="saveStockTransfer()" btn-loading="busy" data-loading-text="Saving...">Save</button>
+    </footer>
+</section>

@@ -1,0 +1,72 @@
+<ng-form name="contactForm" novalidate>
+    <div ng-show="!showContactForm && model.contactList.length !=0">
+        <!-- -->
+        <ul class="list-group gutter list-group-sp sortable m-b-lg m-t">
+            <li class="list-group-item hover" ng-repeat="contact in model.contactList">
+                <i class="fa fa-user"></i>
+                <a class="btn-link" ng-click="editContact(contact);">({{contact.firstName}} {{contact.middleName}} {{contact.lastName}}) {{contact.email}} {{contact.contactMobile}} {{contact.contactOffice}}</a>
+                <label class="text-muted" ng-show="contact.default"><i>(Default)</i></label>
+
+                <a ng-click="deleteContact(contact)" class="btn-link"><i class="fa fa-times hover-action pull-right" ng-class="contact.contactId ? 'text-danger' : ''"></i></a>
+                <a ng-click="setDefault(contact)" class="btn-link"><i class="fa fa-check hover-action pull-right" ng-class="contact.default ? 'text-warning' : 'text-muted'" tooltip="Set as Default" tooltip-append-to-body="true"></i></a>
+            </li>
+        </ul>
+    </div>
+    <div class="m-b-lg m-t" ng-show="showContactForm == true">
+
+        <div class="form-group pull-in clearfix">
+
+            <div class="col-sm-6" ng-class="{ 'has-error' : contactForm.firstName.$invalid && submitted }">
+
+                <label>First Name</label>
+                <input name="firstName" type="text" ng-model="newContact.firstName" ng-required="showContactForm" class="form-control input-sm" placeholder="First Name" maxlength="30">
+
+            </div>
+
+            <div class="col-sm-6" ng-class="{ 'has-error' : contactForm.lastName.$invalid && submitted }">
+
+                <label>Last Name</label>
+                <input name="lastName" type="text" ng-model="newContact.lastName" ng-required="showContactForm" class="form-control input-sm" placeholder="Last Name" maxlength="30">
+
+            </div>
+
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : contactForm.email.$invalid && submitted }">
+
+            <label>Email</label>
+            <input name="email" type="text" ng-model="newContact.email" ng-required="showContactForm" class="form-control input-sm" placeholder="Email">
+
+        </div>
+        <div class="form-group pull-in clearfix">
+
+            <div class="col-sm-6" ng-class="{ 'has-error' : contactForm.contactMobile.$invalid && submitted }">
+
+                <label>Mobile</label>
+                <input name="contactMobile" type="text" ng-model="newContact.contactMobile" ng-required="showContactForm" class="form-control input-sm" placeholder="Mobile" maxlength="30">
+
+            </div>
+            <div class="col-sm-6" ng-class="{ 'has-error' : contactForm.fax.$invalid && submitted }">
+
+                <label>Fax</label>
+                <input name="fax" type="text" ng-model="newContact.contactFax" ng-required="showContactForm" class="form-control input-sm" placeholder="Fax" maxlength="30">
+
+            </div>
+
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : contactForm.office.$invalid && submitted }">
+
+            <label>Office</label>
+            <input name="office" type="text" ng-model="newContact.contactOffice" ng-required="showContactForm" class="form-control input-sm" placeholder="Office">
+
+        </div>
+
+    </div>
+    <footer class="panel-footer bg-light lter text-right clear-fix m-r-n m-t m-l-n m-b-n">
+        
+        <button type="button" ng-click="addContact();" class="btn btn-info btn-sm" ng-show="mode == 'edit';">{{mode == "edit" ? "Update" : "Add"}}</button>
+        <button type="button" class="btn btn-sm" ng-click="showContactForm = false; mode = ''; newContact = {};" ng-show="showContactForm">Cancel</button>
+        <button type="button" class="btn btn-info btn-sm" ng-click="showContactForm = true; mode='edit';" ng-show="!showContactForm"><i class="fa fa-plus"></i></button>
+        
+    </footer>
+    
+</ng-form>

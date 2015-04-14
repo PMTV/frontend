@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <h3>Customers Location On Map</h3>
+</div>
+<div class="modal-body">
+    <ng-form name="form.customerForm" novalidate>
+        <!-- .nav-justified -->
+        <div class="panel-body" ng-class="showPanel ?  'col-lg-6' : 'col-lg-12'">
+
+            <customer-show-map mheight="400" mwidth="865" location="locationData"></customer-show-map>
+
+        </div>
+    </ng-form>
+</div>
+<div class="modal-footer">
+    <!--<button type="submit" class="btn btn-success btn-s-xs" ng-click="saveCustomer(customer)" btn-loading="busy" data-loading-text="Saving...">{{customer ? 'Save' : 'Create'}}</button>-->
+    <button type="submit" class="btn btn-danger btn-s-xs" ng-click="cancel()" ng-disabled="busy">Exit</button>
+
+</div>

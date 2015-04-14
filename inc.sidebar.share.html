@@ -1,0 +1,128 @@
+﻿<section class="vbox flex" id="task-detail" ng-controller="PresenceController">
+    <header class="header bg-light lt b-b m-b">
+        <p class="m-b">
+            <span class="text-muted">Connected</span>
+        </p>
+    </header>
+    <section class="scrollable">
+        <div align="center">
+            <div ng-repeat="user in loggedInUsers" ng-hide="user.status=='offline'" class="m-b-xs">
+                <a href="#">
+                    <img src="assets/img/avatar_default.jpg" tooltip="is viewing {{user.path}}" class="thumb-md avatar animated fadein user border" ng-class="user.status">
+                    {{user.userName}}<br />
+                    <div class="text-muted text-xs" ng-show="user.last">[ Away <span time="{{user.last}}"></span> ]</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer bg-light lter clearfix b-t">
+        <div class="input-group m-t-sm">
+            <input type="text" class="form-control" id="task-c-input" placeholder="Share" ng-model="msg" ng-keydown="addMessage($event)">
+            <span class="input-group-btn">
+                <button class="btn btn-success btn-sm" type="button" id="task-c-btn" ng-click="addMessage()"><i class="fa fa-pencil"></i></button>
+            </span>
+        </div>
+    </footer>
+</section>
+
+<script>
+    var RTC = angular.module("RTC", ["firebase"]);
+
+    function PresenceController($scope, $rootScope, $location, $firebase, toaster, $emerge) {
+        // Prompt the user for a name to use.
+        var userName = $rootScope.appUser.userName,
+            userId = $rootScope.appUser.userId,
+            currentStatus = "online",
+            currentPath = "";
+
+        // Get a reference to the presence data in Firebase.
+        var userListRef = new Firebase($emerge.firebaseUrl + "/users/");
+
+        // Generate a reference to a new location for my user with push.
+        var myUserRef = userListRef.child(userId);
+
+        $scope.loggedInUsers = $firebase(userListRef);
+
+        // Get a reference to my own presence status.
+        var connectedRef = new Firebase($emerge.firebaseUrl + "/.info/connected");
+        connectedRef.on("value", function (isOnline) {
+            if (isOnline.val()) {
+                // If we lose our internet connection, update our last online time.
+                myUserRef.onDisconnect().set({
+                    status: "offline", userName: userName, last: Firebase.ServerValue.TIMESTAMP //☽
+                });
+                // Set our initial online status.
+                setUserStatus("online");//★
+            } else {
+                // We need to catch anytime we are marked as offline and then set
+                // the correct status. We could be marked as offline 1) on page load
+                // or 2) when we lose our internet connection temporarily.
+                setUserStatus(currentStatus);
+            }
+        });
+
+        $scope.addMessage = function (e) {
+            if ((e && e.keyCode != 13) || $scope.msg == "") return;
+            $rootScope.$broadcast('addMessage', $scope.msg);
+            $scope.msg = "";
+        }
+
+        // A helper function to let us set our own state.
+        function setUserStatus(status) {
+            // Set our status in the list of online users.
+            currentStatus = status;
+
+            myUserRef.set({ userName: userName, status: status, path: currentPath });
+
+            if (status === "away") {
+                myUserRef.child("last").set(Firebase.ServerValue.TIMESTAMP);
+            }
+        }
+
+        // Update our GUI to show someone"s online status.
+        userListRef.on("child_added", function (snapshot) {
+            var user = snapshot.val();
+            //console.log(user);
+            //$("#presenceDiv").append($("<div/>").attr("id", snapshot.name()));
+            //$("#" + snapshot.name()).text(user.name + " is currently " + user.status);
+            // If offline, show last time user was online.
+            if (user.status == "offline") { //☽
+                var ts = moment(user.last);
+                var ls = " (Last seen on " + ts.format("ddd, MMM D") + " at " + ts.format("hh:ss") + ")";
+                //$("#" + snapshot.name()).append($("<br>")).append($("<p>").text(ls));
+                //alert(user.userName + ls);
+            }
+        });
+
+        // Update our GUI to remove the status of a user who has left.
+        userListRef.on("child_removed", function (snapshot) {
+            //$("#" + snapshot.name()).remove();
+        });
+
+        // Update our GUI to change a user"s status.
+        userListRef.on("child_changed", function (snapshot) {
+            var user = snapshot.val();
+            //$("#" + snapshot.name()).text(user.name + " is currently " + user.status);
+        });
+
+        $scope.$on('$routeChangeStart', function (next, current) {
+            currentPath = ($location.path());
+            setUserStatus(currentStatus);//☆
+        });
+
+        // Use idle/away/back events created by idle.js to update our status information.
+        document.onIdle = function () {
+            setUserStatus("idle");//☆
+        }
+        document.onAway = function () {
+            setUserStatus("away");//☄
+        }
+        document.onBack = function (isIdle, isAway) {
+            setUserStatus("online");//★
+        }
+
+        setIdleTimeout(5000);
+        setAwayTimeout(10000);
+    }
+</script>

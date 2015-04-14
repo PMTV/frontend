@@ -1,0 +1,108 @@
+﻿<section class="vbox flex" ng-controller="CommissionEditCtrl">
+    <div class="pull-left header">
+        <p class="h4">
+            <a href="#/commission">Commission</a>
+        </p>
+    </div>
+
+    <header class="header bg-light lter bg-gradient b-b" ng-include="'header.html?a=a'"></header>
+
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="dker">
+                                <a data-target="#sidebar" class="btn btn-sm btn-default" data-toggle="class:hide">
+                                    <i class="fa fa-chevron-left text"></i>
+                                    <i class="fa fa-chevron-right text-active"></i>
+                                </a>
+                            </li>
+                            <li class="lter"><a data-target="#list" data-toggle="tab">Commission</a></li>
+                        </ul>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content slim-scroll">
+                            <div class="tab-pane active" id="list">
+                                <section class="tab-pane" id="validation">
+                                    <!-- Edit Form -->
+                                    <div class="row">
+                                        <form name="commissionForm">
+                                            <section class="col-sm-7">
+                                                <portlet>
+                                                    <portlet-item title="Information">
+                                                        <div>
+                                                            <div class="form-group pull-in clearfix">
+                                                                <div class="col-sm-6" ng-class="{ 'has-error' : commissionForm.commissionValue.$invalid && submitted}">
+                                                                    <label>Commission Value (%)</label>
+                                                                    <input type="number" class="form-control input-sm" data-ng-required="true" name="commissionValue" data-ng-model="commissionObj.commissionValue"/>
+                                                                    <div class="error" data-ng-show="(commissionForm.commissionValue.$dirty && commissionForm.commissionValue.$invalid) || submitted">
+                                                                        <small class="error" data-ng-show="commissionForm.commissionValue.$error.required" >Required</small>
+                                                                    </div>
+                                                                </div>
+                                                                <!--<div class="col-sm-6" ng-class="{ 'has-error' : commissionForm.salesPersonId.$invalid && submitted}">-->
+                                                                    <!--<label>Sales Person</label>-->
+                                                                    <!--<users-dropdown data-ng-required="true" name="salesPersonId" data-ng-model="commissionObj.salesPersonId"></users-dropdown>-->
+                                                                    <!--<div class="error" data-ng-show="(commissionForm.salesPersonId.$dirty && commissionForm.salesPersonId.$invalid) || submitted">-->
+                                                                        <!--<small class="error" data-ng-show="commissionForm.salesPersonId.$error.required" >Required</small>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                                <div class="col-sm-6" ng-class="{ 'has-error' : commissionForm.salesPersonId.$invalid && submitted}">
+                                                                    <label>Select Person</label>
+                                                                    <!--<users-dropdown data-ng-required="true" name="salesPersonId" data-ng-model="commissionObj.salesPersonId"></users-dropdown>-->
+                                                                    <select name="salesPersonId" class="form-control input-sm" data-ng-model="commissionObj.salesPersonId" data-ng-required="true"
+                                                                            data-ng-options="gene.id as (gene.firstName + ' ' +gene.middleName + ' ' + gene.lastName) for gene in usersList">
+                                                                        <option value="">Select all person</option>
+                                                                    </select>
+                                                                    <div class="error" data-ng-show="(commissionForm.salesPersonId.$dirty && commissionForm.salesPersonId.$invalid) || submitted">
+                                                                        <small class="error" data-ng-show="commissionForm.salesPersonId.$error.required" >Required</small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="line line-dashed line-lg pull-in"></div>
+
+                                                            <div class="form-group pull-in clearfix">
+                                                                <div class="col-sm-6" ng-class="{ 'has-error' : commissionForm.fromDate.$invalid && submitted }">
+                                                                    <label>Valid From</label>
+                                                                    <input class="form-control" type="text" placeholder="Valid From" data-ng-required="true" name="fromDate" data-ng-model="commissionObj.fromDate" date-picker data-date="">
+                                                                    <div class="error" data-ng-show="(commissionForm.fromDate.$dirty && commissionForm.fromDate.$invalid) || submitted">
+                                                                        <small class="error" data-ng-show="commissionForm.fromDate.$error.required">Required</small>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6" ng-class="{ 'has-error' : commissionForm.toDate.$invalid && submitted }">
+                                                                    <label>Valid Until</label>
+                                                                    <input class="form-control" type="text" placeholder="Valid Until" data-ng-required="true" name="toDate" data-ng-model="commissionObj.toDate" date-picker data-date="">
+                                                                    <div class="error" data-ng-show="(commissionForm.toDate.$dirty && commissionForm.toDate.$invalid) || submitted">
+                                                                        <small class="error" data-ng-show="commissionForm.toDate.$error.required">Required</small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="line line-dashed line-lg pull-in"></div>
+                                                            
+                                                        </div>
+                                                    </portlet-item>
+                                                </portlet>
+                                            </section>
+
+                                        </form>
+                                    </div>
+
+                                    <!-- //Edit Form -->
+                                </section>
+                            </div>
+                        </div>
+                    </section>
+
+                </section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+
+
+    <footer class="footer text-right bg-light lter b-t">
+        <button type="submit" class="btn btn-success btn-s-xs" ng-click="saveCommission()" btn-loading="busy" data-loading-text="Saving...">Save</button>
+    </footer>
+</section>

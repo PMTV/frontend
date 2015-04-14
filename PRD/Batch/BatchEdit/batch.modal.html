@@ -1,0 +1,45 @@
+﻿<div class="modal-header">
+    <h3>Add Product Batch</h3>
+</div>
+<div class="modal-body">
+    <form class="bs-example form-horizontal">
+        <div class="form-group">
+            <label class="col-lg-3 control-label">Batch Name</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" placeholder="Batch Name" ng-model="batch.name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-3 control-label">Batch Code</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" placeholder="Batch Code" ng-model="batch.code">
+                <!-- <span class="help-block m-b-none">Name of the Country (e.g Singapore)</span>-->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-3 control-label">Description</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" placeholder="Description" ng-model="batch.description">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-3 control-label">Batch Number</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" placeholder="Batch No." ng-model="batch.batchNumber">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-3 control-label">Batch Expiry</label>
+            <div class="col-lg-8">
+                <input date-picker type="text" class="form-control input-sm" placeholder="Date" ng-model="batch.dateExpiry">
+            </div>
+        </div>
+        <div class="hide">
+            <input type="text" ng-model="batch.productId">
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-success" ng-click="save()" btn-loading="busy">Save</button>
+</div>

@@ -1,0 +1,166 @@
+﻿<div class="row hidden-print">
+    <debug-message class="hidden-print">{{packingList | json}}</debug-message>
+    <!-- <div class="col-sm-6">
+        <portlet>
+            <portlet-item title="Information">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-4" ng-class="{ 'has-error' : myForm.salesOrder.$invalid && submitted }">
+                            <label>Sales Order</label><br />
+                            <salesorder-dropdown name="salesOrder" ng-required="true" ng-model="packingList.salesOrderId" ng-change="onSelectSalesOrder(packingList.salesOrderId)" class="ui-select2"></salesorder-dropdown>
+
+                            <div class="error" ng-show="(myForm.salesOrder.$dirty && myForm.salesOrder.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.salesOrder.$error.required">Please select a Sales Order</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <footer class="panel-footer pos-rlt pull-in">
+                        <span class="arrow top"></span>
+                        <div class="pull-out">
+                            <textarea class="form-control no-border input-lg text-sm" type="text" placeholder="Write a Description" rows="6" ng-model="quotation.remarks"></textarea>
+                        </div>
+                    </footer>
+                </div>
+            </portlet-item>
+        </portlet>
+    </div> -->
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <section class="panel">
+            <header class="panel-heading font-bold">
+                <span class="h5">Select Sales Order</span>
+            </header>
+            <div class="panel-body">
+                <!-- <div class="col-sm-6">
+                    <salesorder-dropdown ng-model="salesOrder" ng-change="onChangedSalesOrder(salesOrder)"></salesorder-dropdown>
+                </div> -->
+                <button class="btn btn-xs m-b btn-success" ng-click="addPackingSection()"><i class="fa fa-plus"></i>Add a packing section</button>
+                <section class="panel wrapper" ng-repeat="item in packingList.packingSectionList">
+                  <div class="row">
+                    <div class="col-xs-4">
+                      <div class="wrapper">
+                        <!-- <i class="fa fa-inbox fa-5x "></i> -->
+                        <p class="h3 font-bold">Packing List # {{$index+1}}</p>
+                        <packing-def-dropdown ng-model="item.packingDefinitionId"></packing-def-dropdown>
+                       <!--  <button class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button>
+                        <button class=" btn btn-xs btn-success"><i class="fa fa-check "></i> </button> -->
+                        <!-- <button class="btn btn-xs btn-primary">Save</button> -->
+                      </div>
+                    </div>
+                    <div class="col-xs-8 text-center">
+                      <!-- <div class="inline drop-box-pl" data-drop="true" ng-model='item.packingSection'jqyoui-droppable="{multiple:true}">
+                        <ul class="list-group gutter list-group-sm list-group-sp" data-drop="true" ng-model='packingList.packingListArr' jqyoui-droppable="{multiple:true}">
+                            <li class="drop-box-pl-placeholder">Drop you items here</li>
+                            <li class="list-group-item" ng-click="removeItem($parent.$index, $index, item2)" ng-repeat="item2 in item.packingSection track by $index" ng-show="item2.productName" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-model="list4" jqyoui-draggable="{index: {{$index}},animate:true}">{{item2.productName}}</li>
+                        </ul>
+                      </div> -->
+                      <span class="wrapper h5"><i class="fa fa-arrow-circle-down"></i> Drop you items here</span>
+                      <div ui-sortable="sortableOptionsList[0]" class="apps-container screen" ng-model="item.packingSectionDetailsList">
+
+                        <div class="app" ng-repeat="item2 in item.packingSectionDetailsList track by $index">
+                          <div class="row">
+                            <div class="col-sm-4">
+                              {{item2.productName || item2.product.name}}
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="text" class="form-control input-sm" ng-model="item2.productQty" placeholder="Qty">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </section>
+
+                <!-- <div id="cart">
+              <h1 class="ui-widget-header">Packing List</h1>
+              <button class="btn-info btn" ng-click="printArr()">Print</button>
+              <div class="ui-widget-content">
+                 <ul class="list-group gutter list-group-lg list-group-sp" data-drop="true" ng-model='packingList.packingListArr' jqyoui-droppable="{multiple:true}">
+                      <li class="list-group-item" ng-repeat="item in packingList.packingListArr track by $index" ng-show="item.productName" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-model="list4" jqyoui-draggable="{index: {{$index}},animate:true}">{{item.productName}}</li>
+                      <li class="placeholder" ng-hide="hideMe()">Add your items here</li>
+                  </ul>
+              </div>
+            </div>
+            </div> -->
+
+            
+        </section>
+    </div>
+    <div class="col-sm-6">
+        <section class="panel">
+            <header class="panel-heading font-bold">
+                <span class="h5">Product Lists</span>
+            </header>
+            <div class="panel-body">
+                <div class="row m-b">
+                  <div class="col-sm-4">
+                        <label>Select Sales Order</label>
+                  </div>
+                  <div class="col-sm-8">
+                      <salesorder-dropdown ng-model="salesOrder" ng-change="onChangedSalesOrder(salesOrder)"></salesorder-dropdown>
+                  </div>
+                </div>
+                <ul class="list-group gutter list-group-sp apps-container first" ui-sortable=" sortableOptionsList[1]" ng-model="salesOrderArr">
+                  <li class="list-group-item app" ng-repeat="item in salesOrderArr track by $index" ng-hide="item.productQty <= 0">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        {{item.productName}} 
+                      </div>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control input-sm" ng-model="item.qty" placeholder="Qty" ng-disabled="true">
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+            </div> 
+        </section>
+    </div>
+</div>
+<!-- <div class="row"  ng-hide="true">
+    <div class="col-sm-12">
+        <section class="panel">
+            <header class="panel-heading font-bold">
+                <span class="h5">Packing List Items</span>
+            </header>
+            <div class="panel-body table-responsive">
+                <table class="table table-condensed text-sm m-b-none" ng-form="itemForm">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-1">#</th>
+                            <th class="col-sm-1">Packing Definition</th>
+                            <th class="col-sm-2">Product ID</th>
+                            <th class="col-sm-2">UOM</th>
+                            <th class="col-sm-2">UOM Value</th>
+                            <th class="col-sm-2">Product Qty</th>
+                            <th class="col-sm-2">Container Required</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="item in packingList.packingSectionList" ng-init="outerIndex = $index">
+                      <tr ng-repeat="item2 in item.packingSectionDetailsList" ng-init="innerIndex = $index" ng-class="{'alert-warning' : item.checked}">
+                          <td>{{$index+1}}</td>
+                          <td>{{item.packingDefinitionId}}</td>
+                          <td>{{item2.productId}}</td>
+                          <td>
+                              <input type="text" class="form-control" ng-model="item2.productUOMName">
+                          </td>
+                          <td>
+                              <input type="number" class="form-control" ng-model="item2.productUOMValue">
+                          </td>
+                          <td>
+                              <input type="number" class="form-control" ng-model="item2.productQty">
+                          </td>
+                          <td>
+                              <input type="number" class="form-control" ng-model="item2.containersRequired">
+                          </td>
+                      </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div> -->

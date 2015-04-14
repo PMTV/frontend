@@ -1,0 +1,51 @@
+<div class="clearfix" >
+	<section class="col-lg-12 no-padder">
+		<form class="form-group">
+			<div class="row">
+				<div class="col-lg-12">
+					<input class="form-control input-sm" data-type="text" ng-model="todos.TaskNoteName" size="30" placeholder="add new todo here">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-3 padder-v">
+					<input class="form-control input-s input-sm datepicker-input" ng-model="todos.dateTimeFrom" type="text" size="16" value="12-02-2013" data-date-format="dd-mm-yyyy">
+				</div>
+				<div class="col-lg-3 padder-v">
+					<input class="form-control input-s input-sm datepicker-input" ng-model="todos.dateTimeTo" type="text" size="16" value="12-02-2013" data-date-format="dd-mm-yyyy">
+				</div>
+				<div class="col-lg-3 padder-v">
+					<select class="form-control m-b" ng-model="todos.taskStatus" 
+		                  ng-options="status as status.label for status in taskStatus">
+		                  <option value="">-- Status --</option>           
+		          	</select>
+		        </div>
+				<div class="col-lg-3 padder-v">
+					<button type="submit" ng-click="addTodo()" class="btn btn-success btn-s-xs pull-right">Add</button>
+				</div>
+			</div>
+		</form>
+		
+		<h4><span ng-hide="remaining() == 0">{{remaining()}} tasks remaining</span></h4>
+		<h4><span ng-show="remaining() == 0">No tasks pending.</span></h4>
+      	<!-- [ <a href="" ng-click="archive()">archive</a> ] -->
+
+		<ul class="list-group gutter list-group-lg list-group-sp sortable">
+			<li class="list-group-item" ng-repeat="todo in taskArr">
+				<a href="" ng-click="deleteTask(todo)" class="pull-right" data-dismiss="alert"><i class="fa fa-remove"></i></a>
+				<span class="pull-left media-xs"></span>
+				<small class="label bg-light">From: {{todo.dateTimeFrom | date:'medium'}}</small>	
+				<small class="label bg-light">To: {{todo.dateTimeTo | date:'medium'}}</small>
+				<small ng-show="{{todo.taskStatus == 1}}" class="label bg-info">Completed</small>
+                <small ng-show="{{todo.taskStatus == 2}}" class="label bg-success">InProcess</small>
+                <small ng-show="{{todo.taskStatus == 3}}" class="label bg-warning">Delayed</small>
+                <small ng-show="{{todo.taskStatus == 4}}" class="label bg-danger">Cancelled</small> 
+				<div class="clear">
+					<!-- <input type="checkbox" ng-model="todo.done"> <span class="done-{{todo.done}}">#{{todo.taskNoteId}} {{todo.taskNoteName}}</span> -->
+					<h4>#{{todo.taskNoteId}} {{todo.taskNoteName}}</h4>
+				</div>
+
+			</li>
+		</ul>
+
+	</section>
+</div>

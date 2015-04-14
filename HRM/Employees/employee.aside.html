@@ -1,0 +1,33 @@
+﻿<section class="scrollable">
+    <section slim-scroll>
+        <div class="wrapper">
+            <div class="clearfix m-b text-center">
+                <div class="thumb-lg">
+                    <img src="assets/img/avatar_default.jpg" class="img-circle">
+                </div>
+                <div class="clear">
+                    <div class="m-t-xs m-b-xs"><span class="h3">{{employee.lastName}} {{employee.firstName}}  </span></div>
+                    <small class="text-muted">{{ employee.code }}</small>
+                </div>
+            </div>
+         <!--   <div class="list-group no-radius alt" style="text-align:center">
+                <a class="list-group-item">
+                    <span class="badge bg-success"></span>
+                   
+                </a>
+                <a class="list-group-item">
+                    <span class="badge bg-info"></span>
+                   
+                </a>
+            </div>-->
+            <div class="btn-group btn-group-justified m-b">
+                <a class="btn btn-success btn-rounded" href="mailto:{{employee.email}}">
+                    <i class="fa fa-eye-open"></i>Email
+                </a>
+                <a class="btn btn-info btn-rounded">
+                    <i class="fa fa-comment-alt"></i>Contact
+                </a>
+            </div>
+        </div>
+    </section>
+</section>

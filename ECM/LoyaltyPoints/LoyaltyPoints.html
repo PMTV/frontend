@@ -1,0 +1,100 @@
+﻿<section class="vbox flex">
+    <div class="pull-left header">
+        <p class="h4">
+            <a href="#/loyaltypoints">Loyalty Points</a>
+        </p>
+    </div>
+
+    <header class="header bg-light lter bg-gradient b-b" ng-include="'header.html?a=a'"></header>
+   
+    
+     <!-- .aside -->
+    <div class="bg-white">
+        <section class="vbox">
+            <header class="header bg-light bg-gradient">
+                <ul class="nav nav-tabs nav-white pull-left">
+                    <li class="active"><a data-target="#loyaltypoints" data-toggle="tab">Loyalty Points</a></li>
+                </ul>
+                <div class="navbar-btn pull-right">
+                    <a href="#/loyaltypoints/new" class="btn btn-success">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            </header>
+        </section>
+    </div>
+    <!-- /.aside -->
+
+
+
+    <section class="bg-white">
+        <section class="hbox stretch">
+            <section class="vbox">
+                <div class="scrollable">
+
+                    <section data-ng-controller="LoyaltyPointsCtrl">
+
+                        <div class="clearfix m bg-light">
+                            
+                            <div class="col-lg-2-4 form-group m-t">
+                                <label>Valid From</label>
+                                <input class="form-control" type="text" placeholder="Valid From" data-ng-model="DateValidFrom" data-datepickerecm="" data-format="MM/dd/yyyy" data-date="">
+                            </div>
+                           
+                             <div class="col-lg-2-4 form-group m-t">
+                                <label>Valid Until</label>
+                                <input class="form-control" type="text" placeholder="Valid Until" data-ng-model="DateValidUntil" data-datepickerecm="" data-format="MM/dd/yyyy" data-date="">
+                            </div>
+
+                            <div class="col-lg-2-4 form-group m-t">
+                                <label>&nbsp;</label>
+                                <button class="form-control btn" data-ng-click="doSearch()">Search</button>
+                            </div>
+                        </div>
+
+
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="productList">
+                                <div class="table-responsive">
+
+
+                                    <table class="table table-striped b-t text-sm" loyaltypoint-Datatable aa-data="loyaltyPointsTableData">
+                                        <thead>
+                                            <tr>
+                                                <th>Loyalty Point Id</th>
+                                                <th>Point</th>
+                                                <th>Valid From</th>
+                                                <th>Valid Until</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        
+                                        <tbody></tbody>
+
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </section>
+
+
+                </div>
+            </section>
+        </section>
+    </section>
+
+
+    <footer class="footer bg-white-only b-t">
+    </footer>
+
+
+</section>

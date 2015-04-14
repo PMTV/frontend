@@ -1,0 +1,50 @@
+
+<div class="modal-header">
+    <h3>Upload Document</h3>
+      </div>
+<div class="modal-body">
+    <!--  <div class="clearfix text-center m-t">
+       <div class="inline">
+         <div class="easypiechart" data-percent="75" data-line-width="5" data-loop="false" data-bar-color="#92cf5c" data-track-Color="#f5f5f5" data-scale-Color="false" data-size="150">
+           <div class="thumb-lg">
+             <i class="fa fa-file img-circle-b"></i>
+           </div>
+         </div>
+         <div class="h4 m-t m-b-xs">John.Smith</div>
+         <small class="text-muted m-b">Art director</small>
+       </div>
+     </div> -->
+
+    <div class="row ">
+        <div class="col-sm-12">
+            <br>
+            <input type="file" ng-file-select="onFileSelect($files)">
+            <br />
+            <div ng-show="dropSupported" class="drop-box" ng-file-drop="onFileSelect($files);" ng-file-drop-available="dropSupported=true">or drop files here</div>
+            <div ng-show="!dropSupported">HTML5 Drop File is not supported on this browser</div>
+            <br />
+            <div class="progress progress-sm progress-striped active">
+              <div class="progress-bar progress-bar-success" data-toggle="tooltip" data-original-title="0%" style="width: {{progress}}%"></div>
+            </div>
+            <br />
+            <br />
+            <div ng-show="selectedFiles != null">
+              <div class="sel-file" ng-repeat="f in selectedFiles">
+                <img ng-show="dataUrls[$index]" ng-src="{{dataUrls[$index]}}">
+                <button class="button" ng-click="start($index)" ng-show="progress[$index] < 0">Start</button>
+                <span class="progress">           
+                        <div ng-show="progress[$index]" style="width:{{progress[$index]}}%">{{progress[$index]}}%</div>
+                  
+                </span>       
+                <button class="button" ng-click="abort($index)" ng-show="hasUploader($index) && progress[$index] < 100">Abort</button>
+                {{f.name}} - size: {{f.size}}B - type: {{f.type}}
+              </div>
+            </div>
+        </div>
+        </div>
+      </div>
+
+<div class="modal-footer">
+      <button type="submit" class="btn btn-success btn-s-xs" ng-click="ok()" ng-disabled="busy">Okay</button>
+      <button type="submit" class="btn btn-danger btn-s-xs" ng-click="cancel()" ng-disabled="busy">Cancel</button>
+</div>

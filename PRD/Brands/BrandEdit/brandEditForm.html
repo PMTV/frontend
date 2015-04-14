@@ -1,0 +1,28 @@
+<div class="row">
+    <debug-message>{{brand | json}}</debug-message>
+    <div class="col-sm-12">
+        <portlet>
+            <portlet-item title="Brand">
+                <div>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label>Brand Name</label>
+                            <div>
+                                <input type="text" class="form-control" placeholder="Name" ng-model="brand.name">
+                            </div>
+                        </div>
+
+                    </div>
+                    <footer class="panel-footer pos-rlt pull-in">
+                        <span class="arrow top"></span>
+                        <div class="pull-out">
+                            <textarea class="form-control no-border input-lg text-sm" type="text" placeholder="Write a Description" rows="7" ng-model="brand.description"></textarea>
+                        </div>
+                    </footer>
+                </div>
+            </portlet-item>
+            
+        </portlet>
+
+    </div>
+</div>

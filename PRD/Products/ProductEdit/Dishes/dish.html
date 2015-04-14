@@ -1,0 +1,114 @@
+﻿<section class="vbox flex">
+    <div class="pull-left header">
+        <p class="h4">Products</p>
+    </div>
+    <header class="header bg-light lter bg-gradient b-b" ng-include="'header.html?a=a'"></header>
+    <!-- .aside -->
+    <div class="bg-white">
+        <section class="vbox">
+            <header class="header bg-light bg-gradient">
+                <ul class="nav nav-tabs nav-white pull-left">
+                    <li class="active"><a data-target="#productList" data-toggle="tab">Dishes</a></li>
+                </ul>
+                <div class="navbar-btn pull-right">
+                    <div class="btn-group m-r ">
+                        <button data-toggle="dropdown" class="btn btn-success dropdown-toggle">
+                            <span class="dropdown-label">Add New Product</span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-select">
+                            <li class="active"><a href="#/ingredients/new"><input type="radio" name="d-s-r" checked="">Add New Ingredients</a></li>
+                            <li><a href="#/dishes/new"><input type="radio" name="d-s-r">Add New Dishes</a></li>
+                            <li><a href="#/packages/new"><input type="radio" name="d-s-r">Add New Packages</a></li>
+                          <li><a href="#/accessories/new"><input type="radio" name="d-s-r">Add New Accessories</a></li>
+                        </ul>
+                        <button class="btn btn-white m-l-xs" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+        </section>
+    </div>
+    <!-- /.aside -->
+
+    <section class="bg-white">
+        <section class="hbox stretch">
+            <section class="vbox">
+                <div class="scrollable">
+                    <section ng-controller="ProductListCtrl">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="productList">
+                                <div class="table-responsive">
+                                    <table class="table table-striped b-t text-sm" products-datatable type="3" aa-data="productTableData">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Dishes Name</th>
+                                                <th>Description</th>
+                                                <th>Dishes Cost</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <footer class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-sm-4 hidden-xs">
+                                            <select class="input-sm form-control input-s-sm inline" ng-model="action">
+                                                <option value="">Bulk action</option>
+                                                <option value="barcode">Generate Barcode</option>
+                                            </select>
+                                            <button class="btn btn-sm btn-white" ng-click="doAction(action)">Apply</button>
+                                        </div>
+                                    </div>
+                                </footer>
+                            </div>
+                            <!-- <div class="tab-pane" id="activity">
+                                <ul class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border">
+                                    <li class="list-group-item">
+                                        <a href="#" class="thumb-sm pull-left m-r-sm">
+                                            <img src="assets/img/avatar_default.jpg" class="img-circle">
+                                        </a>
+                                        <a href="#" class="clear">
+                                            <small class="pull-right">3 minuts ago</small>
+                                            <strong class="block">Drew Wllon</strong>
+                                            <small>Wellcome and play this web application template ... </small>
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="#" class="thumb-sm pull-left m-r-sm">
+                                            <img src="assets/img/avatar.jpg" class="img-circle">
+                                        </a>
+                                        <a href="#" class="clear">
+                                            <small class="pull-right">1 hour ago</small>
+                                            <strong class="block">Jonathan George</strong>
+                                            <small>Morbi nec nunc condimentum...</small>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane" id="interaction">
+                                <div class="text-center wrapper">
+                                    <i class="fa fa-spinner icon-spin icon-large"></i>
+                                </div>
+                            </div> -->
+                        </div>
+                    </section>
+            </section>
+            </aside>
+
+            <!-- /.aside -->
+        </section>
+    </section>
+    <footer class="footer bg-white-only b-t">
+        <!--<p class="checkbox">
+            <label>
+                <input id="toggle-all" type="checkbox">
+                Mark all as complete
+            </label>
+        </p>-->
+    </footer>
+</section>

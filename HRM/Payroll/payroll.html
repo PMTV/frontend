@@ -1,0 +1,523 @@
+﻿<section class="vbox flex" onmouseover="$('.datepicker-input').datepicker();" ng-controller="EmployeeListPayrollCtrl">
+    <header class="header bg-light lter bg-gradient b-b">
+        <p class="h4 ng-scope">Payroll Management</p>
+    </header>
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <aside class="bg-white">
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient">
+                        <ul class="nav nav-tabs nav-white">
+                            <li class="active"><a data-target="#Addition" data-toggle="tab">Payroll Addition</a></li>
+                            <li class=""><a data-target="#Deduction" data-toggle="tab">Payroll Deduction</a></li>
+                            <li class=""><a data-target="#Overtime" data-toggle="tab">Payroll Overtime</a></li>
+                            <li class=""><a data-target="#Detail" data-toggle="tab">Payroll Detail</a></li>
+                            <!--                            <li class=""><a data-target="#Submit" data-toggle="tab">Submit Payroll</a></li>-->
+                            <!--                            <li class=""><a data-target="#Approve" data-toggle="tab">Approve Payroll</a></li>-->
+                        </ul>
+                    </header>
+                    <section class="scrollable">
+                        <div class="tab-content">
+                            <!--------------------Addition ------------------------>
+                            <div class="tab-pane active" id="Addition" style="margin: 10px auto" data-ng-controller="PayrollAdditionController">
+                                <div class="col-lg-12">
+                                    <div class="panel">
+                                        <header class="panel-heading">
+                                            <span class="h4">Information</span>
+                                        </header>
+                                        <form name="EditForm" novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
+                                            <div class="panel-body">
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="col-lg-3">
+                                                        <label>Amount</label>
+                                                        <input type="text" data-ng-model="payrolladditiondata.additionAmount" class="form-control txtAmountAddition" value=" " required="required" placeholder="Enter amount" onkeyup="this.value=this.value.replace(/[^0-9,.]/g, '')">
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <label>Addition Type</label>
+                                                        <select name="additiontype" class="form-control m-b slAdditionType" data-ng-model="payrolladditiondata.additionTypeId">
+                                                            <option value="" disabled selected="selected">Please Select</option>
+                                                            <option ng-repeat="Add in allAdditionType" value="{{ Add.additionTypeId }}">{{ Add.additionTypeName }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <label>Employee ID</label>
+                                                        <input type="text" readonly="true" class="form-control txtEmployeeId" value="" ng-model="payrolladditiondata.employeeId">
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <label>Name</label>
+                                                        <input type="text" readonly="true" class="form-control txtEmployeeName" value="" ng-model="payrolladditiondata.firstName">
+                                                    </div>
+                                                </div>
+
+                                                <input type="hidden" class="tthidden" value="" />
+                                                <footer>
+                                                    <button type="button" class="btn btn-s-md btn-default" ng-click="savePayrolAddition()">{{ labelName }}</button>
+                                                </footer>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="panel">
+                                        <header class="panel-heading">
+                                            <span class="h4">Search Filter</span>
+                                        </header>
+                                        <div class="panel-body">
+                                            <div class="form-group pull-in clearfix">
+                                                <div class="col-lg-3">
+                                                    <label>Employee Name</label>
+                                                    <input type="text" class="form-control" placeholder="Please Enter Employee Name" data-ng-model="keyword">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label>Department</label>
+                                                    <select name="department" class="slDepartment form-control m-b">
+                                                        <option value="" disabled selected="selected">Please Select</option>
+                                                        <option data-ng-repeat="item in departmentlist" value="{{item.departmentId}}">{{item.departmentName}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label>From Date</label>
+                                                    <input class="input-sm input-s datepicker-input form-control todate" size="16" type="text" value="" data-date-format="dd-mm-yyyy">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label>To Date</label>
+                                                    <input class="input-sm input-s datepicker-input form-control todate" size="16" type="text" value="" data-date-format="dd-mm-yyyy">
+                                                </div>
+                                            </div>
+                                            <footer>
+                                                <button type="submit" class="btn btn-s-md btn-default" data-ng-click="SearchEmployee()">Search</button>
+                                            </footer>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <section class="panel">
+                                        <header class="panel-heading bg-dark">
+                                            <span class="h5"><strong>Employee information</strong></span>
+                                        </header>
+                                        <div class="table-responsive">
+                                            <div class="dataTables_wrapper" role="grid">
+                                                <table class="table table-striped m-b-none" employeepayrolladdition-datatable aa-data="employeeTableData | filter:keyword">
+                                                    <thead>
+                                                        <tr role="row">
+                                                            <th>ID</th>
+                                                            <th>Code</th>
+                                                            <th>First Name</th>
+                                                            <th>Last Name</th>
+                                                            <th>Middle Name</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+
+                            </div>
+                            <!--------------------End Addition ------------------->
+
+                            <!-----------------deduction ------------------------>
+                            <div class="tab-pane" id="Deduction" style="margin: 10px auto" data-ng-controller="PayrollDeductionController">
+                                <div class="col-lg-12">
+                                    <div class="panel">
+                                        <header class="panel-heading">
+                                            <span class="h4">Information</span>
+                                        </header>
+                                        <form name="DeductionEditForm" novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
+                                            <div class="panel-body">
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="col-lg-3">
+                                                        <label>Amount</label>
+                                                        <input type="text" class="form-control txtAmountDeduction" value=" " required="required" placeholder="Enter amount" data-ng-model="payrolldeductiondata.deductionAmount" onkeyup="this.value=this.value.replace(/[^0-9,.]/g, '')">
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <label>Deduction Type</label>
+                                                        <select name="deductiontype" class="form-control m-b sldeductionType" ng-model="payrolldeductiondata.deductionTypeId">
+                                                            <option value="" disabled selected="selected">Please Select</option>
+                                                            <option ng-repeat="DD in alldeductiontype" value="{{ DD.deductionTypeId }}">{{ DD.deductionTypeName }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <label>Employee ID</label>
+                                                        <input type="text" readonly="true" class="form-control txtEmployeeDeductionId" value="" ng-model="payrolldeductiondata.employeeId">
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <label>Name</label>
+                                                        <input type="text" readonly="true" class="form-control txtEmployeeDeductionName" value="" ng-model="payrolldeductiondata.firstName">
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" class="tthiddendeduction" value="" />
+                                                <footer>
+                                                    <button type="submit" class="btn btn-s-md btn-default" data-ng-click="insPayrolDeduction()">{{ labelName }}</button>
+                                                </footer>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="panel">
+                                        <header class="panel-heading">
+                                            <span class="h4">Search Filter</span>
+                                        </header>
+                                        <div class="panel-body">
+                                            <div class="form-group pull-in clearfix">
+                                                <div class="col-lg-3">
+                                                    <label>Employee Name</label>
+                                                    <input type="text" class="form-control" placeholder="Please Enter Employee Name" data-ng-model="keyword">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label>Department</label>
+                                                    <select name="department" class="slDepartment form-control m-b">
+                                                        <option value="" disabled selected="selected">Please Select</option>
+                                                        <option data-ng-repeat="item in departmentlist" value="{{item.departmentId}}">{{item.departmentName}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label>From Date</label>
+                                                    <input class="input-sm input-s datepicker-input form-control todate" size="16" type="text" value="" data-date-format="dd-mm-yyyy">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label>To Date</label>
+                                                    <input class="input-sm input-s datepicker-input form-control todate" size="16" type="text" value="" data-date-format="dd-mm-yyyy">
+                                                </div>
+                                            </div>
+                                            <footer>
+                                                <button type="submit" class="btn btn-s-md btn-default" data-ng-click="SearchEmployee()">Search</button>
+                                            </footer>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <section class="panel">
+                                        <header class="panel-heading bg-dark">
+                                            <span class="h5"><strong>Employee information</strong></span>
+                                        </header>
+                                        <div class="table-responsive">
+                                            <div class="dataTables_wrapper" role="grid">
+                                                <table class="table table-striped m-b-none" employeepayrolldeduction-datatable aa-data="employee2TableData | filter:keyword">
+                                                    <thead>
+                                                        <tr role="row">
+                                                            <th>ID</th>
+                                                            <th>Code</th>
+                                                            <th>First Name</th>
+                                                            <th>Last Name</th>
+                                                            <th>Middle Name</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                            <!-----------------End Deduction -------------------->
+
+                            <!-----------------Overtime ------------------------>
+                            <div class="tab-pane" id="Overtime" style="margin: 10px auto" data-ng-controller="PayrollOvertimeController">
+                                <div class="col-lg-12">
+                                    <div class="panel">
+                                        <header class="panel-heading">
+                                            <span class="h4">Information</span>
+                                        </header>
+                                        <form name="overtimeEditForm" novalidate="" class="ng-pristine ng-invalid ng-invalid-required">
+                                            <div class="panel-body">
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="col-lg-3">
+                                                        <label>Amount Per Hour</label>
+                                                        <input type="text" class="form-control txtEmployeeOvertimeAPH" onkeyup="this.value=this.value.replace(/[^0-9,.]/g, '')" data-ng-model="payrollovertimedata.amounPerHour">
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <label>Number Of Hours</label>
+                                                        <input type="text" class="form-control txtEmployeeOvertimeNOH" onkeyup="this.value=this.value.replace(/[^0-9,.]/g, '')" data-ng-model="payrollovertimedata.numberOfHours">
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <label>Employee ID</label>
+                                                        <input type="text" readonly="true" class="form-control txtEmployeeOvertimeId" value="" ng-model="payrollovertimedata.employeeId">
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <label>Name</label>
+                                                        <input type="text" readonly="true" class="form-control txtEmployeeOvertimeName" value="" ng-model="payrollovertimedata.firstName">
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" value="" class="tovertime" />
+                                                <footer>
+                                                    <button type="submit" class="btn btn-s-md btn-default" data-ng-click="insPayrollovertime()">{{ labelName }}</button>
+                                                </footer>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="panel">
+                                        <header class="panel-heading">
+                                            <span class="h4">Search Filter</span>
+                                        </header>
+                                        <div class="panel-body">
+                                            <div class="form-group pull-in clearfix">
+                                                <div class="col-lg-3">
+                                                    <label>Employee Name</label>
+                                                    <input type="text" class="form-control" placeholder="Please Enter Employee Name" data-ng-model="keyword">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label>Department</label>
+                                                    <select name="department" class="slDepartment form-control m-b">
+                                                        <option value="" disabled selected="selected">Please Select</option>
+                                                        <option data-ng-repeat="item in departmentlist" value="{{item.departmentId}}">{{item.departmentName}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label>From Date</label>
+                                                    <input class="input-sm input-s datepicker-input form-control todate" size="16" type="text" value="" data-date-format="dd-mm-yyyy">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label>To Date</label>
+                                                    <input class="input-sm input-s datepicker-input form-control todate" size="16" type="text" value="" data-date-format="dd-mm-yyyy">
+                                                </div>
+                                            </div>
+                                            <footer>
+                                                <button type="submit" class="btn btn-s-md btn-default" data-ng-click="SearchEmployee()">Search</button>
+                                            </footer>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <section class="panel">
+                                        <header class="panel-heading bg-dark">
+                                            <span class="h5"><strong>Employee information</strong></span>
+                                        </header>
+                                        <div class="table-responsive">
+                                            <div class="dataTables_wrapper" role="grid">
+                                                <table class="table table-striped m-b-none" employeepayrollovertime-datatable aa-data="employee3TableData | filter:keyword">
+                                                    <thead>
+                                                        <tr role="row">
+                                                            <th>ID</th>
+                                                            <th>Code</th>
+                                                            <th>First Name</th>
+                                                            <th>Last Name</th>
+                                                            <th>Middle Name</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                            <!-----------------End Overtime -----------===------>
+
+                            <!-----------------Detail ------------------------>
+                            <div class="tab-pane" style="margin: 10px auto" id="Detail" data-ng-controller="DetailPayrollController">
+                                <div class="col-lg-12">
+                                    <div class="panel">
+                                        <form class="ng-pristine ng-invalid ng-invalid-required">
+                                            <div class="panel-body">
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="col-lg-4" style="margin-top: 20px;" ng-hide="CheckRecordPeriod.length == 0">
+                                                        <input type="checkbox" ng-model="check" ng-click="getallDetailOfIdcurrent()" ng-disabled="employeeId==null" />
+                                                        <label>Update Payroll Detail</label>
+                                                    </div>
+                                                    <div class="col-lg-4" ng-hide="check == false || CheckRecordPeriod.length == 0">
+                                                        <label>Period Update:</label>
+                                                        <select class="form-control m-b abc" ng-change="getByperiod()" data-ng-model="payrollDetailId" data-ng-options="date.payrollDetailId as date.period | date: 'MM-yyyy' for date in AllpayrollById | orderBy:'period'"></select>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label>Period:</label>
+                                                        <input class="input-sm input-s datepicker-input form-control" ng-model="payrolldetaildataLoad.period" type="text" value="" data-date-format="mm-yyyy" data-datepickerperiod="" ng-disabled="employeeId==null" readonly="true" placeholder="mm-yyyy" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="col-lg-4">
+                                                        <label>Empolyee ID:</label>
+                                                        <input type="text" class="form-control txtEmployeeDetailId" readonly="true" value="" ng-model="employeeId">
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label>Name:</label>
+                                                        <input type="text" readonly="true" class="form-control" value="" ng-model="firstName">
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <label>Department:</label>
+                                                        <input type="text" readonly="true" class="form-control" ng-model="departmentName.departmentName" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>Addition($):</label>
+                                                            <input type="text" class="form-control txtAdditionPayroll" ng-model="payrolldetaildataLoad.addition" readonly="true" value="N/A">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group pull-in clearfix">
+                                                            <div class="form-group col-lg-6">
+                                                                <label>Deduction($):</label>
+                                                                <input type="text" class="form-control txtDeductionPayroll" ng-model="payrolldetaildataLoad.deduction" readonly="true" value="N/A">
+                                                            </div>
+                                                            <div class="form-group col-lg-6">
+                                                                <label>Total Deduction($):</label>
+                                                                <input type="text" class="form-control txtTotalDeduction" ng-model="payrolldetaildataLoad.totalDeduction" readonly="true" value="" style="font-weight: bold;">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>Overtime($):</label>
+                                                            <input type="text" class="form-control txtOvertimePayroll" ng-model="payrolldetaildataLoad.overtime" readonly="true" value="N/A">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>No Working Days In Month:</label>
+                                                            <input type="text" class="form-control txtWDIM" data-ng-model="payrolldetaildataLoad.noOfWorkingDaysInMonth" readonly="true" value="N/A">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>No Actual Working Days In Month:</label>
+                                                            <input type="text" class="form-control txtActualDays" ng-disabled="payrolldetaildataLoad.noOfWorkingDaysInMonth==null" ng-model="payrolldetaildataLoad.actualNoOfWorkingDaysInMonth" value="" placeholder="Please Enter Actual Working Days" ng-blur="CaculatorPayroll()" onkeyup="this.value=this.value.replace(/[^0-9,.]/g, '')">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>Base Salary($):</label>
+                                                            <input type="text" class="form-control" ng-model="payrolldetaildataLoad.baseSalary" readonly="true" value="N/A">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group pull-in clearfix">
+                                                            <div class="form-group col-lg-6">
+                                                                <label>GROSS($):</label>
+                                                                <input type="text" class="form-control txtDeductionPayroll" ng-model="payrolldetaildataLoad.grossPay" readonly="true" value="N/A" style="font-weight: bold;">
+                                                            </div>
+                                                            <div class="form-group col-lg-6">
+                                                                <label>GROSS CPF($):</label>
+                                                                <input type="text" class="form-control" ng-model="payrolldetaildataLoad.grossPayCPF" readonly="true" value="" style="font-weight: bold;">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>NET($):</label>
+                                                            <input type="text" class="form-control txtNETSalary" ng-model="payrolldetaildataLoad.netPay" readonly="true" value="0" style="font-weight: bold;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>Payment Mode:</label>
+                                                            <select name="PaymentMode" class="slPaymentMode form-control m-b" ng-model="payrolldetaildataLoad.paymentMode">
+                                                                <option value="" disabled selected="selected">Please Select</option>
+                                                                <option ng-repeat="PM in PaymentmodeType" value="{{ PM.id }}">{{ PM.value }}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>CPF Employee Contribution($):</label>
+                                                            <input type="text" class="form-control txtCPFemployee" readonly="true" ng-model="payrolldetaildataLoad.employeeCPFAmount" style="font-weight: bold;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>CPF Employer Contribution($):</label>
+                                                            <input type="text" class="form-control txtCPFemployer" value="0" readonly="true" ng-model="payrolldetaildataLoad.employerCPFAmount" style="font-weight: bold;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>SDL Contribution($):</label>
+                                                            <input type="text" class="form-control txtSDL" value="0" readonly="true" ng-model="payrolldetaildataLoad.sdlContribution">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <footer class="text-right">
+                                                    <button type="submit" class="btn btn-s-md btn-default" data-ng-click="insDetail()" ng-hide="check == true">Save</button>
+                                                    <button type="submit" class="btn btn-s-md btn-default" data-ng-click="updateDetail()" ng-hide="check == false">Update</button>
+                                                </footer>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="panel">
+                                        <header class="panel-heading">
+                                            <span class="h4">Search Filter</span>
+                                        </header>
+                                        <div class="panel-body">
+                                            <div class="form-group pull-in clearfix">
+                                                <div class="col-lg-3">
+                                                    <label>Employee Name</label>
+                                                    <input type="text" class="form-control" placeholder="Please Enter Employee Name" data-ng-model="keyword">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label>Department</label>
+                                                    <select name="department" class="slDepartment form-control m-b">
+                                                        <option disabled selected="selected">Please Select</option>
+                                                        <option data-ng-repeat="item in departmentlist" value="{{item.departmentId}}">{{item.departmentName}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label>From Date</label>
+                                                    <input class="input-sm input-s datepicker-input form-control todate" size="16" type="text" value="" data-date-format="dd-mm-yyyy">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label>To Date</label>
+                                                    <input class="input-sm input-s datepicker-input form-control todate" size="16" type="text" value="" data-date-format="dd-mm-yyyy">
+                                                </div>
+                                            </div>
+                                            <footer>
+                                                <button type="submit" class="btn btn-s-md btn-default" data-ng-click="SearchEmployee()">Search</button>
+                                            </footer>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <section class="panel">
+                                        <header class="panel-heading bg-dark">
+                                            <span class="h5"><strong>Employee information</strong></span>
+                                        </header>
+                                        <div class="table-responsive">
+                                            <div class="dataTables_wrapper" role="grid">
+                                                <table class="table table-striped m-b-none" employeepayrolldetails-datatable aa-data="employee4TableData | filter:keyword">
+                                                    <thead>
+                                                        <tr role="row">
+                                                            <th>ID</th>
+                                                            <th>Code</th>
+                                                            <th>First Name</th>
+                                                            <th>Last Name</th>
+                                                            <th>Middle Name</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                            <!-----------------End Detail --------===--------->
+                        </div>
+                    </section>
+                </section>
+            </aside>
+        </section>
+    </section>
+</section>
+

@@ -1,0 +1,64 @@
+﻿<section>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="m-b">
+                <label>Filter by: </label>
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-sm btn-default active" ng-click="filterType(4)">
+                        <input type="radio" ng-model="taskType"> <i ng-show="taskType == 2" class="fa fa-ok text-active"></i>All
+                    </label>
+                    <label class="btn btn-sm btn-info" ng-click="filterType(2)">
+                        <input type="radio" ng-model="taskType"> <i ng-show="taskType == 1" class="fa fa-ok text-active"></i>Task
+                    </label>
+                    <label class="btn btn-sm btn-warning" ng-click="filterType(1)">
+                        <input type="radio" ng-model="taskType"> <i ng-show="taskType == 3" class="fa fa-ok text-active"></i>Note
+                    </label>
+                    <label class="btn btn-sm btn-primary" ng-click="filterType(3)">
+                        <input type="radio" ng-model="taskType"> <i ng-show="taskType == 4" class="fa fa-ok text-active"></i>Doc
+                    </label>
+                </div>
+                <button class="btn btn-primary btn-s-xs pull-right" ng-click="addDocument()"><i class="fa fa-file"></i> Upload Doc</button>
+                <button class="btn btn-success btn-s-xs pull-right m-r" ng-click="addTaskNote()"><i class="fa fa-pencil"></i> Post Task/Note</button>
+            </div>
+
+            <!-- .comment-list -->
+            <section class="comment-list block">
+                <article class="comment-item" ng-repeat="item in tasknoteArr | filter:taskType | orderBy:'dateCreated':true">
+                    <a class="pull-left thumb-sm avatar"><img src="assets/img/avatar.jpg" class="img-circle"></a>
+                    <span class="arrow left"></span>
+                    <section class="comment-body panel">
+                        <div class="wrapper">
+                            <strong class="h4">{{item.name}}</strong>
+                            <label class="label bg-warning m-l-xs" ng-show="item.taskType == 1">Note</label>
+                            <label class="label bg-info m-l-xs" ng-show="item.taskType == 2">Task</label>
+                            <label class="label bg-primary m-l-xs" ng-show="item.taskType == 3">.{{item.fileExt}}</label>
+                            <span class="text-muted pull-right">
+                                <i class="fa fa-time"></i>
+                                <i class="fa fa-calendar m-r-xs"></i> {{item.dateCreated | date}}
+                            </span>
+
+                            <div ng-show="item.filePath && item.taskType == 3">
+                                <a class="btn btn-default btn-sm" ng-href="{{item.filePath}}" target="_blank">Download File </a>
+                            </div>
+                            <div ng-show="item.description" class="m-t-sm">
+                                <span class="font-thin">{{item.description}}</span>
+                            </div>
+
+                        </div>
+                        <footer class="panel-footer bg-light lter">
+                            <div class="pull-left text-sm text-muted" ng-show="item.dateTimeFrom">
+                                <i>{{item.dateTimeFrom | date}}</i>
+                            </div>
+                            <div class="pull-right">
+                                <a class="btn btn-white btn-xs" ng-click="removeTNM(item.taskNoteId)">
+                                    <i class="fa fa-trash text-muted text-active"></i> Remove
+                                </a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </footer>
+                    </section>
+                </article>
+            </section>
+        </div>
+    </div>
+</section>

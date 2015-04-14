@@ -1,0 +1,153 @@
+﻿<section class="vbox flex" onmouseover="$('.datepicker-input').datepicker();" data-ng-controller="AddSalaryController">
+    <header class="header bg-light lter bg-gradient b-b">
+        <p class="h4">Employee</p>
+        <div class="navbar-btn pull-right ng-scope">
+            <button class="btn btn-white ng-scope" data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" data-ng-click="reload();">
+                <i class="fa fa-refresh"></i>
+            </button>
+        </div>
+    </header>
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-target="#salaryform" data-toggle="tab">Salary</a></li>
+                        </ul>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="salaryform">
+                                <form name="myForm" novalidate="" data-validate="parsley" class="ng-pristine ng-invalid ng-invalid-required">
+                                    <section class="ng-scope">
+                                        <div class="row ng-scope">
+                                            <div class="col-sm-7">
+                                                <section class="panel">
+                                                    <header class="panel-heading font-bold">
+                                                        <span class="h4">Salary Information</span>
+                                                    </header>
+                                                    <div class="panel-body">
+                                                        <input type="hidden" class="hiddenId" value="" />
+                                                        <div class="form-group pull-in clearfix pull-in">
+                                                            <div class="form-group col-sm-6">
+                                                                <label>Employee ID</label>
+                                                                <input name="employeeid" type="text" class="form-control" data-ng-model="salary.employeeId" readonly="true">
+                                                            </div>
+                                                            <div class="form-group col-sm-6">
+                                                                <label>Name</label>
+                                                                <input name="employeename" type="text" class="form-control" data-ng-model="salary.firstName" readonly="true">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group pull-in clearfix">
+                                                            <div class="form-group col-sm-6">
+                                                                <label>Date Permanent Residence</label>
+                                                                <input class="input-sm input-s datepicker-input form-control todate DPR" size="16" type="datetime" value="" data-date-format="mm/dd/yyyy" data-ng-model="employeesalaryinfo.datePerResidence" data-datepickertext="">
+                                                            </div>
+                                                            <div class="form-group col-sm-6" ng-class="{ 'has-error' : myForm.incometax.$invalid && submitted }">
+                                                                <label>Income Tax ID</label>
+                                                                <input name="incometax" type="text" class="form-control" ng-required="true" data-ng-model="employeesalaryinfo.incomeTaxId">
+                                                                <div class="error" ng-show="(myForm.incometax.$dirty && myForm.incometax.$invalid) || submitted">
+                                                                    <small class="error" ng-show="myForm.incometax.$error.required">Please enter income tax Id</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group pull-in clearfix">
+                                                            <div class="form-group col-sm-6" ng-class="{ 'has-error' : myForm.BasicSalary.$invalid && submitted }">
+                                                                <label>Basic Salary</label>
+                                                                <input name="BasicSalary" type="text" class="form-control" placeholder="Basic Salary" ng-required="true" data-ng-model="employeesalaryinfo.basicSalary">
+                                                                <div class="error" ng-show="(myForm.BasicSalary.$dirty && myForm.code.$invalid) || submitted">
+                                                                    <small class="error" ng-show="myForm.BasicSalary.$error.required">Please enter Basic Salary</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-sm-6">
+                                                                <label>Employee Identity </label>
+                                                                <select name="EI" class="slemployeeidentity form-control m-b">
+                                                                    <option value="0">Please Select</option>
+                                                                    <option value="1">NRIC</option>
+                                                                    <option value="2">FIN</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group pull-in clearfix">
+                                                            <div class="form-group col-sm-6" ng-class="{ 'has-error' : myForm.NoWorkingDay.$invalid && submitted }">
+                                                                <label>Number Of Working Day</label>
+                                                                <input name="NoWorkingDay" type="text" class="form-control" ng-required="true" placeholder="" data-ng-model="employeesalaryinfo.noOfWorkingDay">
+                                                                <div class="error" ng-show="(myForm.NoWorkingDay.$dirty && myForm.firstName.$invalid) || submitted">
+                                                                    <small class="error" ng-show="myForm.NoWorkingDay.$error.required">Please enter Number Working day</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-sm-6">
+                                                                <label>Employee Pass Type </label>
+                                                                <select name="EPT" class="slemployeepasstype form-control m-b">
+                                                                    <option value="0">Please Select</option>
+                                                                    <option value="1">Citizen</option>
+                                                                    <option value="2">PR</option>
+                                                                    <option value="3">EP</option>
+                                                                    <option value="4">WP</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group pull-in clearfix">
+                                                            <div class="form-group col-sm-6">
+                                                                <div class="checkbox">
+                                                                    <label>
+                                                                        <input type="checkbox" name="ckauto" id="ckauto" value="" data-ng-checked="employeesalaryinfo.autoEmailPayslip==true">
+                                                                        Auto Email Payslip
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <section class="panel">
+                                                    <header class="panel-heading font-bold">
+                                                        <span class="h4">CPF Information</span>
+                                                    </header>
+                                                    <div class="panel-body">
+                                                        <div class="form-group pull-in clearfix">
+                                                            <div class="form-group col-sm-6">
+                                                                <label>Employee CPF</label>
+                                                                <input name="employeeCPF" type="text" class="form-control" data-ng-model="employeesalaryinfo.employeeCPF">
+                                                            </div>
+                                                            <div class="form-group col-sm-6">
+                                                                <label>Employer CPF</label>
+                                                                <input name="employerCPF" type="text" class="form-control" data-ng-model="employeesalaryinfo.employerCPF">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group pull-in clearfix">
+                                                            <div class="form-group col-sm-12">
+                                                                <label>Employee CPF Number</label>
+                                                                <input name="employeeCPFno" type="text" class="form-control" data-ng-model="employeesalaryinfo.employeeCPFNum">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group pull-in clearfix">
+                                                            <div class="form-group col-sm-6">
+                                                                <div class="checkbox">
+                                                                    <label>
+                                                                        <input type="checkbox" name="ckentitled" id="ckentitled" value="" data-ng-checked="employeesalaryinfo.iscpfEntitled==true">
+                                                                        CPF Entitled
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </aside>
+        </section>
+    </section>
+    <footer class="footer text-right bg-light lter b-t">
+        <button type="submit" class="btn btn-success btn-s-xs" data-ng-click="addSalary()" data-ng-disabled="busy">{{ btnChange }}</button>
+        <button class="btn btn-white" type="submit" data-ng-click="back()">Cancel</button>
+    </footer>
+</section>

@@ -1,0 +1,199 @@
+<div class="row hidden-print">
+    <debug-message class="hidden-print">{{delivery | json}}</debug-message>
+    <div class="form-group clearfix m-t">
+        <div class="col-sm-6 h4">
+            <span class="text-muted">Delivery Order #</span> {{delivery.deliveryOrderNumber}}
+        </div>
+
+        <div class="col-sm-6">
+            <label class="h4 pull-left">Status: <i class="fa fa-spinner fa-spin" ng-show="changingStatus"></i></label>
+            <div class="input-group-btn pull-left btn-link">
+                <div data-toggle="dropdown" class="h4 m-l text-primary">
+                    {{delivery.deliveryOrderStatusId | deliveryStatus:delivery.settings.isApproved}} <span class="caret"></span>
+                </div>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="status in statusArr">
+                        <a ng-click="selectStatus(status.value)">{{status.name}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!--<div class="col-sm-6" ng-show="userList.length">
+            <label>Users viewing now:</label>
+            <span class="badge bg-warning" ng-repeat="item in userList">{{item}}</span>
+        </div>-->
+    </div>
+    <div class="col-sm-6">
+        <portlet>
+            <portlet-item title="Information">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" ng-class="{ 'has-error' : myForm.customer.$invalid && submitted }">
+                            <label>Customer</label><br />
+                            <customers-dropdown name="customer" ng-required="true" ng-model="delivery.customerId" ng-change="onChangedCustomer(delivery.customerId)" customer="selected" class="ui-select2"></customers-dropdown>
+
+                            <div class="error" ng-show="(myForm.customer.$dirty && myForm.customer.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.customer.$error.required">Please select a Customer</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-class="{ 'has-error' : myForm.dateDelivery.$invalid && submitted }">
+                            <label class="control-label"> <i class="fa fa-calendar"></i> Delivery Date</label>
+                            <input type="text" size="10" ng-model="delivery.dateDelivery" class="form-control input-sm" name="dateDelivery" placeholder="Delivery Date" date-picker />
+
+                            <div class="error" ng-show="(myForm.dateDelivery.$dirty && myForm.dateDelivery.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.dateDelivery.$error.required">Please select a delivery date</small>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="panel-footer pos-rlt pull-in">
+                        <span class="arrow top"></span>
+                        <label>Remarks</label>
+                        <div class="pull-out">
+                            <textarea class="form-control no-border input-lg text-sm" type="text" placeholder="Write a Remarks" rows="6" ng-model="delivery.remarks"></textarea>
+                        </div>
+
+                    </footer>
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+    <div class="col-sm-6">
+        <portlet>
+            <portlet-item title="Additional Information">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-12" ng-class="{ 'has-error' : myForm.warehouses.$invalid && submitted }">
+                            <label>Location</label><br />
+                            <warehouses-dropdown name="warehouses" ng-required="true" ng-model="delivery.warehouseId" ng-change="onSelectWarehouse(delivery.warehouseSectionId)" class="ui-select2"></warehouses-dropdown>
+
+                            <div class="error" ng-show="(myForm.warehouses.$dirty && myForm.warehouses.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.warehouses.$error.required">Please select a Warehouse</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </portlet-item>
+    </div>
+
+</div>
+<div class="row hidden-print">
+    <div class="col-sm-12">
+        <section class="panel">
+            <form method="post" name="itemsForm" novalidate>
+                <header class="panel-heading font-bold bg-white lt">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <ul class="nav nav-tabs nav-justified">
+                                <li class="text-left" ng-class="{active:showFirst}" ng-show="delivery.deliveryOrderId"><a ng-href="#showItem" target="_self" data-toggle="tab">Selected Items <span ng-show="delivery.deliveryOrderDetailsList.length>0" class="badge bg-info">{{delivery.deliveryOrderDetailsList.length}}</span></a></li>
+                                <li class="text-left" ng-class="{active:showSecond}"><a ng-href="#addItem" target="_self" data-toggle="tab">Add Items</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4">
+
+                        </div>
+                        <div class="col-sm-2">
+                            <a href="" class="panel-toggle text-muted pull-right"><i class="fa fa-caret-down text-active"></i><i class="fa fa-caret-up text"></i></a>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="panel-body table-responsive">
+                    <div class="tab-content">
+                        <div class="tab-pane" ng-class="{active:showFirst}" ng-show="delivery.deliveryOrderId" id="showItem">
+                            <div class="table-responsive">
+                                <table class="table table-condensed b-t text-sm m-b-none">
+                                    <thead>
+                                        <tr>
+                                            <th width="5%">#</th>
+                                            <th width="20%">Sales Order #</th>
+                                            <th width="25%">Item Name</th>
+                                            <th width="25%">Description</th>
+                                            <th width="15%">Section</th>
+                                            <th width="15%">Qty</th>
+                                            <th width="10%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in delivery.deliveryOrderDetailsList" ng-form="itemForm">
+                                            <td>{{$index+1}}</td>
+                                            <td>{{item.salesOrderNumber}}</td>
+                                            <td>
+                                                {{item.productName || item.salesOrderDetails.productName || item.salesOrderDetails.product.name}}
+                                            </td>
+                                            <td>
+                                                <input class="form-control input-sm text-sm" type="text" placeholder="Remarks" ng-model="item.remarks" />
+                                            </td>
+                                            <td>
+                                                <warehousesections-dropdown name="warehouse" ng-model="item.warehouseSectionId"></warehousesections-dropdown>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control input-sm" ng-model="item.qty">
+                                            </td>
+                                            <td>
+                                                <a ng-click="removeSelected($index)" class="btn-link"><i class="fa fa-times"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot ng-show="delivery.deliveryOrderDetailsList.length>0">
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th colspan="2" class="text-right">Total Quantity</th>
+                                            <th class="text-center">{{getTotalQuantity}}</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" ng-class="{active:showSecond}" id="addItem">
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <div class="col-sm-5">
+                                        <label>Select Sales Order</label>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <select ng-model="salesOrderId" class="ui-select2" ui-select2 ng-change="onChangedSalesOrder(salesOrderId)">
+                                            <option value="" selected="selected">Select Sales Order</option>
+                                            <option ng-repeat="item in customer.salesOrdersList" value="{{item.salesOrderId}}">{{item.salesOrderNumber}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <table class="table table-condensed b-t text-sm m-b-none">
+                                    <thead>
+                                        <tr>
+                                            <th width="5%">#</th>
+                                            <th width="35%">Sales Order</th>
+                                            <th width="15%">Qty</th>
+                                            <th width="10%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in selectedSalesOrder.salesOrderDetailsList" ng-form="itemForm">
+                                            <td>{{$index+1}}</td>
+                                            <td>
+                                                {{item.productName || item.salesOrderDetails.product.name || item.salesOrderDetails.productName}}
+                                            </td>
+
+                                            <td class="" width="100">
+                                                {{item.qty}}
+                                            </td>
+                                            <td class="">
+                                                <button ng-hide="item.checked" type="button" class="close pull-left" aria-hidden="true" ng-click="selectItem(item)" ng-disabled="checkExist(item)"><i class="fa fa-plus"></i></button>
+                                                <label class="badge bg-warning" ng-show="item.checked">Item selected</label>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+﻿<section class="hbox stretch" onmouseover="$('.datepicker-input').datepicker();">
+    <!-- .aside -->
+    <aside class="bg-light lter">
+        <section class="vbox">
+            <header class="bg-light dker header clearfix">
+                <p class="h4">Payroll Report</p>
+                <div class="btn-group pull-right">
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-white" data-toggle="tooltip" data-placement="bottom" data-ng-click="reload();" data-title="Refresh" data-original-title="" title=""><i class="fa fa-refresh"></i></button>
+                    </div>
+                </div>
+            </header>
+            <section class="scrollable">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="employerreport">
+                        <section class="vbox scrollable hover">
+                            <header class="header bg-light bg-gradient">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-target="#PayrollDetailForm" data-toggle="tab">Payroll Detail </a></li>
+                                </ul>
+                            </header>
+                            <div class="tab-pane active" id="PayrollDetailForm" data-ng-controller="payrollDetailReportController">
+                                <div class="panel">
+                                    <div class="panel-body scrollable">
+                                        <div class="pull-in clearfix col-lg-12">
+                                            <div class="form-group col-lg-3">
+                                                <label>Employee Name:</label>
+                                                <input type="text" class="form-control" placeholder="enter employee Name" ng-model="search">
+                                            </div>
+                                            <div class="form-group col-lg-3">
+                                                <label>Period: </label>
+                                                <input class="input-sm input-s datepicker-input form-control aaa" size="16" type="text" value="3-2014" data-ng-model="period" data-date-format="mm-yyyy" data-detailsumary="" placeholder="Enter Period To Report">
+                                            </div>
+                                            <div class="form-group col-lg-1">
+                                                <label></label>
+                                                <button type="submit" class="btn btn-s-md btn-default form-control" data-ng-click="searByperiod()">View Report</button>
+                                            </div>
+                                            <div class="form-group col-lg-3"></div>
+                                        </div>
+                                        <section class="panel">
+                                            <header class="panel-heading bg-dark">
+                                                <span class="h5"><strong>Information</strong></span>
+                                            </header>
+                                            <div class="table-responsive">
+                                                <div role="grid" class="dataTables_wrapper">
+                                                    <table class="table table-striped b-t text-sm" details-datatable aa-data="detailsTableData | filter:search">
+                                                        <thead>
+                                                            <tr role="row">
+                                                                <th>Name</th>
+                                                                <th>ID</th>
+                                                                <th>Salary</th>
+                                                                <th>OT</th>
+                                                                <th>Addtion</th>
+                                                                <th>Grosspay CPF</th>
+                                                                <th>Grosspay</th>
+                                                                <th>Employee CPF</th>
+                                                                <th>Employer CPF</th>
+                                                                <th>TotalDeduction</th>
+                                                                <th>NET</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </aside>
+</section>

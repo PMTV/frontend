@@ -1,0 +1,73 @@
+﻿<section class="vbox flex" ng-controller="SupplierCtrl">
+    <div class="pull-left header">
+        <p class="h4">
+            <a href="#/suppliers">Suppliers</a>
+        </p>
+    </div>
+    <header class="header bg-light lter b-b" ng-include="'header.html?a=a'"></header>
+
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <aside class="aside-lg bg-light lter b-r main-aside" ng-hide="supplier.supplierId == undefined" id="sidebar">
+                <section class="vbox bg-white" ng-include="'PUR/Suppliers/supplier.aside.html?a=aaaaa'"></section>
+            </aside>
+            <!-- .aside -->
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="dker">
+                                <a data-target="#sidebar" class="btn btn-sm btn-default" data-toggle="class:hide">
+                                    <i class="fa fa-chevron-left text"></i>
+                                    <i class="fa fa-chevron-right text-active"></i>
+                                </a>
+                            </li>
+                            <li class="active"><a data-target="#list" data-toggle="tab">Supplier</a></li>
+                            <li ng-show=""><a data-target="#purchases" data-toggle="tab">Purchases</a></li>
+                            <li ng-show="supplier.supplierId"><a data-target="#tasksAndNotes" data-toggle="tab">Tasks & Notes</a></li>
+                        </ul>
+                        <div class="navbar-btn pull-right">
+                            <a href="#/suppliers/new" class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <button class="btn btn-white" tooltip data-toggle="tooltip" data-title="Refresh" data-placement="bottom" data-original-title="Refresh" ng-click="reload();">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content" slim-scroll>
+                            <div class="tab-pane active" id="list">
+                                <form name="myForm" novalidate ng-submit="saveSupplier()">
+                                    <section ng-include="'PUR/Suppliers/SupplierEdit/supplierEditForm.html?a=a'"></section>
+                                    <button type="submit" class="hide" />
+                                </form>
+                            </div>
+
+                            <div class="tab-pane" id="purchases" ng-include="'PUR/Suppliers/SupplierEdit/supplierPurchaseList.html?a=a'"></div>
+
+                            <div class="tab-pane" id="tasksAndNotes" tasknote module="suppliers"></div>
+
+                        </div>
+                    </section>
+
+                </section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+    <footer class="footer bg-light lter b-t">
+        <div class="pull-left m-t m-r">
+            <span class="">
+                Active
+            </span>
+        </div>
+        <div class="pull-left m-t-sm">
+            <label class="switch">
+                <input type="checkbox" ng-checked="supplier.status == 1" ng-model="status" ng-change="onChangedStatus(status)">
+                <span></span>
+            </label>
+        </div>
+        <button type="submit" class="btn btn-success btn-s-xs pull-right" ng-click="saveSupplier()" btn-loading="busy" data-loading-text="Saving...">Save</button>
+    </footer>
+</section>

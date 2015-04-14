@@ -1,0 +1,35 @@
+﻿<section class="scrollable wrapper">
+    <div class="modal-header">
+        <h3>Import</h3>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane active" id="productList">
+            <div class="table-responsive">
+                <table class="table table-striped b-t text-sm" mapping-excel-datatable aa-data="customersData">
+                    <thead>
+                        <tr>
+                            
+                            <th>CompanyName</th>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>MiddleName</th>
+                            <th>Code</th>
+                            <th>Email</th>
+                            <th>Website</th>
+                            <th>ContactOffice</th>
+                            <th>ContactMobile</th>
+                            <th>Description</th>
+                            <th style="width: 20px;">Select</th>
+                            <!--<th style="width: 20px;"><input type="checkbox" style="width:20px;"></th>-->
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-footer">
+        <button class="btn btn-success" data-ng-click="tableNext()"> Import </button>
+    </div>
+</section>

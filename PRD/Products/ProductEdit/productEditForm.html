@@ -1,0 +1,284 @@
+<div class="row">
+    <debug-message>{{product | json}}</debug-message>
+    <section class="col-sm-7">
+        <portlet>
+            <portlet-item title="Information">
+                <div>
+                    <div class="form-group" data-ng-class="{ 'has-error' : myForm.productName.$invalid && submitted }">
+                        <label>Product Name</label>
+                        <input type="text" name="productName" class="form-control input-sm" placeholder="Product name" ng-required="true" ng-model="product.name">
+                        <div class="error" ng-show="(myForm.productName.$dirty && myForm.productName.$invalid) || submitted">
+                            <small class="error" ng-show="myForm.productName.$error.required">Required</small>
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group">
+                        <label>Supplier</label>
+                        <product-suppliers-dropdown2 data-ng-class="{ 'input-error-show' : product.supplierList.length <= 0  && submitted}" ng-required="product.supplierList.length <= 0" name="supplier" ng-change="onChangedSupplier(supplier)" ng-model="supplier"></product-suppliers-dropdown2>
+                        <div class="error" ng-show="product.supplierList.length <= 0 && submitted">
+                            <small class="error">Required</small>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="product.supplierList.length > 0">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div id="supplierList" class="pillbox clearfix">
+                                    <ul ng-repeat="item in product.supplierList">
+                                        <li class="label bg-info" ng-click="removeSupplier($index)">{{item.companyName}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group" >
+                        <label>Category</label>
+                        <product-categories-dropdown data-ng-class="{ 'input-error-show' : product.productCategoriesList.length <= 0 && submitted }" name="category" ng-change="onChangedCategory(category)" ng-required="product.productCategoriesList.length <= 0" ng-model="category"></product-categories-dropdown>
+                        <div class="error" ng-show="product.productCategoriesList.length <= 0 && submitted">
+                            <small class="error">Required</small>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="product.productCategoriesList.length > 0">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div id="categoryList" class="pillbox clearfix">
+                                    <ul ng-repeat="item in product.productCategoriesList">
+                                        <li class="label bg-info" ng-click="removeCategory($index)">{{item.name}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Product Brand</label>
+                            <product-brands ng-model="product.productBrandId"></product-brands>
+                        </div>
+                        <div class="col-sm-6" data-ng-class="{ 'has-error' : myForm.productWeight.$invalid && submitted }">
+                            <label>Product Weight (kg)</label>
+                            <input type="text" only-number-float name="productWeight" class="form-control input-sm" ng-required="true" ng-model="product.weight">
+                            <div class="error" ng-show="(myForm.productWeight.$dirty && myForm.productWeight.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.productWeight.$error.required">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" data-ng-class="{ 'has-error' : myForm.itemCode.$invalid && submitted }">
+                            <label>Item Code</label>
+                            <input type="text" name="itemCode" class="form-control input-sm" ng-required="true" ng-model="product.itemCode">
+                            <div class="error" ng-show="(myForm.itemCode.$dirty && myForm.itemCode.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.itemCode.$error.required">Required</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Barcode</label>
+                            <input type="text" class="form-control input-sm" ng-model="product.barcode">
+
+                            <!-- <div class="col-sm-12 pull-in">
+                                <div class="input-group m-b">
+                                  <span class="input-group-btn">
+                                    <button class="btn btn-info" type="button" ng-click="barcodeGen()">Generate Barcode</button>
+                                  </span>
+                                  <input type="text" ng-show="product.barcode!=null" class="form-control" ng-model="product.barcode">
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-5">
+                            <div>
+                                <input class="ng-pristine ng-valid" name="recommend" ng-model="product.isRecommendation" type="checkbox">
+                                <label style="vertical-align: middle;">Recommendation</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div>
+                                <input class="ng-pristine ng-valid" name="featured" ng-model="product.isFeatured" type="checkbox">
+                                <label style="vertical-align: middle;">Featured</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div>
+                                <input class="ng-pristine ng-valid" name="featured" ng-model="product.isChilled" type="checkbox">
+                                <label style="vertical-align: middle;">Chilled</label>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="panel-footer pos-rlt pull-in">
+                        <span class="arrow top"></span>
+                        <header class="panel-heading bg-light">
+                            <ul class="nav nav-tabs nav-justified ">
+                                <li class="active"><a ng-href="#description" target="_self" data-toggle="tab" href="#description">Description</a></li>
+                                <li><a ng-href="#footerNote" target="_self" data-toggle="tab" href="#footerNote">Short Description</a></li>
+                            </ul>
+                        </header>
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="description">
+                                    <div class="pull-out">
+                                        <textarea class="form-control no-border input-lg text-sm" type="text" placeholder="Write a Description" rows="6" ng-model="product.description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="footerNote">
+                                    <div class="pull-out">
+                                        <textarea class="form-control no-border input-lg text-sm" type="text" placeholder="Write a Description" rows="6" ng-model="product.shortDescription"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            </portlet-item>
+        </portlet>
+    </section>
+
+    <section class="col-sm-5">
+        <portlet>
+            <portlet-item title="Pricing">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-4" data-ng-class="{ 'has-error' : myForm.costPrice.$invalid && submitted }">
+                            <label>Cost Price</label>
+                            <input type="text" name="costPrice" class="form-control input-sm" placeholder="Cost" ng-required="true" ng-model="product.priceCost">
+                            <div class="error" ng-show="(myForm.costPrice.$dirty && myForm.costPrice.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.costPrice.$error.required">Required</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" data-ng-class="{ 'has-error' : myForm.sellingPrice.$invalid && submitted }">
+                            <label>Selling Price</label>
+                            <input type="text" name="sellingPrice" class="form-control input-sm" placeholder="Selling price" ng-required="true" ng-model="product.priceSelling">
+                            <div class="error" ng-show="(myForm.sellingPrice.$dirty && myForm.sellingPrice.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.sellingPrice.$error.required">Required</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" data-ng-class="{ 'has-error' : myForm.retailPrice.$invalid && submitted }">
+                            <label>Retail Price</label>
+                            <input type="text" name="retailPrice" class="form-control input-sm" placeholder="Retail price" ng-required="true" ng-model="product.priceRetail">
+                            <div class="error" ng-show="(myForm.retailPrice.$dirty && myForm.retailPrice.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.retailPrice.$error.required">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6" data-ng-class="{ 'has-error' : myForm.minReorder.$invalid && submitted }">
+                            <label>Min. Reorder Quantity</label> <i class="fa fa-question-circle pull-right" tooltip title="Notify for Reorder when quantity reaches the minimum reorder quantity"></i>
+                            <input type="text" ng-required="true" name="minReorder" only-number class="form-control input-sm" placeholder="Min Reorder" ng-model="product.minReorderQty">
+                            <div class="error" ng-show="(myForm.minReorder.$dirty && myForm.minReorder.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.minReorder.$error.required">Required</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" data-ng-class="{ 'has-error' : myForm.maxReorder.$invalid && submitted }">
+                            <label>Max. Reorder Quantity</label> <i class="fa fa-question-circle pull-right" tooltip title="Restrict the maximum quantity that you can purchase for this item"></i>
+                            <input type="text" ng-required="true" only-number name="maxReorder" class="form-control input-sm" placeholder="Max Reorder" not-less-than="product.minReorderQty" ng-model="product.maxReorderQty">
+                            <div class="error" ng-show="(myForm.maxReorder.$dirty && myForm.maxReorder.$invalid) || submitted">
+                                <small class="error" ng-show="myForm.maxReorder.$error.required">Required</small>
+                                <small class="error" ng-show="myForm.maxReorder.$error.notLessThan && !myForm.maxReorder.$error.required">Not less than min reorder!</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </portlet-item>
+
+            <portlet-item title="Discount">
+                <div>
+                    <div class="ng-scope">
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-6">
+                                <label>Discount Amount</label>
+                                <input type="text" only-number-float class="form-control input-sm ng-pristine ng-invalid ng-invalid-required" placeholder="Discount Amount..." ng-model="product.discountAmount">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Discount Type</label> <i class="fa fa-question pull-right ng-scope" tooltip="" title="" data-original-title="Choose Discount Type from list"></i>
+                                <select class="form-control input-sm ng-pristine ng-valid" data-ng-model="product.discountType">
+                                    <option value="" class="">Please Select</option>
+                                    <option value="1">Percentage</option>
+                                    <option value="2">Fixed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed line-lg pull-in"></div>
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-6">
+                                <label>From Date</label> <i class="fa fa-question pull-right ng-scope" tooltip="" title="" data-original-title="Choose date start"></i>
+                                <input type="text" class="form-control input-sm ng-pristine ng-valid" placeholder="From Date..." ng-model="product.dateDiscountedFrom" date-picker>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>To Date</label> <i class="fa fa-question pull-right ng-scope" tooltip="" title="" data-original-title="Choose date end"></i>
+                                <input type="text" class="form-control input-sm ng-pristine ng-valid" placeholder="To Date..." ng-model="product.dateDiscountedTo" date-picker>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </portlet-item>
+            <portlet-item title="Units of Measurements">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Base UOM</label>
+                            <input type="text" class="form-control input-sm"  ng-model="product.uom" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Qty Per Unit</label>
+                            <input type="text" only-number-float class="form-control input-sm" only-number ng-required="true" ng-model="product.qtyPerUnit" />
+                        </div>
+                    </div>
+                    <div>
+                        <header>
+                            <label>Additional UOM</label>
+                        </header>
+                        <section class="m-l-n m-r-n m-b-n no-borders">
+                            <table class="table table-striped table-hover m-b-none text-sm">
+                                <thead>
+                                    <tr>
+                                        <th>UOM</th>
+                                        <th>Value</th>
+                                        <th width="70"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="uom in product.productUOMList track by $index" class="hover">
+                                        <td>
+                                            {{uom.name}}
+                                        </td>
+                                        <td>= {{uom.value}} {{product.uom}}</td>
+                                        <td class="text-center">
+                                            <div class="btn-group">
+                                                <a class="btn-link" ng-click="removeProductUOM(uom)"><i class="fa fa-times hover-action" ng-class="uom.productUOMId ? 'text-danger' : 'icon-muted'"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control input-sm" ng-model="productUOM.name" />
+                                        </td>
+                                        <td>
+                                            <input type="number" only-number-float class="form-control input-sm" ng-model="productUOM.value">
+                                        </td>
+                                        <td width="70">
+                                            <button type="button" class="btn btn-sm btn-white" ng-click="addProductUOM(productUOM);"><i class="fa fa-plus"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                    <!--<div class="form-group" ng-repeat="option in product.productOptionList">
+                        <div class="col-sm-7 clearfix">
+                            <input type="text" class="form-control input-sm" placeholder="Option Name" data-required="true" ng-model="option.name">
+                        </div>
+                        <div class="col-sm-5">
+                            <a href="" class="pull-right btn btn-sm btn-danger" ng-click="deleteOption($index)">Delete</a>
+                            <a href="" class="pull-right btn btn-sm btn-success" ng-click="addOption(option)">Add</a>
+                        </div>
+                        <br>
+                    </div>
+                    <debug-message>{{product.productOptionList}}</pre>-->
+                </div>
+            </portlet-item>
+        </portlet>
+    </section>
+</div>

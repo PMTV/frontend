@@ -1,0 +1,97 @@
+﻿<div>
+  <div class="row">
+    <div class="col-sm-6 ">
+      <portlet>
+        <portlet-item title="1. Price for customer">
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label>Customer</label>
+              <customers-dropdown data-ng-model="mCustomer.customerId"></customers-dropdown>
+            </div>
+            <div class="form-group col-sm-3 no-padder">
+              <label>Price</label>
+              <input type="text" only-number-float class="form-control input-sm" placeholder="Price" ng-model="mCustomer.price"/>
+            </div>
+            <div class="form-group col-sm-2">
+              <label></label>
+              <a class="btn btn-success btn-sm m-t-xs" ng-click="createCustomerPrice()">
+                <i class="fa fa-save"></i>
+              </a>
+              <!--<button class="btn btn-success form-control" ng-click="createCustomerPrice()">Create</button>-->
+            </div>
+          </div>
+        </portlet-item>
+      </portlet>
+    </div>
+    <div class="col-sm-6">
+      <portlet>
+
+        <portlet-item title="2. Price for customer group">
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label>Customer Group</label>
+              <customergroups-dropdown data-ng-model="mCustomerGroup.customerGroupId"></customergroups-dropdown>
+            </div>
+            <div class="form-group col-sm-3 no-padder">
+              <label>Price</label>
+              <input type="text" only-number-float class="form-control input-sm" placeholder="Price" ng-model="mCustomerGroup.price"/>
+            </div>
+
+            <div class="form-group col-sm-2">
+              <label></label>
+              <a class="btn btn-success btn-sm m-t-xs" ng-click="createCustomerGroupPrice()">
+                <i class="fa fa-save"></i>
+              </a>
+            </div>
+          </div>
+        </portlet-item>
+
+      </portlet>
+    </div>
+  </div>
+  <div class="">
+    <portlet>
+
+      <portlet-item title="Preview">
+        <div class="table-responsive">
+          <table class="table table-condensed b-t text-sm m-b-none" dishesitems-table="">
+            <thead>
+              <tr>
+                <th width="20%">Customer</th>
+                <th width="20%">Customer Group</th>
+                <th width="10%">Price</th>
+                <th width="5%">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in multiPrice">
+                <td>
+                  <div data-ng-hide="item.customerId==undefined||item.customerId.length==0">
+                    <customers-dropdown data-ng-model="item.customerId"></customers-dropdown>
+                  </div>
+                </td>
+                <td>
+                  <div data-ng-hide="item.customerGroupId==undefined||item.customerGroupId.length==0">
+                    <customergroups-dropdown data-ng-model="item.customerGroupId"></customergroups-dropdown>
+                  </div>
+                </td>
+                <td>
+                  <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input type="text" class="form-control input-sm text-right" placeholder="Price" ng-model="item.price"/>
+                  </div>
+                </td>
+                <td class="v-middle">
+                  <a href="" ng-click="removeSelected($index)" title="Remove">
+                    <i class="fa fa-minus"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </portlet-item>
+
+    </portlet>
+  </div>
+</div>

@@ -1,0 +1,144 @@
+<section class="vbox flex">
+
+    <section class="bg-white">
+        <section class="hbox stretch">
+            <section class="vbox">
+                <div class="scrollable">
+                    <section>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="productList">
+                                <div class="table-responsive">
+
+                                    <section class="flex" data-ng-controller="GenerationSalemainCommissionCtrl">
+                                        <div class="pull-left header">
+                                            <p class="h4">
+                                                <a href="#/generation-saleman-commission">Generation Saleman Commission</a>
+                                            </p>
+                                        </div>
+                                        <header class="header bg-light lter bg-gradient b-b" ng-include="'header.html?a=a'"></header>
+                                        <!-- .aside -->
+                                        <div class="bg-white">
+                                            <section class="vbox">
+                                                <header class="header bg-light bg-gradient">
+                                                    <ul class="nav nav-tabs nav-white pull-left">
+                                                        <li class="active"><a data-target="#productList" data-toggle="tab">Generation Commission</a></li>
+                                                    </ul>
+                                                </header>
+                                            </section>
+                                        </div>
+
+                                        <div class="row wrapper">
+
+                                            <form name="createForm" novalidate>
+                                                <section class="col-sm-6">
+                                                    <portlet>
+                                                        <portlet-item title="Generation Commission">
+                                                            <div>
+
+                                                                <div class="form-group">
+                                                                    <label>Select Person</label>
+                                                                    <select name="selectPerson" class="ui-select2" ui-select2 data-ng-model="generation.salesPersonId" data-ng-required="true">
+                                                                            <!--data-ng-options="gene.id as (gene.firstName + ' ' +gene.middleName + ' ' + gene.lastName) for gene in usersList">-->
+                                                                        <option value="" selected>Select all person</option>
+                                                                        <option ng-repeat="gene in usersList" value="{{gene.id}}">{{gene.firstName + ' ' +gene.middleName + ' ' + gene.lastName}}</option>
+                                                                    </select>
+                                                                    <div class="error" data-ng-show="(createForm.selectPerson.$dirty && createForm.selectPerson.$invalid) || submitted" >
+                                                                        <small class="error" data-ng-show="createForm.selectPerson.$error.required">Required</small>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="line line-dashed line-lg pull-in"></div>
+
+                                                                <div class="form-group pull-in clearfix">
+                                                                    <div class="col-sm-6">
+                                                                        <label>From Date</label> <i class="fa fa-question-sign pull-right" tooltip title="Choose date start create commission"></i>
+                                                                        <input name="fromDate" type="text" class="form-control input-sm" date-picker data-ng-required="true"
+                                                                               placeholder="Choose date start..." data-ng-model="generation.fromDate">
+                                                                        <div class="error" data-ng-show="(createForm.fromDate.$dirty && createForm.fromDate.$invalid) || submitted" >
+                                                                            <small class="error" data-ng-show="createForm.fromDate.$error.required">Required</small>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6">
+                                                                        <label>To Date</label> <i class="fa fa-question-sign pull-right" tooltip title="Choose date end"></i>
+                                                                        <input name="toDate" type="text" class="form-control input-sm" date-picker data-ng-required="true"
+                                                                               placeholder="Choose date end..." data-ng-model="generation.toDate">
+                                                                        <div class="error" data-ng-show="(createForm.toDate.$dirty && createForm.toDate.$invalid) || submitted" >
+                                                                            <small class="error" data-ng-show="createForm.toDate.$error.required">Required</small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="line line-dashed line-lg pull-in"></div>
+
+                                                                <div class="text-right">
+                                                                    <button data-ng-click="save(generation)" data-loading-text="Saving..." btn-loading="busy" class="btn btn-success btn-s-xs" type="submit">Save</button>
+                                                                </div>
+
+                                                            </div>
+                                                        </portlet-item>
+                                                    </portlet>
+                                                </section>
+                                            </form>
+
+                                            <form name="reportForm" novalidate>
+                                                <section class="col-sm-6">
+
+                                                    <portlet>
+
+                                                        <portlet-item title="Commission Report">
+                                                            <div>
+
+                                                                <div class="form-group pull-in clearfix">
+                                                                    <div class="col-sm-6">
+                                                                        <label>From Date</label> <i class="fa fa-question-sign pull-right" tooltip title="Choose date start report"></i>
+                                                                        <input name="fromDateReport" type="text" class="form-control input-sm" data-date="" date-picker data-ng-required="true"
+                                                                               placeholder="Choose date start..." data-ng-model="report.fromDate">
+                                                                        <div class="error" data-ng-show="(reportForm.fromDateReport.$dirty && reportForm.fromDateReport.$invalid) || formSubmitted" >
+                                                                            <small class="error" data-ng-show="reportForm.fromDateReport.$error.required">Required</small>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6">
+                                                                        <label>To Date</label> <i class="fa fa-question-sign pull-right" tooltip title="Choose date end"></i>
+                                                                        <input name="toDateReport" type="text" class="form-control input-sm" data-date="" date-picker data-ng-required="true"
+                                                                               placeholder="Choose date end..." data-ng-model="report.toDate">
+                                                                        <div class="error" data-ng-show="(reportForm.toDateReport.$dirty && reportForm.toDateReport.$invalid) || formSubmitted" >
+                                                                            <small class="error" data-ng-show="reportForm.toDateReport.$error.required">Required</small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="line line-dashed line-lg pull-in"></div>
+
+                                                                <div class="text-right">
+                                                                    <button data-ng-click="saveCommission(report, null)" data-loading-text="Processing..." btn-loading="busy" class="btn btn-success btn-s-xs" type="submit">Save Commission</button>
+                                                                    <button data-ng-click="saveCommission(report, 'history')" data-loading-text="Processing..." btn-loading="busy" class="btn btn-success btn-s-xs" type="submit">Save Commission History</button>
+                                                                </div>
+
+                                                            </div>
+                                                        </portlet-item>
+
+                                                    </portlet>
+                                                </section>
+                                            </form>
+                                        </div>
+
+                                    </section>
+
+                                </div>
+
+                                <footer class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-sm-4 hidden-xs">
+                                            <select class="input-sm form-control input-s-sm inline" ng-model="action">
+                                                <option value="">Bulk action</option>
+                                                <option value="barcode">Generate Barcode</option>
+                                            </select>
+                                            <button class="btn btn-sm btn-white" ng-click="doAction(action)">Apply</button>
+                                        </div>
+                                    </div>
+                                </footer>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </section>
+    </section>
+</section>

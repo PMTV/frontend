@@ -1,0 +1,860 @@
+﻿<section class="vbox flex" data-ng-controller="EmployeeEditCtrl" onmouseover="$('.datepicker-input').datepicker();">
+    <header class="header bg-light lter bg-gradient b-b">
+        <p class="h4">Employee</p>
+        <div class="navbar-btn pull-right ng-scope">
+            <button class="btn btn-white ng-scope" data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" data-ng-click="reload();">
+                <i class="fa fa-refresh"></i>
+            </button>
+        </div>
+    </header>
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <aside class="aside-lg bg-light lter b-r main-aside" ng-hide="employee.employeeId == undifined">
+                <section class="vbox bg-white" data-ng-include="'HRM/Employee/employee.aside.html'"></section>
+            </aside>
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a data-target="#EmployeeForm" data-toggle="tab" ng-hide="employee.employeeId == undifined" class="">Personal Info</a></li>
+                            <li class=""><a data-target="#salary" data-toggle="tab" ng-hide="employee.employeeId == undifined" class="">Salary Info<span style="color: red; font-size: 18px" ng-hide="employeesalaryinfo.basicSalary != null" class="ng-hide">*</span></a></li>
+                            <li class=""><a data-target="#EmployeeContactInfo" data-toggle="tab" ng-hide="employee.employeeId == undifined" class="">Contact Info</a></li>
+                            <li class=""><a data-target="#EmployeeJobInfo" data-toggle="tab" ng-hide="employee.employeeId == undifined" class="">Job Info</a></li>
+                            <li class=""><a data-target="#BankInfo" data-toggle="tab" ng-hide="employee.employeeId == undifined" class="">Bank Info</a></li>
+                            <li class=""><a data-target="#ForeignWorker" data-toggle="tab" ng-hide="employee.employeeId == undifined" class="">Foreign Worker Info</a></li>
+                            <li class=""><a data-target="#leaveinfo" data-toggle="tab" ng-hide="employee.employeeId == undifined" class="">Leave Info</a></li>
+                            <li class="dropdown pull-right" style="margin-left: -4px;" ng-hide="employee.employeeId == undifined">
+                                <a data-toggle="dropdown" class="dropdown-toggle pull-right" href="#"><b class="fa fa-chevron-down"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li class=""><a data-target="#fileUpload" data-toggle="tab" ng-hide="employee.employeeId == undifined" class="">File Upload</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content" slim-scroll>
+                            <div class="tab-pane active" id="EmployeeForm">
+                                <form name="EmployeeInfo" novalidate="" data-validate="parsley" class="ng-pristine ng-invalid ng-invalid-required">
+                                    <div class="col-sm-6">
+                                        <section class="panel">
+                                            <header class="panel-heading font-bold">
+                                                <span class="h4">Personal Information</span>
+                                            </header>
+                                            <div class="panel-body">
+                                                <div class="form-group pull-in clearfix pull-in">
+                                                    <div class="col-sm-6" ng-class="{ 'has-error' : EmployeeInfo.code.$invalid && submitted }">
+                                                        <label>Employee Code</label>
+                                                        <input name="code" type="text" class="form-control" placeholder="code" ng-required="true" ng-model="employee.code">
+                                                        <div class="error" ng-show="(EmployeeInfo.code.$dirty && EmployeeInfo.code.$invalid) || submitted">
+                                                            <small class="error" ng-show="EmployeeInfo.code.$error.required">Please enter the <strong>code</strong></small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="pull-in clearfix pull-in">
+                                                    <div class="form-group col-sm-6" ng-class="{ 'has-error' : EmployeeInfo.birthday.$invalid && submitted }">
+                                                        <label>Birthday</label>
+                                                        <input class="datepicker-input form-control" required ng-required="true" name="birthday" ng-model="employee.birthday" size="16" type="text" value="" data-birthdaypicker="" data-date-format="dd/mm/yyyy">
+                                                        <div class="error" ng-show="(EmployeeInfo.birthday.$dirty && EmployeeInfo.birthday.$invalid) || submitted">
+                                                            <small class="error" ng-show="EmployeeInfo.birthday.$error.required">please enter the <strong>birthday</strong></small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="line line-dashed line-lg pull-in"></div>
+                                                <div class="row pull-in">
+                                                    <div class="form-group col-sm-6" ng-class="{ 'has-error' : EmployeeInfo.firstName.$invalid && submitted }">
+                                                        <label>First Name</label>
+                                                        <input name="firstName" type="text" class="form-control" ng-required="true" placeholder="First name" ng-model="employee.firstName">
+                                                        <div class="error" ng-show="(EmployeeInfo.firstName.$dirty && EmployeeInfo.firstName.$invalid) || submitted">
+                                                            <small class="error" ng-show="EmployeeInfo.firstName.$error.required">Please enter <strong>First Name</strong></small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-sm-6" ng-class="{ 'has-error' : EmployeeInfo.lastName.$invalid && submitted }">
+                                                        <label>Last Name</label>
+                                                        <input name="lastName" type="text" class="form-control" ng-required="true" placeholder="Last name" ng-model="employee.lastName">
+                                                        <div class="error" ng-show="(EmployeeInfo.lastName.$dirty && EmployeeInfo.lastName.$invalid) || submitted">
+                                                            <small class="error" ng-show="EmployeeInfo.lastName.$error.required">Please enter <strong>Last Name</strong></small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label>Middle Name</label>
+                                                        <input name="middleName" type="text" class="form-control" placeholder="Middle name" ng-model="employee.middleName">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group pull-in clearfix pull-in">
+                                                    <div class="col-sm-6">
+                                                        <label>Gender</label>
+                                                        <select class="form-control m-b" ng-model="employee.sex">
+                                                            <option value="" selected="selected" disabled="disabled">please slelect</option>
+                                                            <option data-ng-repeat="item in GenderList" value="{{ item.id }}">{{ item.value }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label>Race</label>
+                                                        <select class="form-control m-b" ng-model="employee.raceId">
+                                                            <option value="" selected="selected" disabled="disabled">please slelect</option>
+                                                            <option data-ng-repeat="item in Racelist" value="{{ item.raceId }}">{{ item.raceName }}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="col-sm-6">
+                                                        <label>Nationality</label>
+                                                        <nationality-dropdown name="nationality" ng-model="employee.nationalityId"></nationality-dropdown>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label>Country Residence</label>
+                                                        <nationality-dropdown name="countryResidence" ng-model="employee.countryResidenceId"></nationality-dropdown>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="col-sm-6">
+                                                        <label>Religious</label>
+                                                        <select class="form-control m-b" ng-model="employee.religionId" ng-options="item.religionId as item.religionName for item in ReliList">
+                                                            <option value="" selected="selected" disabled="disabled">Please Select</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <section class="panel">
+                                            <header class="panel-heading font-bold">
+                                                <span class="h4">Contact Information</span>
+                                            </header>
+                                            <div class="panel-body">
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="form-group col-sm-12" ng-class="{ 'has-error' : EmployeeInfo.email.$invalid && submitted }">
+                                                        <label>Email</label>
+                                                        <div class="input-group m-b">
+                                                            <span class="input-group-addon">@</span>
+                                                            <input type="email" name="email" ng-required="true" class="form-control" ng-model="employee.email" placeholder="me@example.com">
+                                                        </div>
+                                                        <div class="error" ng-show="(EmployeeInfo.email.$dirty && EmployeeInfo.email.$invalid) || submitted">
+                                                            <small class="error" ng-show="EmployeeInfo.email.$error.required">Please provide a valid <strong>email</strong> address</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-sm-12" ng-class="{ 'has-error' : EmployeeInfo.phone.$invalid && submitted }">
+                                                        <label>Phone</label>
+                                                        <input type="text" name="phone" ng-required="true" placeholder="(XXX) XXXX XXX" class="form-control" ng-model="employee.mobile" onkeyup="this.value=this.value.replace(/[^0-9+.]/g, '')">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <section class="panel">
+                                            <header class="panel-heading font-bold">
+                                                <span class="h4">Rights Information</span>
+                                            </header>
+                                            <div class="panel-body">
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="form-group col-sm-12">
+                                                        <label>Company</label>
+                                                        <input name="company" type="text" class="form-control" readonly="true" ng-model="CompanyObj.companyName">
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <label>Department </label>
+                                                        <select name="department" class="slDepartment form-control m-b" ng-model="employee.departmentId">
+                                                            <option value="" disabled selected="selected">Please Select</option>
+                                                            <option data-ng-repeat="item in departmentlist" value="{{item.departmentId}}">{{item.departmentName}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label>Employee Status </label>
+                                                        <select name="status" class="slstatus form-control m-b" ng-model="employee.employeeStatusId">
+                                                            <option value="" disabled selected="selected">Please Select</option>
+                                                            <option ng-repeat="st in dpemployeeStatus" value="{{ st.employeeStatusId }}">{{ st.employeeStatusName }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label>Employee Group</label>
+                                                        <select name="group" class="slgroup form-control m-b" ng-model="employee.employeeGroupId">
+                                                            <option value="" disabled selected="selected">Please Select</option>
+                                                            <option data-ng-repeat="item in employeegrouplist" value="{{item.employeeGroupId}}">{{item.groupName}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="salary" onmouseover="$('.datepicker-input').datepicker();" ng-hide="employee.employeeId == undifined">
+                                <form name="myForm" novalidate="" data-validate="parsley" class="ng-pristine ng-invalid ng-invalid-required">
+
+                                    <div class="col-sm-6">
+                                        <section class="panel">
+                                            <header class="panel-heading font-bold">
+                                                <span class="h4">Salary Information</span>
+                                            </header>
+                                            <div class="panel-body">
+                                                <div class="form-group pull-in clearfix pull-in">
+                                                    <div class="form-group col-sm-8">
+                                                        <label>Date Permanent Residence</label>
+                                                        <input class="datepicker-input form-control todate DPR" size="16" value="" data-date-format="dd/mm/yyyy" data-ng-model="employeesalaryinfo.datePerResidence" data-residencepicker="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group pull-in clearfix pull-in">
+                                                    <div class="form-group col-sm-6">
+                                                        <label>Employee ID</label>
+                                                        <input name="employeeid" type="text" class="form-control" data-ng-model="salary.employeeId" readonly="true">
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label>Name</label>
+                                                        <input name="employeename" type="text" class="form-control" data-ng-model="salary.firstName" readonly="true">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="form-group col-sm-6" ng-class="{ 'has-error' : myForm.nric.$invalid && submitted }">
+                                                        <label>NRIC</label>
+                                                        <input name="nric" type="text" ng-pattern="/^[SFTG]\d{7}[A-Z]$/" maxlength="9" class="form-control" required ng-required="true" data-ng-model="employeesalaryinfo.nric">
+                                                        <div class="error" ng-show="(myForm.nric.$dirty && myForm.nric.$invalid) || submitted">
+                                                            <small class="error" ng-show="myForm.nric.$error.required || myForm.nric.$error.pattern">Rule - [S,F,T,G]0000000[A-Z]</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-sm-6" ng-class="{ 'has-error' : myForm.BasicSalary.$invalid && submitted }">
+                                                        <label>Basic Salary</label>
+                                                        <input name="BasicSalary" type="text" class="form-control" placeholder="Basic Salary" ng-required="true" data-ng-model="employeesalaryinfo.basicSalary" onkeyup="this.value=this.value.replace(/[^0-9,.]/g, '')">
+                                                        <div class="error" ng-show="(myForm.BasicSalary.$dirty && myForm.code.$invalid) || submitted">
+                                                            <small class="error" ng-show="myForm.BasicSalary.$error.required">Please enter Basic Salary</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="form-group col-sm-6">
+                                                        <label>Employee Pass Type </label>
+                                                        <select name="EPT" class="slemployeepasstype form-control m-b" ng-model="employeesalaryinfo.employeePassType">
+                                                            <option value="" disabled selected="selected">Please Select</option>
+                                                            <option ng-repeat="PT in employeePassType" value="{{ PT.id }}">{{ PT.value }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <div class="checkbox" style="margin-top: 30px;">
+                                                            <label>
+                                                                <input type="checkbox" name="ckauto" id="ckauto" value="" data-ng-checked="employeesalaryinfo.autoEmailPayslip==true" data-ng-model="employeesalaryinfo.autoEmailPayslip">
+                                                                Auto Email Payslip
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="form-group col-sm-7" ng-class="{ 'has-error' : myForm.NoWorkingDay.$invalid && submitted }">
+                                                        <label>No.Working Days In Week</label>
+                                                        <input name="NoWorkingDay" ng-pattern="/^-?(?:[0-9]+|[0-9]*\.[5]+)$/" type="text" class="form-control" required ng-required="true" data-ng-model="employeesalaryinfo.noOfWorkingDay">
+                                                        <div class="error" ng-show="(myForm.NoWorkingDay.$dirty && myForm.NoWorkingDay.$invalid) || submitted">
+                                                            <small class="error" ng-show="myForm.NoWorkingDay.$error.required || myForm.NoWorkingDay.$error.pattern">Regulation: [0-9] .5 or [0-9]</small>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <section class="panel">
+                                            <header class="panel-heading font-bold">
+                                                <span class="h4">CPF Information</span>
+                                            </header>
+                                            <div class="panel-body">
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="form-group col-sm-6">
+                                                        <label>Employee CPF(%)</label>
+                                                        <input name="employeeCPF" type="text" class="form-control" readonly="true" data-ng-model="employeesalaryinfo.employeeCPF" onkeyup="this.value=this.value.replace(/[^0-9,.]/g, '')">
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label>Employer CPF(%)</label>
+                                                        <input name="employerCPF" type="text" class="form-control" readonly="true" data-ng-model="employeesalaryinfo.employerCPF" onkeyup="this.value=this.value.replace(/[^0-9,.]/g, '')">
+                                                    </div>
+                                                </div>
+                                                <div class="pull-in clearfix">
+                                                    <div class="form-group col-sm-12">
+                                                        <label>Employee CPF No</label>
+                                                        <input name="employeeCPFno" type="text" class="form-control" data-ng-model="employeesalaryinfo.employeeCPFNum">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="form-group col-sm-6">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" name="ckentitled" id="ckentitled" value="" data-ng-checked="employeesalaryinfo.iscpfEntitled==true" data-ng-model="employeesalaryinfo.iscpfEntitled">
+                                                                CPF Entitled
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <section class="panel">
+                                            <div class="panel-body">
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="form-group col-sm-12" ng-class="{ 'has-error' : myForm.SDL.$invalid && submitted }">
+                                                        <label>SDL Contribution($)</label>
+                                                        <input name="SDL" ng-pattern="/^-?(?:[0-9]+|[0-9]*\.[0-9]+)$/" type="text" class="form-control" required ng-required="true" ng-model="employeesalaryinfo.sdlContribution">
+                                                        <div class="error" ng-show="(myForm.SDL.$dirty && myForm.SDL.$invalid) || submitted">
+                                                            <small class="error" ng-show="myForm.SDL.$error.required || myForm.SDL.$error.pattern">Regulation: [0-9].5 or [0-9]</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane " id="EmployeeContactInfo">
+                                <form name="contactForm">
+                                    <div class="col-sm-6">
+                                        <section class="panel">
+                                            <header class="panel-heading font-bold">
+                                                <span class="h4">Emergency Contact Address</span>
+                                            </header>
+                                            <div class="panel-body">
+                                                <div class="form-group col-sm-12">
+                                                    <label>Contact Person Name</label>
+                                                    <input name="contactPersonName" type="text" ng-model="employeeContactInfo.contactPersonName" class="form-control input-sm">
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <label>Relationship Of Contact</label>
+                                                    <input name="relationshipOfContact" type="text" ng-model="employeeContactInfo.relationshipOfContact" class="form-control input-sm">
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <label>Contact Address</label>
+                                                    <textarea name="contactAddress" type="text" ng-model="employeeContactInfo.contactAddress" class="form-control input-sm"></textarea>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <label>Contact Phone 1</label>
+                                                    <input name="contactPhone1" type="text" ng-model="employeeContactInfo.contactPhone1" class="form-control input-sm" onkeyup="this.value=this.value.replace(/[^0-9+.]/g, '')">
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <label>Contact Phone 2</label>
+                                                    <input name="contactPhone2" type="text" ng-model="employeeContactInfo.contactPhone2" class="form-control input-sm" onkeyup="this.value=this.value.replace(/[^0-9+.]/g, '')">
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <section class="panel">
+                                            <header class="panel-heading font-bold">
+                                                <span class="h4">Local Address Information</span>
+                                            </header>
+                                            <div class="panel-body">
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="col-sm-4">
+                                                        <label>Level</label>
+                                                        <input name="level" type="text" class="form-control input-sm" data-ng-model="employeeContactInfo.level" onkeyup="this.value=this.value.replace(/[^0-9]/g, '')">
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <label>Block</label>
+                                                        <input name="block" type="text" ng-model="employeeContactInfo.block" class="form-control input-sm" placeholder="Block" maxlength="5" onkeyup="this.value=this.value.replace(/[^0-9]/g, '')">
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <label>Unit</label>
+                                                        <input name="unit" type="text" ng-model="employeeContactInfo.unit" class="form-control input-sm" placeholder="Unit No" maxlength="7" onkeyup="this.value=this.value.replace(/[^0-9]/g, '')">
+                                                    </div>
+                                                </div>
+                                                <div class="pull-in clearfix">
+                                                    <div class="form-group col-sm-12">
+                                                        <label>Street Name</label>
+                                                        <input name="street" type="text" ng-model="employeeContactInfo.street" class="form-control input-sm" placeholder="Street name">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="col-sm-12">
+                                                        <label>Postal Code</label>
+                                                        <input name="postCode" type="text" ng-model="employeeContactInfo.postCode" class="form-control input-sm" placeholder="Postal Code" maxlength="6" onkeyup="this.value=this.value.replace(/[^0-9]/g, '')">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <section class="panel">
+                                            <header class="panel-heading font-bold">
+                                                <span class="h4">Foreign Address Information</span>
+                                            </header>
+                                            <div class="panel-body">
+                                                <div class="pull-in clearfix">
+                                                    <div class="col-sm-12">
+                                                        <label>Foreign Address 1</label>
+                                                        <input name="foreignAddress1" type="text" class="form-control" data-ng-model="employeeContactInfo.foreignAddress1" placeholder="Foreign Address">
+                                                    </div>
+                                                </div>
+                                                <div class="pull-in clearfix">
+                                                    <div class="col-sm-12">
+                                                        <label>Foreign Address 2</label>
+                                                        <input name="foreignAddress2" type="text" ng-model="employeeContactInfo.foreignAddress2" class="form-control input-sm" placeholder="Foreign Address 2">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="col-sm-12">
+                                                        <label>Postal Code Foreign</label>
+                                                        <input name="postCodeForeign" type="text" ng-model="employeeContactInfo.postCodeForeign" class="form-control input-sm" placeholder="Postal Code Foreign" maxlength="6" onkeyup="this.value=this.value.replace(/[^0-9]/g, '')">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane " id="EmployeeJobInfo">
+                                <div class="col-sm-12">
+                                    <section class="panel">
+                                        <header class="panel-heading font-bold">
+                                            <span class="h4">Job Information</span>
+                                        </header>
+                                        <form name="employeeJob">
+                                            <input type="hidden" class="hiddenJI" value="" />
+                                            <div class="panel-body">
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="form-group col-sm-4">
+                                                        <label>Joining Date</label>
+                                                        <input class="datepicker-input form-control todate DJD" size="16" type="text" value="" data-ng-model="employeeJobInfo.joiningDate" data-date-format="dd/mm/yyyy" data-joiningpicker="">
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <label>Confirm Date</label>
+                                                        <input class="datepicker-input form-control todate CCD" size="16" type="text" value="" data-ng-model="employeeJobInfo.confirmDate" data-date-format="dd/mm/yyyy" data-confimpicker="">
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <label>Probation Period</label>
+                                                        <input name="" type="text" data-ng-model="employeeJobInfo.probationPeriod" class="form-control input-sm" onkeyup="this.value=this.value.replace(/[^0-9,.]/g, '')">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group pull-in clearfix">
+                                                    <div class="col-sm-4">
+                                                        <label>Department</label>
+                                                        <select class="form-control input-sm slDepartmentJI" ng-model="employeeJobInfo.departmentId">
+                                                            <option value="" disabled selected="selected">Please Select</option>
+                                                            <option data-ng-repeat="item in departmentlist" value="{{item.departmentId}}">{{item.departmentName}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-sm-4">
+                                                        <label>Designation</label>
+                                                        <select class="form-control input-sm" data-ng-model="employeeJobInfo.designationId">
+                                                            <option value="" disabled selected="selected">Please Select</option>
+                                                            <option data-ng-repeat="item in DesignationList" value="{{item.designationId}}">{{item.designationName}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-sm-4">
+                                                        <label>Highest Education</label>
+                                                        <input name="" type="text" data-ng-model="employeeJobInfo.highestEducation" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                                <div class="pull-in clearfix">
+                                                    <div class="form-group col-sm-4">
+                                                        <label>Leave Supervisor</label>
+                                                        <select class="form-control input-sm slLeaveSupervisor" ng-model="employeeJobInfo.leaveSuppervisorId" ng-change="LSchange()">
+                                                            <option value="" disabled selected="selected">Please Select</option>
+                                                            <option data-ng-repeat="LS in employeeListForJob" value="{{ LS.employeeId }}">{{ LS.employeeId }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-sm-4">
+                                                        <label>Name</label>
+                                                        <input type="text" class="form-control input-sm nameEmployeeLS" ng-model="employeeJobInfo.fullnameLS" readonly="true">
+                                                    </div>
+                                                </div>
+                                                <div class="pull-in clearfix">
+                                                    <div class="col-sm-4">
+                                                        <label>Claim Supervisor</label>
+                                                        <select class="form-control input-sm slClaimSupervisor" ng-model="employeeJobInfo.claimSuppervisorId" ng-change="CSchange()">
+                                                            <option value="" disabled selected="selected">Please Select</option>
+                                                            <option data-ng-repeat="CS in employeeListForJob" value="{{ CS.employeeId }}">{{ CS.employeeId }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-sm-4">
+                                                        <label>Name</label>
+                                                        <input type="text" class="form-control input-sm nameEmployeeCS" ng-model="employeeJobInfo.fullnameCS" readonly="true">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </section>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="BankInfo">
+                                <div class="col-sm-12">
+                                    <section class="panel">
+                                        <header class="panel-heading font-bold">
+                                            <span class="h4">Bank Information</span>
+                                        </header>
+                                        <form name="employeebank">
+                                            <div class="panel-body">
+
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Giro Account No</label>
+                                                        <input name="GiroAccountNo" type="text" class="form-control input-sm" ng-model="BankInfo.giroAccountNo" onkeyup="this.value=this.value.replace(/[^0-9]/g, '')">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Giro Bank Code</label>
+                                                        <input name="GiroBankCode" type="text" class="form-control input-sm" ng-model="BankInfo.giroBankCode">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Giro Branch Code</label>
+                                                        <input name="GiroBranchCode" type="text" class="form-control input-sm" ng-model="BankInfo.giroBranchCode">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Giro Account Name</label>
+                                                        <input name="GiroAccountName" type="text" class="form-control input-sm" ng-model="BankInfo.giroAccountName">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Payment Mode:</label>
+                                                        <select name="PaymentMode" class="form-control input-sm" ng-model="BankInfo.paymentMode">
+                                                            <option value="" disabled selected="selected">Please Select</option>
+                                                            <option ng-repeat="PM in PaymentmodeType" value="{{ PM.id }}">{{ PM.value }}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </section>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="ForeignWorker">
+                                <div class="col-sm-12">
+                                    <section class="panel">
+                                        <header class="panel-heading font-bold">
+                                            <span class="h4">Foreign Worker Information</span>
+                                        </header>
+                                        <form name="employeebank">
+                                            <div class="panel-body">
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Work Permit Number</label>
+                                                        <input name="workpermitnumber" type="text" ng-model="foreignworker.workPermitNumber" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>MYE Certificate</label>
+                                                        <input name="myecertificate" type="text" ng-model="foreignworker.myeCertificate" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Month Levy Amount</label>
+                                                        <input name="monthlevyamount" type="text" ng-model="foreignworker.monthLevyAmount" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Appication Date</label>
+                                                        <input class="datepicker-input form-control" ng-model="foreignworker.appicationDate" size="16" type="text" value="" data-date-format="dd/mm/yyyy" data-appicationdate="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Issue Date</label>
+                                                        <input class="datepicker-input form-control" ng-model="foreignworker.issueDate" size="16" type="text" value="" data-date-format="dd/mm/yyyy" data-issuedate="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Date Of Arrival</label>
+                                                        <input class="datepicker-input form-control" ng-model="foreignworker.dateOfArrival" size="16" type="text" value="" data-date-format="dd/mm/yyyy" data-dateofarrival="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Worker Levy</label>
+                                                        <select name="workerlevytype" class="form-control input-sm" ng-model="foreignworker.workerLevyType">
+                                                            <option value="" disabled selected="selected">Please Select</option>
+                                                            <option ng-repeat="WLT in WorkerLevyType" value="{{ WLT.id }}">{{ WLT.value }}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>FWL Code</label>
+                                                        <input name="wflcode" type="text" class="form-control input-sm" ng-model="foreignworker.wflCode">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Shipyard Quota</label>
+                                                        <input name="shipyardquota" type="text" class="form-control input-sm" ng-model="foreignworker.shipyardQuota">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Employee Insurance No</label>
+                                                        <input name="employeeinsuranceno" type="text" class="form-control input-sm" ng-model="foreignworker.employeeInsuranceNo">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Photo No</label>
+                                                        <input name="GiroAccountName" type="text" class="form-control input-sm" ng-model="foreignworker.photoNo">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </section>
+                                </div>
+                            </div>
+                            <div id="leaveinfo" class="tab-pane">
+                                <div class="col-sm-12">
+                                    <div class="panel">
+                                        <header class="panel-heading font-bold">
+                                            <span class="h4">Leave Info</span>
+                                        </header>
+                                        <div class="panel-body">
+                                            <div class="clearfix pull-in">
+                                                <div class="form-group col-sm-4">
+                                                    <label class="control-label"><strong>Year</strong></label>
+                                                    <div class="input-group m-b">
+                                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                        <select class="year form-control yearCYL" ng-model="YearInfo" ng-change="getList()">
+                                                            <option value="" disabled="disabled" selected="selected">Please Select</option>
+                                                            <option value="2099">2099</option>
+                                                            <option value="2098">2098</option>
+                                                            <option value="2097">2097</option>
+                                                            <option value="2096">2096</option>
+                                                            <option value="2095">2095</option>
+                                                            <option value="2094">2094</option>
+                                                            <option value="2093">2093</option>
+                                                            <option value="2092">2092</option>
+                                                            <option value="2091">2091</option>
+                                                            <option value="2090">2090</option>
+                                                            <option value="2089">2089</option>
+                                                            <option value="2088">2088</option>
+                                                            <option value="2087">2087</option>
+                                                            <option value="2086">2086</option>
+                                                            <option value="2085">2085</option>
+                                                            <option value="2084">2084</option>
+                                                            <option value="2083">2083</option>
+                                                            <option value="2082">2082</option>
+                                                            <option value="2081">2081</option>
+                                                            <option value="2080">2080</option>
+                                                            <option value="2079">2079</option>
+                                                            <option value="2078">2078</option>
+                                                            <option value="2077">2077</option>
+                                                            <option value="2076">2076</option>
+                                                            <option value="2075">2075</option>
+                                                            <option value="2074">2074</option>
+                                                            <option value="2073">2073</option>
+                                                            <option value="2072">2072</option>
+                                                            <option value="2071">2071</option>
+                                                            <option value="2070">2070</option>
+                                                            <option value="2069">2069</option>
+                                                            <option value="2068">2068</option>
+                                                            <option value="2067">2067</option>
+                                                            <option value="2066">2066</option>
+                                                            <option value="2065">2065</option>
+                                                            <option value="2064">2064</option>
+                                                            <option value="2063">2063</option>
+                                                            <option value="2062">2062</option>
+                                                            <option value="2061">2061</option>
+                                                            <option value="2060">2060</option>
+                                                            <option value="2059">2059</option>
+                                                            <option value="2058">2058</option>
+                                                            <option value="2057">2057</option>
+                                                            <option value="2056">2056</option>
+                                                            <option value="2055">2055</option>
+                                                            <option value="2054">2054</option>
+                                                            <option value="2053">2053</option>
+                                                            <option value="2052">2052</option>
+                                                            <option value="2051">2051</option>
+                                                            <option value="2050">2050</option>
+                                                            <option value="2049">2049</option>
+                                                            <option value="2048">2048</option>
+                                                            <option value="2047">2047</option>
+                                                            <option value="2046">2046</option>
+                                                            <option value="2045">2045</option>
+                                                            <option value="2044">2044</option>
+                                                            <option value="2043">2043</option>
+                                                            <option value="2042">2042</option>
+                                                            <option value="2041">2041</option>
+                                                            <option value="2040">2040</option>
+                                                            <option value="2039">2039</option>
+                                                            <option value="2038">2038</option>
+                                                            <option value="2037">2037</option>
+                                                            <option value="2036">2036</option>
+                                                            <option value="2035">2035</option>
+                                                            <option value="2034">2034</option>
+                                                            <option value="2033">2033</option>
+                                                            <option value="2032">2032</option>
+                                                            <option value="2031">2031</option>
+                                                            <option value="2030">2030</option>
+                                                            <option value="2029">2029</option>
+                                                            <option value="2028">2028</option>
+                                                            <option value="2027">2027</option>
+                                                            <option value="2026">2026</option>
+                                                            <option value="2025">2025</option>
+                                                            <option value="2024">2024</option>
+                                                            <option value="2023">2023</option>
+                                                            <option value="2022">2022</option>
+                                                            <option value="2021">2021</option>
+                                                            <option value="2020">2020</option>
+                                                            <option value="2019">2019</option>
+                                                            <option value="2018">2018</option>
+                                                            <option value="2017">2017</option>
+                                                            <option value="2016">2016</option>
+                                                            <option value="2015">2015</option>
+                                                            <option value="2014">2014</option>
+                                                            <option value="2013">2013</option>
+                                                            <option value="2012">2012</option>
+                                                            <option value="2011">2011</option>
+                                                            <option value="2010">2010</option>
+                                                            <option value="2009">2009</option>
+                                                            <option value="2008">2008</option>
+                                                            <option value="2007">2007</option>
+                                                            <option value="2006">2006</option>
+                                                            <option value="2005">2005</option>
+                                                            <option value="2004">2004</option>
+                                                            <option value="2003">2003</option>
+                                                            <option value="2002">2002</option>
+                                                            <option value="2001">2001</option>
+                                                            <option value="2000">2000</option>
+                                                            <option value="1999">1999</option>
+                                                            <option value="1998">1998</option>
+                                                            <option value="1997">1997</option>
+                                                            <option value="1996">1996</option>
+                                                            <option value="1995">1995</option>
+                                                            <option value="1994">1994</option>
+                                                            <option value="1993">1993</option>
+                                                            <option value="1992">1992</option>
+                                                            <option value="1991">1991</option>
+                                                            <option value="1990">1990</option>
+                                                            <option value="1989">1989</option>
+                                                            <option value="1988">1988</option>
+                                                            <option value="1987">1987</option>
+                                                            <option value="1986">1986</option>
+                                                            <option value="1985">1985</option>
+                                                            <option value="1984">1984</option>
+                                                            <option value="1983">1983</option>
+                                                            <option value="1982">1982</option>
+                                                            <option value="1981">1981</option>
+                                                            <option value="1980">1980</option>
+                                                            <option value="1979">1979</option>
+                                                            <option value="1978">1978</option>
+                                                            <option value="1977">1977</option>
+                                                            <option value="1976">1976</option>
+                                                            <option value="1975">1975</option>
+                                                            <option value="1974">1974</option>
+                                                            <option value="1973">1973</option>
+                                                            <option value="1972">1972</option>
+                                                            <option value="1971">1971</option>
+                                                            <option value="1970">1970</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label class="control-label"><strong>Leave Type</strong></label>
+                                                    <select name="type" class="slType form-control m-b" ng-model="leaveTypeId" ng-required="true" required>
+                                                        <option value="" disabled selected="selected">Please Select</option>
+                                                        <option ng-repeat="LT in LeaveTypeList" value="{{ LT.leaveTypeId }}" ng-click="getCYL()">{{ LT.leaveTypeName }}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-sm-2">
+                                                    <label class="control-label"><strong>CAL</strong></label>
+                                                    <input type="text" class="form-control input-sm CAL" ng-model="CAL" readonly="true">
+                                                </div>
+                                                <div class="form-group col-sm-2 pull-right">
+                                                    <br />
+                                                    <a class="btn btn-default" style="margin-top: 3px" ng-click="addLeaveInfo()">Add</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="panel">
+                                        <div class="table-responsive">
+                                            <div class="row">
+                                                <div class="col-sm-6"></div>
+                                                <div class="col-sm-6">
+                                                    <div class="dataTables_filter">
+                                                        <input type="text" class="input-sm input-s form-control" placeholder="Search..." ng-model="yearFilter">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr role="row">
+                                                        <th></th>
+                                                        <th>Leave Type</th>
+                                                        <th>CAL</th>
+                                                        <th>CYL</th>
+                                                        <th>Year</th>
+                                                        <th width="40px">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr data-ng-repeat="item in LeaveInfoList | filter:yearFilter" ng-show="LeaveInfoList.length != 0">
+                                                        <td>{{ item.employeeLeaveInfoId }}</td>
+                                                        <td>{{ item.leaveType.leaveTypeName }}</td>
+                                                        <td>{{ item.leaveType.cal }}</td>
+                                                        <td>{{ item.cyl }}</td>
+                                                        <td>{{ item.year }}</td>
+                                                        <td><a class="btn btn-danger btn-sm btn-delete" ng-click="removeLeaveItem(item.employeeLeaveInfoId)" title="Remove"><i class="fa fa-times"></i></a></td>
+                                                    </tr>
+                                                    <tr ng-show="LeaveInfoList.length == 0">
+                                                        <td colspan="7">No data available in table</td>
+                                                    </tr>
+                                                    <tr ng-hide="LeaveInfoList.length != undefined">
+                                                        <td colspan="7">No data available in table</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="fileUpload">
+                                <div class="col-sm-12">
+                                    <div class="panel">
+                                        <header class="panel-heading font-bold">
+                                            <span class="h4">File Upload</span>
+                                        </header>
+                                        <div class="panel-body">
+                                            <div class="clearfix pull-in">
+                                                <div class="form-group col-sm-6" style="margin-left: 15px;">
+                                                    <label class="control-label"><strong>Certification</strong></label>
+                                                    <input type="file" id="certi" name="file">
+                                                </div>
+                                                <br>
+                                                <div class="form-group col-sm-5 pull-right">
+                                                    <a class="btn btn-s-md btn-default" data-ng-click="uploadCertification()">Upload</a>
+                                                    <a class="btn btn-s-md btn-info" data-ng-click="DownloadCertification()">Download</a>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix pull-in">
+                                                <div class="form-group col-sm-6" style="margin-left: 15px;">
+                                                    <label class="control-label"><strong>Resume</strong></label>
+                                                    <input type="file" name="resume" id="resume">
+                                                </div>
+                                                <br>
+                                                <div class="form-group col-sm-5 pull-right">
+                                                    <a class="btn btn-s-md btn-default" data-ng-click="uploadResume()">Upload</a>
+                                                    <a class="btn btn-s-md btn-info" data-ng-click="DownloadResume()">Download</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </aside>
+        </section>
+    </section>
+    <footer class="footer text-right bg-light lter b-t">
+        <a class="btn btn-s-md btn-warning pull-left" ng-click="UploadImage()" ng-hide="employee.employeeId == undifined">Upload Photo</a>
+        <button type="submit" class="btn btn-success btn-s-xs" data-ng-click="saveEmployeeInfomation()" data-ng-disabled="busy">Save</button>
+        <button class="btn btn-white" type="submit" data-ng-click="back()">Cancel</button>
+    </footer>
+</section>

@@ -1,0 +1,18 @@
+<ul class="list-group no-radius list-group-lg list-group list-group-sp" ng-controller="CustomerSalesListCtrl">
+    <li class="list-group-item" ng-repeat="salesOrder in salesOrderArr | filter:dateFilter">
+        <a class="pull-left m-r-lg">
+            #{{$index+1}}
+        </a>
+        <a class="pull-left m-r">
+            {{salesOrder.salesOrderNumber}}
+        </a>
+        <a href="#/sales/{{salesOrder.salesOrderId}}" class="clear">
+            <div class="label label-primary">{{getSalesStatus(salesOrder.salesOrderStatusId)}}</div>
+            <small class="pull-right text-muted">
+                <i class="fa fa-time"></i> {{salesOrder.dateCreated | fromNow}}
+            </small>
+        </a>
+    </li>
+
+    <li class="list-group-item" ng-show="!salesOrderArr.length">No Sales Exists</li>
+</ul>

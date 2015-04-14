@@ -1,0 +1,54 @@
+<section class="vbox flex" data-ng-controller="ProfileEditCtrl">
+    <div class="pull-left header">
+        <p class="h4">Profile</p>
+    </div>
+    <header class="header bg-light lter bg-gradient b-b" ng-include="'header.html?a=a'"></header>
+
+
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <aside class="aside-lg bg-light lter b-r main-aside" id="sidebar">
+                <section class="vbox bg-white" ng-include="'PRF/Profile/profile.aside.html?a=a'"></section>
+            </aside>
+            <!-- .aside -->
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="dker">
+                                <a data-target="#sidebar" class="btn btn-sm btn-default" data-toggle="class:hide">
+                                    <i class="fa fa-chevron-left text"></i>
+                                    <i class="fa fa-chevron-right text-active"></i>
+                                </a>
+                            </li>
+                            <li class="active"><a data-target="#list" data-toggle="tab">Profile</a></li>
+                        </ul>
+                        <div class="navbar-btn pull-right">
+                            <a href="" class="btn btn-success" data-ng-click="saveProfile(profile)" btn-loading="busy" data-loading-text="Saving...">
+                                <i class="fa fa-save"> Save</i>
+                            </a>
+
+                        </div>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content slim-scroll">
+                            <div class="tab-pane active" id="list">
+                                <section class="tab-pane" id="validation">
+                                    <form name="myForm" enctype="multipart/form-data" novalidate>
+                                        <section ng-include="'PRF/Profile/profileForm.html?a=a'"></section>
+                                    </form>
+                                </section>
+                            </div>
+                        </div>
+                    </section>
+
+                </section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+
+    <footer class="footer bg-white-only b-t">
+
+    </footer>
+</section>

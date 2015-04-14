@@ -1,0 +1,72 @@
+<section class="vbox flex" ng-controller="SupplierInvoiceEditCtrl">
+    <div class="pull-left header hidden-print">
+        <p class="h4">
+            <a href="#/purchase-invoice">Purchase Invoice</a>
+        </p>
+    </div>
+    <header class="header bg-light lter b-b hidden-print" ng-include="'header.html?a=a'"></header>
+
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <aside class="aside-xl bg-light lter b-r main-aside hidden-print" ng-show="todo" id="sidebar">
+                <section class="vbox bg-white" ng-include="'PUR/SupplierInvoice/supplierInvoice.aside.html?a=a'"></section>
+            </aside>
+            <!-- .aside -->
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient hidden-print">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="dker">
+                                <a data-target="#sidebar" class="btn btn-sm btn-default" data-toggle="class:hide">
+                                    <i class="fa fa-chevron-left text"></i>
+                                    <i class="fa fa-chevron-right text-active"></i>
+                                </a>
+                            </li>
+                            <li class="active"><a data-target="#item" data-toggle="tab">Purchase Invoice</a></li>
+                        </ul>
+                        <div class="navbar-btn pull-right">
+                            <a href="#/purchase-invoice/new" class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content"> <!-- slim-scroll -->
+                            <div class="tab-pane active" id="item">
+                                <form name="myForm" novalidate>
+                                    <section ng-include="'PUR/SupplierInvoice/SupplierInvoiceEdit/supplierInvoiceEditForm.html?a=aaaaaaaa'"></section>
+                                    <button type="submit" class="hide" />
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+
+    <footer class="footer text-right bg-light lter b-t hidden-print">
+        <div class="pull-left btn-group dropup m-r-xs" ng-show="sales.salesOrderId">
+            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+                <span class="dropdown-label">Actions</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-select text-left">
+                <li><a href="" ng-click="convertToDeliveryOrder()" ng-disabled="busy">Create Delivery Order</a></li>
+                <li><a href="" ng-click="convertToInvoice()" ng-disabled="busy">Create Invoice</a></li>
+                <li><a href="" ng-click="copySalesOrder()" ng-disabled="duplicating">Copy</a></li>
+                <li><a href="" ng-click="cancelSalesOrder(sales.salesOrderId)" ng-disabled="cancelling" class="btn-link btn-danger">Cancel Sales Order</a></li>
+            </ul>
+        </div>
+        <div class="pull-left m-t-sm">
+            <button type="submit" ng-show="!checkEdit" class="btn btn-info" ng-click="openSupplierInvoicePDF(sInvoice)" target="_blank">PDF</button>
+        </div>
+        <button type="submit" ng-show="sales.salesOrderStatusId < 3" class="btn btn-info" ng-click="sendApproval(sales.salesOrderId)" ng-disabled="approving">Send for Approval</button>
+        <button type="submit" has-permission="SOAdmin" ng-show="sales.salesOrderStatusId == 3 && sales.settings.isApprovalRequired && !sales.settings.isApproved" class="btn btn-info" ng-click="approve(sales.salesOrderId)" ng-disabled="approving">Approve</button>
+        <button type="submit" ng-click="save(sInvoice)" class="btn btn-success" btn-loading="busy" data-loading-text="Saving...">Save</button>
+    </footer>
+</section>

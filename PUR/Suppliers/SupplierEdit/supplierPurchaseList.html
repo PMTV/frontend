@@ -1,0 +1,19 @@
+<ul class="list-group no-radius m-b-none m-t-n-xxs list-group-lg list-group m-b-none list-group-sp" ng-controller="SupplierPurchaseListCtrl">
+    <li class="list-group-item" ng-repeat="purchase in purchaseArr | filter:dateFilter">
+        <a class="pull-left m-r-lg">
+            #{{$index+1}}
+        </a>
+        <a class="pull-left m-r">
+            {{purchase.purchaseNumber}}
+            <div class="label label-primary block">Status</div>
+        </a>
+        <a href="#/purchases/{{purchase.purchaseId}}" class="clear">
+            <small class="pull-right text-muted">
+                <i class="fa fa-time"></i> {{purchase.dateCreated | fromNow}}
+            </small>
+            <strong class="block">{{customer.companyName}}</strong>
+            <small>{{purchase.remarks}}</small>
+        </a>
+    </li>
+    <li class="list-group-item" ng-show="!purchaseArr.length">No Purchase Exists</li>
+</ul>

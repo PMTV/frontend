@@ -1,0 +1,60 @@
+﻿<section class="vbox flex" ng-controller="CreditNoteApAgainstInvoiceEditCtrl">
+    <div class="pull-left header hidden-print">
+        <p class="h4">
+            <a href="#/creditNoteApAgainstInvoice">Credit Notes Against Invoice</a>
+        </p>
+    </div>
+    <header class="header bg-light lter b-b hidden-print" ng-include="'header.html?a=a'"></header>
+
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <aside class="aside-lg bg-light lter b-r main-aside" ng-hide="creditNoteApAgainstInvoice.supplierId == undefined" id="sidebar">
+                <section class="vbox bg-white" ng-include="'PUR/Suppliers/supplier.aside.html?a=aaaaa'"></section>
+            </aside>
+            <!-- .aside -->
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient hidden-print">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="dker">
+                                <a data-target="#sidebar" class="btn btn-sm btn-default" data-toggle="class:hide">
+                                    <i class="fa fa-chevron-left text"></i>
+                                    <i class="fa fa-chevron-right text-active"></i>
+                                </a>
+                            </li>
+                            <li class="active"><a data-target="#item" data-toggle="tab">Account Payables Credit Note Against Invoice</a></li>
+                        </ul>
+                        <div class="navbar-btn pull-right">
+                            <div class="btn-group">
+                                <a href="#/creditNoteApAgainstInvoice/new" class="btn btn-success">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                                <button class="btn btn-white m-l-xs" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content">
+                            <!-- slim-scroll -->
+                            <div class="tab-pane active" id="item">
+                                <form name="myForm" novalidate data-validate="parsley">
+                                    <section data-ng-include="'ACC/AP/CreditNoteApAgainstInvoice/CreditNoteApAgainstInvoiceEdit/CreditNoteApAgainstInvoiceEditForm.html?a=a'"></section>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+    
+    <footer class="footer text-right bg-light lter b-t hidden-print">
+        <div class="pull-left m-t-sm">
+            <button type="submit" ng-hide="newSession" class="btn btn-info" ng-click="openPDF()" target="_blank">PDF</button>
+        </div>
+        <button type="submit" ng-click="saveCreditNoteApAgainstInvoice()" class="btn btn-success" btn-loading="busy" data-loading-text="Saving...">Save</button>
+    </footer>
+</section>

@@ -1,0 +1,48 @@
+<section class="vbox flex">
+    <div class="pull-left header">
+        <p class="h4">
+            <a href="#/receive-notification">Recipients</a>
+        </p>
+    </div>
+    <header class="header bg-light lter bg-gradient b-b" ng-include="'header.html?a=a'"></header>
+    <!-- .aside -->
+    <div class="bg-white">
+        <section class="vbox">
+            <header class="header bg-light bg-gradient">
+                <ul class="nav nav-tabs nav-white pull-left">
+                    <li class="active"><a data-target="#productList" data-toggle="tab">Recipient Notification List</a></li>
+                </ul>
+            </header>
+        </section>
+    </div>
+    <!-- /.aside -->
+
+    <section class="bg-white">
+        <section class="hbox stretch">
+            <section class="vbox">
+                <div class="scrollable">
+                    <section ng-controller="ReceiveNotificationListCtrl">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="productList">
+                                <div class="table-responsive">
+                                    <table class="table table-striped b-t text-sm" receive-notification-datatable aa-data="receiveNotificationDatatable">
+                                        <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Sender</th>
+                                            <th>Subject</th>
+                                            <th>Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </section>
+    </section>
+</section>

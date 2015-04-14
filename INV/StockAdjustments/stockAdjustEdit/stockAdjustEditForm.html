@@ -1,0 +1,46 @@
+﻿<div class="row">
+    <pre>{{stockAdjust | json}}</pre>
+    <div class="col-sm-12">
+        <portlet>
+            <portlet-item title="Information">
+                <div>
+                    <div class="row" class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Product</label>
+                            <div class="ui-select2" ui-select2="select2OptionsProduct" ng-model="item" ng-focus="true" ng-change="onChangedProduct($index,item)"></div>
+                        </div>
+                        <div class="col-sm-6" ng-if="stockAdjust.productId">
+                            <label>UOM</label>
+                            <uom-dropdown id="stockAdjust.productId" ng-model="stockAdjust.productUOMId"></uom-dropdown>
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="row" class="pull-in clearfix">
+                        <div class="form-group col-sm-6">
+                            <label>Qty Adjustment</label>
+                            <input type="text" class="form-control input-sm" ng-model="stockAdjust.qty" placeholder="Adjust Qty">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label>Warehouse</label>
+                            <warehousesections-dropdown name="warehouse" ng-required="true" ng-model="stockAdjust.warehouseSectionId"></warehousesections-dropdown>
+                        </div>
+                    </div>
+                    <div class="row" class="pull-in clearfix">
+                        <div class="form-group col-sm-12">
+                            <label>Unit Price</label>
+                            <input type="number" class="form-control input-sm" ng-model="stockAdjust.unitPrice" placeholder="Unit Price">
+                        </div>
+                    </div>
+                    <footer class="panel-footer pos-rlt pull-in">
+                        <span class="arrow top"></span>
+                        <label>Description</label>
+
+                        <div class="pull-out">
+                            <textarea class="form-control no-border input-lg text-sm" type="text" placeholder="Write a Description" rows="6" ng-model="stockAdjust.description"></textarea>
+                        </div>
+                    </footer>
+                </div>
+            </portlet-item>
+        </portlet>
+    </div>
+</div>

@@ -1,0 +1,137 @@
+﻿<section class="vbox flex">
+
+    <header class="header bg-light lter b-b">
+        <p class="h4 ng-scope">Payroll Management</p>
+    </header>
+
+    <section class="vbox" data-ng-controller="EditSubmitPayrollCtrl">
+        <section class="scrollable wrapper">
+            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;">
+                <div class="tab-content" style="overflow: hidden; width: auto; height: 100%;">
+                    <section class="scrollable">
+                        <div class="tab-content">
+                            <form>
+                                <div class="col-lg-12">
+                                    <div class="panel">
+                                        <header class="panel-heading font-bold">
+                                            <span class="h4">Information</span>
+                                        </header>
+                                        <div class="col-lg-12" style="margin-top: 15px;">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label>Empolyee ID:</label>
+                                                    <input type="text" class="form-control" readonly="true" value="1">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label>Name:</label>
+                                                    <input type="text" readonly="true" class="form-control" value="Dat">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label>Department:</label>
+                                                    <input type="text" readonly="true" class="form-control" value="Front End">
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed line-lg pull-in"></div>
+                                            <div class="col-lg-4">
+                                                <section class="panel">
+                                                    <header class="panel-heading" style="background: #f9fafc;">
+                                                        <span class="h4">Payroll Addition</span>
+                                                    </header>
+                                                    <div class="panel-body" style="background: #f9fafc;">
+                                                        <label class="col-sm-3 control-label">Amount:</label>
+                                                        <div class="col-lg-9">
+                                                            <input type="text" class="form-control parsley-validated" readonly="true" data-required="true" value="$100" style="font-weight: bold;">
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <section class="panel">
+                                                    <header class="panel-heading" style="background: #f9fafc;">
+                                                        <span class="h4">Payroll Deduction</span>
+                                                    </header>
+                                                    <div class="panel-body" style="background: #f9fafc;">
+                                                        <label class="col-sm-3 control-label">Amount:</label>
+                                                        <div class="col-lg-9">
+                                                            <input type="text" class="form-control parsley-validated" readonly="true" data-required="true" value="$100" style="font-weight: bold;">
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <section class="panel">
+                                                    <header class="panel-heading" style="background: #f9fafc;">
+                                                        <span class="h4">Payroll Overtime</span>
+                                                    </header>
+                                                    <div class="panel-body" style="background: #f9fafc;">
+                                                        <label class="col-sm-3 control-label">Amount:</label>
+                                                        <div class="col-lg-9">
+                                                            <input type="text" class="form-control parsley-validated" readonly="true" data-required="true" value="$100" style="font-weight: bold;">
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                            <div class="line line-dashed line-lg pull-in"></div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="panel-body">
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Working Days In Month:</label>
+                                                        <input type="text" class="form-control" readonly="true" value="22">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Actual Working Days In Month:</label>
+                                                        <input type="text" class="form-control" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Basic Salary:</label>
+                                                        <input type="text" class="form-control" readonly="true" value="$500">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>GROSS:</label>
+                                                        <input type="text" class="form-control" readonly="true" value="$600">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>NETT:</label>
+                                                        <input type="text" class="form-control" readonly="true" value="$500">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label>Payment Mode:</label>
+                                                        <select name="PaymentMode" class="form-control m-b">
+                                                            <option>Please Select</option>
+                                                            <option>Cash</option>
+                                                            <option>BankTranfer</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <footer class="panel-footer text-right bg-light lter">
+                                            <button type="submit" class="btn btn-primary" data-ng-click="ApplyEditSubmitPayroll()">Update</button>
+                                            <button class="btn btn-white" data-ng-click="back()">Cancel</button>
+                                        </footer>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </section>
+</section>

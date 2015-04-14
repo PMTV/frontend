@@ -1,0 +1,71 @@
+﻿<section class="vbox flex" ng-controller="InvoiceEditCtrl">
+    <div class="pull-left header hidden-print">
+        <p class="h4">
+            <a href="#/invoices">Invoices</a>
+        </p>
+    </div>
+    <header class="header bg-light lter b-b hidden-print" ng-include="'header.html?a=a'"></header>
+
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <aside class="aside-xl bg-light lter b-r main-aside hidden-print" ng-hide="customer==null" id="sidebar">
+                <section class="vbox bg-white" ng-include="'CRM/Customers/customer.aside.html?a=a'"></section>
+            </aside>
+            <!-- .aside -->
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient hidden-print">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="dker">
+                                <a data-target="#sidebar" class="btn btn-sm btn-default" data-toggle="class:hide">
+                                    <i class="fa fa-chevron-left text"></i>
+                                    <i class="fa fa-chevron-right text-active"></i>
+                                </a>
+                            </li>
+                            <li class="active"><a data-target="#item" data-toggle="tab">Invoices</a></li>
+                            <!-- <li ng-show="sales.salesOrderId"><a data-target="#tasksAndNotes" data-toggle="tab">Tasks & Notes</a></li> -->
+                        </ul>
+                        <div class="navbar-btn pull-right">
+                            <a href="#/invoices/new" class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content"> <!-- slim-scroll -->
+                            <div class="tab-pane active" id="item">
+                                <form name="myForm" novalidate data-validate="parsley">
+                                    <section ng-include="'ACC/AR/Invoices/InvoiceEdit/invoiceEditForm.html?a=aaaaaaaaaaa'"></section>
+                                </form>
+                            </div>
+                            <!-- <div class="tab-pane" id="tasksAndNotes" tasknote module="salesOrders"></div> -->
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+
+    <footer class="footer text-right bg-light lter b-t hidden-print">
+        <div class="pull-left btn-group dropup m-r-xs" ng-show="invoice.invoiceId">
+            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+                <span class="dropdown-label">Actions</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-select text-left">
+                <li><a href="" ng-click="payInvoice()" ng-disabled="busy" ng-show="invoice.invoiceId && !invoice.receipts.length > 0">Pay Invoice</a></li>
+                <li><a href="" ng-click="cancelInvoice(invoice.invoiceId)" ng-disabled="cancelling" class="btn-link btn-danger">Cancel Invoice</a></li>
+            </ul>
+        </div>
+        <div class="pull-left m-t-sm">
+            <button type="submit" ng-show="invoice.invoiceId" class="btn btn-info pull-left" ng-click="openInvoicePDF(invoice)" ng-disabled="busy">PDF</button>
+        </div>
+
+        <button type="submit" ng-click="saveInvoice()" class="btn btn-success" btn-loading="busy" data-loading-text="Saving...">Save</button>
+        <button type="submit" ng-show="invoice.receipts.length > 0" class="btn btn-default pull-left" ng-disabled="busy">Paid</button>
+    </footer>
+</section>

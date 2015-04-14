@@ -1,0 +1,156 @@
+﻿<section class="vbox flex">
+    <header class="header bg-light lter bg-gradient b-b">
+        <p class="h4">Employee</p>
+        <div class="navbar-btn pull-right">
+            <a href="#/employee/new" class="btn btn-success"><i class="fa fa-plus"></i></a>
+            <button class="btn btn-white ng-scope" data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" data-ng-click="reload();">
+                <i class="fa fa-refresh"></i>
+            </button>
+        </div>
+    </header>
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside class="bg-white">
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient">
+                        <ul class="nav nav-tabs nav-white">
+                            <li class="active"><a data-target="#employeeList" data-toggle="tab">Employee</a></li>
+                            <li class=""><a data-target="#employeeStatus" data-toggle="tab">Employee Status</a></li>
+                            <li class=""><a data-target="#employeegroup" data-toggle="tab">Employee Group</a></li>
+                        </ul>
+                    </header>
+
+                    <section class="bg-light lter scrollable" data-ng-controller="EmployeeListCtrl">
+                        <section class="hbox stretch">
+                            <section class="scrollable">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="employeeList">
+                                        <section class="panel">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped b-t text-sm" employee-datatable aa-data="employeeTableData">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>Code</th>
+                                                            <th>First Name</th>
+                                                            <th>Last Name</th>
+                                                            <th>Middle Name</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                            <footer class="panel-footer">
+                                                <div class="row">
+                                                    <div class="col-sm-4 hidden-xs">
+                                                        <select class="input-sm form-control input-s-sm inline">
+                                                            <option value="0">Bulk action</option>
+                                                        </select>
+                                                        <button class="btn btn-sm btn-white">Apply</button>
+                                                    </div>
+                                                </div>
+                                            </footer>
+                                        </section>
+                                    </div>
+                                    <div class="tab-pane" id="employeeStatus" data-ng-controller="employeeStatusController">
+                                        <section class="panel">
+                                            <div class="panel-body">
+                                                <form class="form-inline" name="employeeStatus" role="form">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" required ng-required="true" placeholder="Enter Status Type" ng-model="EmployeeStatusListLoad.employeeStatusName">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-default" data-ng-click="handleEmployeeStatus()">{{ labelName }}</button>
+
+                                                </form>
+                                            </div>
+                                        </section>
+                                        <section class="panel">
+                                            <header class="panel-heading bg-dark">
+                                                <span class="h5"><strong>Employee Status Info</strong></span>
+                                            </header>
+                                            <div class="table-responsive">
+                                                <div role="grid" class="dataTables_wrapper">
+                                                    <table class="table table-striped m-b-none">
+                                                        <thead>
+                                                            <tr role="row">
+                                                                <th style="width: 50px">ID</th>
+                                                                <th>Employee Status</th>
+                                                                <th style="width: 350px">Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr data-ng-repeat="item in employeeStatusList">
+                                                                <td>{{ item.employeeStatusId }}</td>
+                                                                <td>{{ item.employeeStatusName }}</td>
+                                                                <td>
+                                                                    <a class="btn btn-default btn-success" ng-click="editES(item)">Edit</a>
+                                                                    <a class="btn btn-default btn-danger" ng-click="deleteEmployeeStatus(item.employeeStatusId)">Delete</a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="tab-pane" id="employeegroup" data-ng-controller="employeeGroupController">
+                                        <section class="panel">
+                                            <div class="panel-body">
+                                                <form class="form-inline"  name="employeegroup" role="form">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" required ng-required="true" placeholder="Enter Group Name" ng-model="EmployeeGroupListLoad.groupName">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-default" data-ng-click="handleEmployeeGroup()">{{ labelName }}</button>
+
+                                                </form>
+                                            </div>
+                                        </section>
+                                        <section class="panel">
+                                            <header class="panel-heading bg-dark">
+                                                <span class="h5"><strong>Employee Group Info</strong></span>
+                                            </header>
+                                            <div class="table-responsive">
+                                                <div role="grid" class="dataTables_wrapper">
+                                                    <table class="table table-striped m-b-none">
+                                                        <thead>
+                                                            <tr role="row">
+                                                                <th style="width: 50px">ID</th>
+                                                                <th>Employee Group</th>
+                                                                <th style="width: 350px">Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr data-ng-repeat="item in employeeGroupList">
+                                                                <td>{{ item.employeeGroupId }}</td>
+                                                                <td>{{ item.groupName }}</td>
+                                                                <td>
+                                                                    <a class="btn btn-default btn-success" ng-click="editG(item)">Edit</a>
+                                                                    <a class="btn btn-default btn-danger" ng-click="deleteEmployeeGroup(item.employeeGroupId)">Delete</a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </aside>
+
+        </section>
+    </section>
+    <footer class="footer bg-white-only b-t">
+        <p class="checkbox">
+            <label>
+                <input id="Checkbox1" type="checkbox">
+                Mark all as complete
+            </label>
+        </p>
+    </footer>
+</section>

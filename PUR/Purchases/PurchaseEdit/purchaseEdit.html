@@ -1,0 +1,80 @@
+﻿<section class="vbox flex" ng-controller="PurchaseEditCtrl">
+    <div class="pull-left header">
+        <p class="h4">
+            <a href="#/purchases">Purchases</a>
+        </p>
+    </div>
+    <header class="header bg-light lter b-b" ng-include="'header.html?a=a'"></header>
+
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <aside class="aside-lg bg-light lter b-r main-aside" ng-hide="supplier==null" id="sidebar">
+                <section class="vbox bg-white" ng-include="'PUR/Suppliers/supplier.aside.html?a=aa'"></section>
+            </aside>
+            <!-- .aside -->
+            <aside>
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="dker">
+                                <a data-target="#sidebar" class="btn btn-sm btn-default" data-toggle="class:hide">
+                                    <i class="fa fa-chevron-left text"></i>
+                                    <i class="fa fa-chevron-right text-active"></i>
+                                </a>
+                            </li>
+                            <li class="active"><a data-target="#list" data-toggle="tab">Purchase Order</a></li>
+                            <li ng-show="purchase.purchaseOrderId"><a data-target="#tasksAndNotes" data-toggle="tab">Tasks & Notes</a></li>
+                            <!--<li><a data-target="#settings" data-toggle="tab">Settings</a></li>
+                            <li class=""><a data-target="#interaction" data-toggle="tab">Orders<span class="badge m-l-xs bg-danger">4 New</span></a></li>
+                            <li class=""><a data-target="#activity" data-toggle="tab">Activity</a></li>-->
+                        </ul>
+                        <div class="navbar-btn pull-right">
+                            <a href="#/purchases/new" class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <button class="btn btn-white" tooltip data-title="Refresh" data-placement="bottom" data-toggle="tooltip" data-original-title="Refresh" ng-click="reload();">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="list">
+
+                                <form name="myForm" novalidate>
+                                    <section ng-include="'PUR/Purchases/PurchaseEdit/purchaseEditForm.html?a=a'"></section>
+                                    <button type="submit" class="hide" />
+                                </form>
+                            </div>
+
+                            <div class="tab-pane" id="tasksAndNotes" tasknote module="purchaseOrders"></div>
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            <!-- /.aside -->
+        </section>
+    </section>
+
+    <footer class="footer text-right bg-light lter b-t">
+
+        <div class="pull-left btn-group dropup m-r-xs" ng-show="purchase.purchaseOrderId">
+            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+                <span class="dropdown-label">Actions</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-select text-left">
+                <li><a ng-click="receive()" class="btn-link" ng-disabled="Receiving">Receive</a></li>
+                <li><a ng-click="copyPurchase()" class="btn-link" ng-disabled="Duplicating">Copy</a></li>
+            </ul>
+        </div>
+
+        <div class="pull-left m-t-sm">
+            <button type="submit" ng-show="purchase.purchaseOrderId" class="btn btn-info" ng-click="openPurchasePDF(purchase)" target="_blank">PDF</button>
+        </div>
+
+        <button type="submit" ng-show="purchase.purchaseOrderStatusId < 3" class="btn btn-info" ng-click="sendApproval(purchase.purchaseOrderId)" ng-disabled="approving">Send for Approval</button>
+        <button type="submit" has-permission="PURAdmin" ng-show="purchase.purchaseOrderStatusId == 3 && purchase.settings.isApprovalRequired && !purchase.settings.isApproved" class="btn btn-info" ng-click="approve(purchase.purchaseOrderId)" ng-disabled="approving">Approve</button>
+        <button type="submit" class="btn btn-success" ng-hide="disableInput" ng-click="savePurchase()" btn-loading="busy" data-loading-text="Saving...">Save</button>
+    </footer>
+</section>

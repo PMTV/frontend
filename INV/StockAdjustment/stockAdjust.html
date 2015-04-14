@@ -1,0 +1,99 @@
+﻿<section class="vbox flex">
+    <header class="header bg-light lter bg-gradient b-b" ng-include="'INV/StockAdjustment/stockAdjust.header.html?a=a'"></header>
+    
+    <!--<div class="wrapper bg-light b-b font-bold">
+        <a href="#" class="m-r"><i class="icon-bar-chart icon-2x icon-muted v-middle"></i>Analysis</a>
+        <a href="#" class="m-r"><span class="badge up m-r-n bg-danger">4</span><i class="icon-envelope icon-2x icon-muted v-middle"></i> Message</a>
+        <a href="#" class="m-r"><i class="icon-calendar icon-2x icon-muted v-middle"></i>My Calendar</a>
+        <a href="#"><i class="icon-cog icon-2x icon-muted v-middle"></i>Settings</a>
+    </div>-->
+    <section class="bg-light lter scrollable">
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <aside class="bg-white">
+                <section class="vbox">
+                    <header class="header bg-light bg-gradient">
+                        <ul class="nav nav-tabs nav-white">
+                            <li class="active"><a data-target="#list" data-toggle="tab">Stocks Adjustment</a></li>
+                            <!--<li class=""><a data-target="#activity" data-toggle="tab">Activity</a></li>
+                            <li class=""><a data-target="#interaction" data-toggle="tab">Interaction</a></li>-->
+                        </ul>
+                    </header>
+
+                    <section class="scrollable" ng-controller="StockAdjustListCtrl">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="list">
+                                <div class="table-responsive">
+                                    <table class="table table-striped b-t text-sm" stock-adjust-datatable>
+                                        <thead>
+                                            <tr>
+                                                <th>Stock Adjust ID</th>
+                                                <th>Qty</th>
+                                                <th>Unit Price</th>
+                                                <th>Description</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <footer class="panel-footer">
+                                    <div class="row">
+                                        <div class="col-sm-4 hidden-xs">
+                                            <select class="input-sm form-control input-s-sm inline">
+                                                <option value="0">Bulk action</option>
+                                                <option value="1">Delete selected</option>
+                                                <option value="2">Bulk edit</option>
+                                                <option value="3">Export</option>
+                                            </select>
+                                            <button class="btn btn-sm btn-white">Apply</button>
+                                        </div>
+                                    </div>
+                                </footer>
+                            </div>
+                            <div class="tab-pane" id="activity">
+                                <ul class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border">
+                                    <li class="list-group-item">
+                                        <a href="#" class="thumb-sm pull-left m-r-sm">
+                                            <img src="assets/img/avatar_default.jpg" class="img-circle">
+                                        </a>
+                                        <a href="#" class="clear">
+                                            <small class="pull-right">3 minuts ago</small>
+                                            <strong class="block">Drew Wllon</strong>
+                                            <small>Wellcome and play this web application template ... </small>
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="#" class="thumb-sm pull-left m-r-sm">
+                                            <img src="assets/img/avatar.jpg" class="img-circle">
+                                        </a>
+                                        <a href="#" class="clear">
+                                            <small class="pull-right">1 hour ago</small>
+                                            <strong class="block">Jonathan George</strong>
+                                            <small>Morbi nec nunc condimentum...</small>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane" id="interaction">
+                                <div class="text-center wrapper">
+                                    <i class="icon-spinner icon-spin icon-large"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </aside>
+            
+            <!-- /.aside -->
+        </section>
+    </section>
+    <footer class="footer bg-white-only b-t">
+        <p class="checkbox">
+            <label>
+                <input id="toggle-all" type="checkbox">
+                Mark all as complete
+            </label>
+        </p>
+    </footer>
+</section>

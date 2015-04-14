@@ -1,0 +1,234 @@
+<div class="row"> 
+    <debug-message>{{product | json}}</debug-message>
+    <div class="col-sm-7">
+        <form name="myForm">
+            <portlet>
+                <portlet-item title="Information">
+                <div>
+                    <div class="form-group">
+                        <label>Dish Name</label>
+                        <input type="text" class="form-control input-sm" placeholder="Dish name" data-required="true" ng-model="product.name">
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group">
+                        <label>Product Brand</label>
+                        <product-brands ng-model="product.productBrandId"></product-brands>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <!-- <div class="form-group">
+                        <label>Product Brand</label>
+                        <product-brands ng-model="product.productBrandId"></product-brands>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div> -->
+                    <div class="form-group">
+                        <label>Supplier</label>
+                        <suppliers-dropdown class="form-control input-sm" name="productType" data-required="true" ng-model="product.supplierId" ></suppliers-dropdown>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Item Code</label>
+                            <input type="text" class="form-control input-sm" data-required="true" ng-model="product.itemCode">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Barcode</label>
+                            <input type="text" class="form-control input-sm" data-required="true" ng-model="product.barcode">
+                            <!-- <div class="col-sm-12 pull-in">
+                                <div class="input-group m-b">
+                                  <span class="input-group-btn">
+                                    <button class="btn btn-info" type="button" ng-click="barcodeGen()">Generate Barcode</button>
+                                  </span>
+                                  <input type="text" ng-show="product.barcode!=null" class="form-control" ng-model="product.barcode">
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Product Weight (in KG)</label>
+                            <input type="text" class="form-control input-sm" data-required="true" ng-model="product.weight">
+                        </div>
+                        <!-- <div class="col-sm-6">
+                            <label>Product Weight</label>
+                            <input type="text" class="form-control input-sm" data-required="true" ng-model="product.weight">
+                        </div> -->
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" class="form-control input-sm" placeholder="Dish description" data-required="true" ng-model="product.description">
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group">
+                      <div class="col-sm-12">
+                        <label class="checkbox-inline">
+                          <input type="checkbox" ng-model="product.isTaxable" ng-true-value="true" ng-false-value="false"> Taxable
+                        </label>
+                        <label class="checkbox-inline">
+                          <input type="checkbox" ng-model="product.isPerishable" ng-true-value="true" ng-false-value="false"> Perishable
+                        </label>
+                        <label class="checkbox-inline">
+                          <input type="checkbox" ng-model="product.isStockItem" ng-true-value="true" ng-false-value="false"> Stock Item
+                        </label>
+                        <label class="checkbox-inline">
+                          <input type="checkbox" ng-model="product.isFeatured" ng-true-value="true" ng-false-value="false"> Featured
+                        </label>
+                        <label class="checkbox-inline">
+                          <input type="checkbox" ng-true-value="true" ng-false-value="false"> Halal
+                        </label>
+                      </div>
+                    </div>           
+                </div>
+                </portlet-item>
+            </portlet>
+        </form>
+    </div>
+    <div class="col-sm-5">
+        <form name="itemForm" data-validate="parsley">
+            <portlet>
+                <portlet-item title="Pricing">
+                <div>
+                    <div class="row clearfix pull-in">
+                        <div class="form-group col-sm-6" ng-class="{ 'has-error': itemForm.cost.$invalid }">
+                            <label>Dish Cost</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input name="cost" type="number" class="form-control input-sm" placeholder="Cost" data-required="true" ng-model="product.priceCost">
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6 " ng-class="{ 'has-error': itemForm.sellingPrice.$invalid }">
+                            <label>Selling Price</label>
+                            <div class="input-group">
+                              <span class="input-group-addon">$</span>
+                              <input type="number" class="form-control input-sm" name="sellingPrice" placeholder="Selling price" data-required="true" ng-model="product.priceSelling">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line line-dashed line-lg pull-in"></div>
+                    <div class="form-group">
+                        <label>Minimum Reorder Quantity</label> <i class="fa fa-question-sign pull-right" tooltip title="Notify for Reorder when quantity reaches the minimum reorder quantity"></i>
+                        <input type="text" class="form-control input-sm" placeholder="Min Reorder" data-required="true" ng-model="product.minReorderQty">
+                    </div>
+                    <div class="form-group">
+                        <label>Maximum Reorder Quantity</label> <i class="fa fa-question-sign pull-right" tooltip title="Restrict the maximum quantity that you can purchase for this item"></i>
+                        <input type="text" class="form-control input-sm" placeholder="Max Reorder" data-required="true" ng-model="product.maxReorderQty">
+                    </div>
+                </div>
+            </portlet-item>
+                <portlet-item title="Product UOM">
+                <div>
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>Smallest Unit</label>
+                            <input type="text" class="form-control input-sm" ng-required="true" ng-model="product.uom" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Qty Per Unit</label>
+                            <input type="text" class="form-control input-sm" ng-required="true" ng-model="product.qtyPerUnit" />
+                        </div>
+                    </div>
+                     <div class="form-group pull-in clearfix">
+                        <div class="col-sm-6">
+                            <label>UOM Name</label>
+                            <input type="text" class="form-control input-sm" ng-required="true" ng-model="product.productUOMList[0].name" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label>UOM Value</label>
+                            <input type="text" class="form-control input-sm" ng-required="true" ng-model="product.productUOMList[0].value" />
+                        </div>
+                    </div>
+                </div>
+             </portlet-item>
+            </portlet>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <portlet>
+            <portlet-item title="Ingredients">
+            <div class="panel-body">
+              <div class="form-group ">
+               <label>Main Category</label> 
+                <dishescategory-dropdown ></dishescategory-dropdown>
+              </div>      
+            </div>
+            </portlet-item>
+        </portlet>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+            <form method="post" ng-submit="addIngredientsItem()" name="itemsForm" novalidate>
+             <portlet>
+            <portlet-item title="Category">
+                <div class="pull-right m-r">
+                  <input type="submit" value="Add Item" class="btn btn-primary btn-sm" />
+              </div>
+            <div class="panel-body table-responsive">
+              <table class="table table-condensed b-t text-sm m-b-none" dishesitems-table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Ingredient Name</th>
+                    <th>Quantity</th>
+                    <th>UOM</th>
+                    <th>Value</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="item in product.productProductMappings" ng-form="itemForm">
+                    <td>{{$index+1}}</td>
+                    <td>
+                        <input class="ui-select2" ui-select2="select2OptionsIngredients" ng-model="item2" ng-focus="true" ng-click="onChangedIngredients($index,item2)" />
+                    </td>
+                    <td class="">
+                      <div class="form-group" ng-class="{ 'has-error': itemForm.quantity.$invalid }">
+                        <input name="quantity" class="form-control input-sm" ng-model="item.qty" type="number" ng-required="true" />
+                        <div class="error">
+                          <small class="error" ng-show="itemForm.quantity.$error.required">Required</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="">
+                      <div class="form-group" ng-class="{ 'has-error': itemForm.uom.$invalid }">
+                        <select name="uom" class="form-control input-sm" ng-model="item.productUOMName">
+                          <option value="" ng-selected="item.productUOMId == null">{{item.uom}} [{{item.qtyperUnit}}]</option>
+                          <option ng-repeat="uom in item.productUOMList" value="{{uom.name}}" ng-selected="uom.productUOMId == item.productUOMId">{{uom.name}} [{{uom.value}}]</option>
+                        </select>
+                        <div class="error">
+                          <small class="error" ng-show="itemForm.quantity.$error.required">Required</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="">
+                      <div class="form-group" ng-class="{ 'has-error': itemForm.value.$invalid }">
+                        <input name="value" class="form-control input-sm" ng-model="item.productUOMValue" type="number" ng-required="true" />
+                        <div class="error">
+                          <small class="error" ng-show="itemForm.value.$error.required">Required</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="" width="30">
+                      <button type="button" class="btn btn-danger" aria-hidden="true" ng-click="removeIngredientsItem($index)" >Delete
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th colspan="6" class="text-right">Total Unit: {{getTotalQuantity()}}</th>
+                  </tr>
+                   <tr>
+                    <th colspan="6" class="text-right">Total Price: {{getTotalPrice() | currency}}</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            </form>
+        </portlet-item>
+            </portlet>
+    </div>
+</div>
